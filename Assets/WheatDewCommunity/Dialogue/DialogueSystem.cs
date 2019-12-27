@@ -1,0 +1,59 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using Unity.Entities;
+
+public class DialogueSystem : ComponentSystem
+{
+    public CorpusCommand corpusCommandPrefab;
+
+    protected override void OnCreate()
+    {
+        
+    }
+
+    protected override void OnStartRunning()
+    {
+        InitializeDialogueCommandPrefab();
+    }
+    protected override void OnUpdate()
+    {
+        DialogueJob();
+    }
+
+    //简单函数
+    /// <summary>
+    /// 初始化对话命令的预制体
+    /// </summary>
+    private void InitializeDialogueCommandPrefab()
+    {
+        if (corpusCommandPrefab == null)
+        {
+            Entities.ForEach((CorpusCommand corpusCommand) =>
+            {
+                corpusCommandPrefab = corpusCommand;
+                corpusCommand.gameObject.SetActive(false);
+                Debug.Log("对话命令预制体初始化成功");
+            });
+        }
+    }
+
+    /// <summary>
+    /// 根据对话属性的可能性生成语料库命令
+    /// </summary>
+    private void DialogueJob()
+    {
+        Entities.ForEach((DialogueProperty dialogueProperty,CharacterProperty characterProperty,CharacterMindProperty characterMindProperty) =>
+        {
+            if (dialogueProperty.dialogueChance&&dialogueProperty.target!=-1)
+            {
+                CorpusCommand corpusCommand = Object.Instantiate(corpusCommandPrefab);
+                corpusCommand.origin = characterProperty.ID;
+                corpusCommand.target = dialogueProperty.target;
+                foreach (var tag in characterMindProperty.Mind)
+                    corpusCommand.tags.Add(tag.Key);
+                corpusCommand.gameObject.SetActive(true);
+            }
+        });
+    }
+}
