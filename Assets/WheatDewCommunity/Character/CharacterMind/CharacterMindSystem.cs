@@ -18,7 +18,7 @@ public class CharacterMindSystem : ComponentSystem
     protected override void OnUpdate()
     {
         CharacterMindJob();
-        ReceivedWordsJob();
+        ConvertReceivedWordsJob();
     }
 
 
@@ -42,31 +42,37 @@ public class CharacterMindSystem : ComponentSystem
                     characterMindProperty.Mind.Add(mind, value);
                     characterMindProperty.Mind[mind] += value;
                 }
-                HashSet<string> list = new HashSet<string>(characterMindProperty.Mind.Keys);
-                Debug.Log(list);
-                list.IntersectWith(oppositeList[mind]);
-                float lossValue = 0;
-                foreach (var item in list)
-                {
-                    characterMindProperty.Mind[item] -= value;
-                    lossValue -= characterMindProperty.Mind[item];
-                }
-                //todo 这里的算法比较简单,未来可以改得更贴近现实一些
-                //加上传入的值减去相斥条目的值为最终值
-                characterMindProperty.Mind[mind] += lossValue;
 
-                HashSet<string> deleteList = new HashSet<string>();
-
-                foreach (var item in characterMindProperty.Mind)
+                if (oppositeList.ContainsKey(mind))
                 {
-                    if (item.Value <= 0)
-                        deleteList.Add(item.Key);
-                }
+                    HashSet<string> list = new HashSet<string>(characterMindProperty.Mind.Keys);
+                    Debug.Log(list);
 
-                foreach (var item in deleteList)
-                {
-                    characterMindProperty.Mind.Remove(item);
+                    list.IntersectWith(oppositeList[mind]);
+                    float lossValue = 0;
+                    foreach (var item in list)
+                    {
+                        characterMindProperty.Mind[item] -= value;
+                        lossValue -= characterMindProperty.Mind[item];
+                    }
+                    //todo 这里的算法比较简单,未来可以改得更贴近现实一些
+                    //加上传入的值减去相斥条目的值为最终值
+                    characterMindProperty.Mind[mind] += lossValue;
+
+                    HashSet<string> deleteList = new HashSet<string>();
+
+                    foreach (var item in characterMindProperty.Mind)
+                    {
+                        if (item.Value <= 0)
+                            deleteList.Add(item.Key);
+                    }
+
+                    foreach (var item in deleteList)
+                    {
+                        characterMindProperty.Mind.Remove(item);
+                    }
                 }
+                
             }
         });
     }
@@ -142,19 +148,25 @@ public class CharacterMindSystem : ComponentSystem
                 Debug.Log("字典为空");
                 return;
             }
+            Dictionary<string, float> mindClone = new Dictionary<string, float>(characterMindProperty.Mind);
             foreach (var item in characterMindProperty.Mind)
             {
                 //ToDo 需要加上乘数
 
-                characterMindProperty.Mind[item.Key] -= timerProperty.currentDeltaTime * 0;
+                mindClone[item.Key] -= timerProperty.currentDeltaTime * 0;
             }
+            foreach(var item in mindClone)
+            {
+                characterMindProperty.Mind[item.Key] = mindClone[item.Key];
+            }
+            //todo 写法有一些问题
         });
     }
 
     /// <summary>
     /// 接收语句的简单处理
     /// </summary>
-    private void ReceivedWordsJob()
+    private void ConvertReceivedWordsJob()
     {
         Entities.ForEach((CharacterMindProperty characterMindProperty, TimerProperty timerProperty,CharacterProperty characterProperty,DialogueProperty dialogueProperty) =>
         {
@@ -163,17 +175,32 @@ public class CharacterMindSystem : ComponentSystem
                 Debug.Log("字典为空");
                 return;
             }
+            
             foreach (var item in characterMindProperty.ReceivedWords)
             {
-                if (item == "询问")
+                switch (item)
                 {
-                    CharacterMindGain(characterProperty.ID, "回答", 100f);
-                    dialogueProperty.dialogueChance = true;
+                    case "询问":
+
+                        ConvertReceivedWords(characterMindProperty, characterProperty, dialogueProperty,"询问","回答");
+                        break;
                 }
             }
         });
     }
 
+    /// <summary>
+    /// 处理接收到的信息
+    /// </summary>
+    private void ConvertReceivedWords(CharacterMindProperty characterMindProperty,CharacterProperty characterProperty,DialogueProperty dialogueProperty,string originWord,string convertedWord)
+    {
+        HashSet<string> vocabularies = new HashSet<string>(characterMindProperty.ReceivedWords);
+        //foreach(var item in characterMindProperty.ReceivedWords)  vocabularies.Add(item); 
+        vocabularies.Add(convertedWord);
+        vocabularies.Remove(originWord);
+        foreach (var word in vocabularies) { CharacterMindGain(characterProperty.ID, word, 100f); };
+        //dialogueProperty.dialogueChance = true;
+    }
 
     //测试
     /// <summary>
@@ -190,13 +217,17 @@ public class CharacterMindSystem : ComponentSystem
         }
     }
 
+    /// <summary>
+    /// 在记录系统中显示CharacterMindProperty
+    /// </summary>
+    /// <returns></returns>
     public string GetMindLog()
     {
         string log = "";
 
         Entities.ForEach((CharacterMindProperty characterMindProperty, CharacterProperty characterProperty) =>
         {
-            log += characterProperty.Name + ":\n";
+            log += characterProperty.ID+" "+ characterProperty.Name + ":\n";
             if (characterMindProperty.Mind.Count == 0)
                 log += "(空)";
             else

@@ -700,6 +700,7 @@ GameObject:
   - component: {fileID: 204507857}
   - component: {fileID: 204507856}
   - component: {fileID: 204507859}
+  - component: {fileID: 204507860}
   m_Layer: 5
   m_Name: Send
   m_TagString: Untagged
@@ -819,6 +820,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 1694287331}
+--- !u!114 &204507860
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 204507854}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 280a210d2b0e80d43a2e3b8b424f2c89, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sendWordCommandPrefab: {fileID: 6505218817742609758, guid: 111a4f7f86d227a4d8d2e57119981666,
+    type: 3}
+  originCharacter: 1
+  targetCharacter: 2
 --- !u!1 &226450670
 GameObject:
   m_ObjectHideFlags: 0
@@ -1248,7 +1265,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: -3647262.2, y: 1799635.9}
+  m_AnchoredPosition: {x: -6529938, y: 3222009}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &440697863
@@ -4559,7 +4576,7 @@ GameObject:
   - component: {fileID: 1495654601}
   - component: {fileID: 1495654604}
   m_Layer: 5
-  m_Name: Button
+  m_Name: Card_ask
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4673,9 +4690,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1495654599}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 27fa78437dadfc94faabcb392197d394, type: 3}
+  m_Script: {fileID: 11500000, guid: d14292c37c5cdc442a7e17a8ce8531a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  word: "\u8BE2\u95EE"
+  createSendWordCommandButton: {fileID: 204507860}
 --- !u!1 &1513100016
 GameObject:
   m_ObjectHideFlags: 0
@@ -5031,7 +5050,7 @@ GameObject:
   - component: {fileID: 1601862871}
   - component: {fileID: 1601862874}
   m_Layer: 5
-  m_Name: Button (1)
+  m_Name: Card_time
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5145,9 +5164,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1601862869}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 27fa78437dadfc94faabcb392197d394, type: 3}
+  m_Script: {fileID: 11500000, guid: d14292c37c5cdc442a7e17a8ce8531a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  word: "\u65F6\u95F4"
+  createSendWordCommandButton: {fileID: 204507860}
 --- !u!1 &1618952184
 GameObject:
   m_ObjectHideFlags: 0

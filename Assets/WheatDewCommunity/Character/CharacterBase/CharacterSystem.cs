@@ -23,9 +23,14 @@ public class CharacterSystem : ComponentSystem
     {
         CharacterCreateJob();
         CharacterDestroyJob();
+        CatchSendWordCommandJob();
     }
 
     //简单函数
+
+    /// <summary>
+    /// 创建角色
+    /// </summary>
     private void CharacterCreateJob()
     {
         Entities.ForEach((CharacterCreateCommand characterCreateCommand) =>
@@ -44,11 +49,25 @@ public class CharacterSystem : ComponentSystem
         });
     }
 
+    /// <summary>
+    /// 销毁角色
+    /// </summary>
     private void CharacterDestroyJob()
     {
         Entities.ForEach((CharacterDestroyCommand characterCreateCommand) =>
         {
             Object.Destroy(CharacterList[characterCreateCommand.ID]);
+        });
+    }
+
+    private void CatchSendWordCommandJob()
+    {
+        Entities.ForEach((SendWordCommand sendWorldCommand) => {
+            CharacterMindProperty characterMindProperty = CharacterList[sendWorldCommand.target].GetComponent<CharacterMindProperty>();
+            foreach(var item in sendWorldCommand.context)
+            {
+                characterMindProperty.ReceivedWords.Add(item);
+            }
         });
     }
 
