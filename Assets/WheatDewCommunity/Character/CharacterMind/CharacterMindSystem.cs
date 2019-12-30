@@ -151,6 +151,9 @@ public class CharacterMindSystem : ComponentSystem
         });
     }
 
+    /// <summary>
+    /// 接收语句的简单处理
+    /// </summary>
     private void ReceivedWordsJob()
     {
         Entities.ForEach((CharacterMindProperty characterMindProperty, TimerProperty timerProperty,CharacterProperty characterProperty,DialogueProperty dialogueProperty) =>
@@ -186,4 +189,33 @@ public class CharacterMindSystem : ComponentSystem
             Debug.Log(log);
         }
     }
+
+    public string GetMindLog()
+    {
+        string log = "";
+
+        Entities.ForEach((CharacterMindProperty characterMindProperty, CharacterProperty characterProperty) =>
+        {
+            log += characterProperty.Name + ":\n";
+            if (characterMindProperty.Mind.Count == 0)
+                log += "(空)";
+            else
+                foreach (var item in characterMindProperty.Mind)
+                {
+                    log += item.Key + " " + item.Value + ",";
+                }
+            log += "\n";
+            if (characterMindProperty.ReceivedWords.Count == 0)
+                log += "(空)";
+            else
+                foreach (var item in characterMindProperty.ReceivedWords)
+                {
+                    log += item + ",";
+                }
+            log += "\n";
+        });
+
+        return log;
+    }
+    
 }

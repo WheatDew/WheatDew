@@ -27,6 +27,6 @@ public class WorldInitialization : MonoBehaviour
         characterCreateCommand.IsMainCharacter = IsMainCharacter;
         characterCreateCommand.Name = Name;
         characterCreateCommand.gameObject.SetActive(true);
-        Debug.Log("Create Character "+Name+ " successed");
+        Debug.Log("Create Character command "+Name+ " succeed");
     }
 }

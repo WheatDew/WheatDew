@@ -40,6 +40,7 @@ public class CharacterSystem : ComponentSystem
             CharacterList.Add(counter, character);
             Object.Destroy(characterCreateCommand.gameObject);
             character.SetActive(true);
+            Debug.Log("Create Character " + characterProperty.Name + " succeed");
         });
     }
 
