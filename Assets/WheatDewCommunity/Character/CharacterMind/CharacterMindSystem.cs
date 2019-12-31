@@ -29,10 +29,14 @@ public class CharacterMindSystem : ComponentSystem
     /// </summary>
     private void CharacterMindGain(int characterID, string mind, float value)
     {
+        Debug.Log("添加想法条目" + mind + value.ToString());
         Entities.ForEach((CharacterMindProperty characterMindProperty, CharacterProperty characterProperty) =>
         {
+            
             if (characterProperty.ID == characterID)
             {
+                Debug.Log("循环查找角色,匹配id" + characterProperty.ID.ToString() + "和" + characterID);
+
                 if (characterMindProperty.Mind.ContainsKey(mind))
                 {
                     characterMindProperty.Mind[mind] += value;
@@ -40,11 +44,12 @@ public class CharacterMindSystem : ComponentSystem
                 else
                 {
                     characterMindProperty.Mind.Add(mind, value);
-                    characterMindProperty.Mind[mind] += value;
                 }
 
                 if (oppositeList.ContainsKey(mind))
                 {
+                    Debug.Log("计算条目之间的排斥关系" + mind);
+
                     HashSet<string> list = new HashSet<string>(characterMindProperty.Mind.Keys);
                     Debug.Log(list);
 
@@ -153,7 +158,7 @@ public class CharacterMindSystem : ComponentSystem
             {
                 //ToDo 需要加上乘数
 
-                mindClone[item.Key] -= timerProperty.currentDeltaTime * 0;
+                //mindClone[item.Key] -= timerProperty.currentDeltaTime * 0;
             }
             foreach(var item in mindClone)
             {
@@ -183,7 +188,7 @@ public class CharacterMindSystem : ComponentSystem
                     case "询问":
 
                         ConvertReceivedWords(characterMindProperty, characterProperty, dialogueProperty,"询问","回答");
-                        break;
+                        return;
                 }
             }
         });
@@ -199,7 +204,8 @@ public class CharacterMindSystem : ComponentSystem
         vocabularies.Add(convertedWord);
         vocabularies.Remove(originWord);
         foreach (var word in vocabularies) { CharacterMindGain(characterProperty.ID, word, 100f); };
-        //dialogueProperty.dialogueChance = true;
+        characterMindProperty.ReceivedWords.Clear();
+
     }
 
     //测试

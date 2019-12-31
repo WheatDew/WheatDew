@@ -834,8 +834,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sendWordCommandPrefab: {fileID: 6505218817742609758, guid: 111a4f7f86d227a4d8d2e57119981666,
     type: 3}
-  originCharacter: 1
-  targetCharacter: 2
+  originCharacter: 2
+  targetCharacter: 1
 --- !u!1 &226450670
 GameObject:
   m_ObjectHideFlags: 0
@@ -1265,7 +1265,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: -6529938, y: 3222009}
+  m_AnchoredPosition: {x: -6983186.5, y: 3445651.2}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &440697863
@@ -5732,10 +5732,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1964250584}
-  - component: {fileID: 1964250586}
   - component: {fileID: 1964250585}
+  - component: {fileID: 1964250586}
   m_Layer: 0
-  m_Name: CorpusCommand
+  m_Name: CorpusCommandPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5776,12 +5776,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1964250583}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1af380f921992aa4194be09de1517790, type: 3}
+  m_Script: {fileID: 11500000, guid: 3d3de007d17fa4341a2c308b94897f7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  origin: -1
-  target: -1
-  tags: []
+  corpusCommand: {fileID: 2836460329922616822, guid: 2c2015653e5ba0448a5f461d56492451,
+    type: 3}
 --- !u!1 &1975606500
 GameObject:
   m_ObjectHideFlags: 0
@@ -6082,6 +6081,7 @@ GameObject:
   - component: {fileID: 2072843246}
   - component: {fileID: 2072843248}
   - component: {fileID: 2072843247}
+  - component: {fileID: 2072843249}
   m_Layer: 5
   m_Name: TextBoxBackground
   m_TagString: Untagged
@@ -6148,6 +6148,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2072843245}
   m_CullTransparentMesh: 0
+--- !u!114 &2072843249
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2072843245}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f11c01660071f340826434684175689, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textBox: {fileID: 1223928753}
 --- !u!1 &2079800357
 GameObject:
   m_ObjectHideFlags: 0

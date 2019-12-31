@@ -27,12 +27,13 @@ public class DialogueSystem : ComponentSystem
     /// </summary>
     private void InitializeDialogueCommandPrefab()
     {
-        if (corpusCommandPrefab == null)
+        if (this.corpusCommandPrefab == null)
         {
-            Entities.ForEach((CorpusCommand corpusCommand) =>
+            Entities.ForEach((CorpusCommandPrefab corpusCommandPrefab) =>
             {
-                corpusCommandPrefab = corpusCommand;
-                corpusCommand.gameObject.SetActive(false);
+                this.corpusCommandPrefab = corpusCommandPrefab.corpusCommand;
+                this.corpusCommandPrefab.gameObject.AddComponent<GameObjectEntity>();
+                Object.Destroy(corpusCommandPrefab);
                 Debug.Log("对话命令预制体初始化成功");
             });
         }
@@ -53,6 +54,7 @@ public class DialogueSystem : ComponentSystem
                 foreach (var tag in characterMindProperty.Mind)
                     corpusCommand.tags.Add(tag.Key);
                 corpusCommand.gameObject.SetActive(true);
+                dialogueProperty.dialogueChance = false;
             }
         });
     }

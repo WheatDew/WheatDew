@@ -62,13 +62,20 @@ public class CharacterSystem : ComponentSystem
 
     private void CatchSendWordCommandJob()
     {
+        HashSet<SendWordCommand> deleteList = new HashSet<SendWordCommand>();
         Entities.ForEach((SendWordCommand sendWorldCommand) => {
             CharacterMindProperty characterMindProperty = CharacterList[sendWorldCommand.target].GetComponent<CharacterMindProperty>();
             foreach(var item in sendWorldCommand.context)
             {
                 characterMindProperty.ReceivedWords.Add(item);
             }
+            deleteList.Add(sendWorldCommand);
         });
+
+        foreach(var item in deleteList)
+        {
+            Object.Destroy(item.gameObject);
+        }
     }
 
     public void InitializeCharacterPrefab()

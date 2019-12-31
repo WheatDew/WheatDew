@@ -13,7 +13,6 @@ public class DisplayHideButton : MonoBehaviour
     {
         btn = GetComponent<Button>();
         Hide();
-
     }
 
     public void Display()
@@ -28,11 +27,5 @@ public class DisplayHideButton : MonoBehaviour
         target.localScale = Vector3.zero;
         btn.onClick.RemoveAllListeners();
         btn.onClick.AddListener(Display);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

@@ -9,12 +9,12 @@ public class TextBox : MonoBehaviour
 {
 
     public Text textBox;
-    public DisplayDialogueSystem displayDialogueSystem = World.Active.GetExistingSystem<DisplayDialogueSystem>();
+    public DisplayDialogueSystem displayDialogueSystem;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        displayDialogueSystem = World.Active.GetExistingSystem<DisplayDialogueSystem>();
     }
 
     // Update is called once per frame
@@ -25,6 +25,6 @@ public class TextBox : MonoBehaviour
 
     private void DisplayDialogueJob()
     {
-        textBox.text = displayDialogueSystem.GetDialogueForUI(1, 1);
+        textBox.text = displayDialogueSystem.GetDialogueForUI(1, 2);
     }
 }

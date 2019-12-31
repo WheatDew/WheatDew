@@ -7,12 +7,7 @@ using UnityEngine.UI;
 public class DisplayDialogueSystem : ComponentSystem
 {
 
-    struct Connect
-    {
-        public int origin;
-        public int target;
-    }
-    Dictionary<Connect, string> DialogueSet = new Dictionary<Connect, string>();
+    Dictionary<Vector2Int, string> DialogueSet = new Dictionary<Vector2Int, string>();
 
     protected override void OnUpdate()
     {
@@ -26,7 +21,7 @@ public class DisplayDialogueSystem : ComponentSystem
     {
         Entities.ForEach((DialogueCommand dialogueCommand) =>
         {
-            DialogueSet.Add(new Connect { origin = dialogueCommand.origin, target = dialogueCommand.target }, dialogueCommand.content);
+            DialogueSet.Add(new Vector2Int { x = dialogueCommand.origin, y = dialogueCommand.target }, dialogueCommand.content);
             Object.Destroy(dialogueCommand.gameObject);
         });
     }
@@ -38,7 +33,11 @@ public class DisplayDialogueSystem : ComponentSystem
     /// </summary>
     public string GetDialogueForUI(int origin, int target)
     {
-        Connect temp = new Connect { origin = origin, target = target };
+        Vector2Int temp = new Vector2Int { x = origin, y = target };
+        Debug.Log("origin:" + origin + "target:" + target);
+        if(DialogueSet.ContainsKey(temp))
         return DialogueSet[temp];
+
+        return "……";
     }
 }
