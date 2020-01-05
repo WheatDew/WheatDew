@@ -5,7 +5,7 @@ using Unity.Entities;
 using System.IO;
 
 
-
+//语料库系统，获取命令生成最终对话文字
 public class CorpusSystem : ComponentSystem
 {
 

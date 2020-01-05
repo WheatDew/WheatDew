@@ -32,8 +32,8 @@ public class DialogueSystem : ComponentSystem
             Entities.ForEach((CorpusCommandPrefab corpusCommandPrefab) =>
             {
                 this.corpusCommandPrefab = corpusCommandPrefab.corpusCommand;
-                this.corpusCommandPrefab.gameObject.AddComponent<GameObjectEntity>();
-                Object.Destroy(corpusCommandPrefab);
+                //this.corpusCommandPrefab.gameObject.AddComponent<GameObjectEntity>();
+                corpusCommandPrefab.gameObject.SetActive(false);
                 Debug.Log("对话命令预制体初始化成功");
             });
         }
@@ -55,6 +55,7 @@ public class DialogueSystem : ComponentSystem
                     corpusCommand.tags.Add(tag.Key);
                 corpusCommand.gameObject.SetActive(true);
                 dialogueProperty.dialogueChance = false;
+                Debug.Log("生成语料库命令，origin=" + corpusCommand.origin.ToString() + "target=" + corpusCommand.target);
             }
         });
     }
