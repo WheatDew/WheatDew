@@ -5,7 +5,7 @@ using Unity.Entities;
 using System.IO;
 
 
-
+//语料库系统，获取命令生成最终对话文字
 public class CorpusSystem : ComponentSystem
 {
 
@@ -206,8 +206,11 @@ public class CorpusSystem : ComponentSystem
             dialogueCommand.target = corpusCommand.target;
             dialogueCommand.content = GetProperSentence(corpusCommand.tags);
             dialogueCommand.gameObject.SetActive(true);
+            string s="";
+            foreach (var item in corpusCommand.tags) s += item+" ";
+
+            Debug.Log("捕获语料库预制体成功( "+s+"),内容为" + dialogueCommand.content + "生成最终对话命令");
             Object.Destroy(corpusCommand.gameObject);
-            Debug.Log("捕获语料库预制体成功,内容为"+dialogueCommand.content+"生成最终对话命令");
         });
     }
 

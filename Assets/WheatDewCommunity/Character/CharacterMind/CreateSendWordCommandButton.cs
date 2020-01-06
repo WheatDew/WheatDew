@@ -30,6 +30,8 @@ public class CreateSendWordCommandButton : MonoBehaviour
         swc.context = new HashSet<string>(words);
         string s = "";
         foreach( var item in words) { s += item+" "; };
-        Debug.Log("创建SendWordCommand成功,内容为" + s);
+
+        Debug.Log("创建SendWordComman成功,内容为" + s);
+        words.Clear();
     }
 }

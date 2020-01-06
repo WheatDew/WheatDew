@@ -202,7 +202,9 @@ public class CharacterMindSystem : ComponentSystem
         HashSet<string> vocabularies = new HashSet<string>(characterMindProperty.ReceivedWords);
         //foreach(var item in characterMindProperty.ReceivedWords)  vocabularies.Add(item); 
         vocabularies.Add(convertedWord);
+        Debug.Log("在单词卡数组中添加" + convertedWord);
         vocabularies.Remove(originWord);
+        Debug.Log("在单词卡数组中移除" + originWord);
         foreach (var word in vocabularies) { CharacterMindGain(characterProperty.ID, word, 100f); };
         characterMindProperty.ReceivedWords.Clear();
 

@@ -13,7 +13,7 @@ public class CharacterActionSystem : ComponentSystem
             if (characterMindProperty.Mind.ContainsKey("回答"))
             {
                 dialogueProperty.dialogueChance = true;
-                characterMindProperty.Mind.Remove("回答");
+                
             }
         });
     }

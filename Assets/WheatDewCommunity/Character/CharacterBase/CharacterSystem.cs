@@ -39,9 +39,11 @@ public class CharacterSystem : ComponentSystem
             GameObject character = Object.Instantiate(characterPrefab);
             counter++;
             CharacterProperty characterProperty = character.GetComponent<CharacterProperty>();
+            DialogueProperty dialogueProperty = character.GetComponent<DialogueProperty>();
             characterProperty.ID = counter;
             characterProperty.Name = characterCreateCommand.Name;
             characterProperty.IsMainCharacter = characterCreateCommand.IsMainCharacter;
+            dialogueProperty.target = characterCreateCommand.target;
             CharacterList.Add(counter, character);
             Object.Destroy(characterCreateCommand.gameObject);
             character.SetActive(true);
