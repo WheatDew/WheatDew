@@ -207,7 +207,7 @@ public class CorpusSystem : ComponentSystem
             dialogueCommand.content = GetProperSentence(corpusCommand.tags);
             dialogueCommand.gameObject.SetActive(true);
             Object.Destroy(corpusCommand.gameObject);
-            Debug.Log("捕获语料库预制体成功,生成最终对话命令");
+            Debug.Log("捕获语料库预制体成功,内容为"+dialogueCommand.content+"生成最终对话命令");
         });
     }
 
