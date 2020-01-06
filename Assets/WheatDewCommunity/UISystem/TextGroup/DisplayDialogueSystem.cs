@@ -39,7 +39,7 @@ public class DisplayDialogueSystem : ComponentSystem
     public string GetDialogueForUI(int origin, int target)
     {
         Vector2Int temp = new Vector2Int { x = origin, y = target };
-        Debug.Log("origin:" + origin + "target:" + target);
+        //Debug.Log("origin:" + origin + "target:" + target);
         if (DialogueSet.ContainsKey(temp))
         {
             

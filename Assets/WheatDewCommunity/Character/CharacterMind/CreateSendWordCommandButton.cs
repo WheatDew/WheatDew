@@ -5,10 +5,16 @@ using Unity.Entities;
 
 public class CreateSendWordCommandButton : MonoBehaviour
 {
-    public HashSet<string> words=new HashSet<string>();
     public SendWordCommand sendWordCommandPrefab;
     public int originCharacter;
     public int targetCharacter;
+    public Transform buttonVector;
+    public string b_card="";
+    public string g_card="";
+    public string y_card="";
+    public HashSet<VocabularyCard> blueCards = new HashSet<VocabularyCard>();
+    public HashSet<VocabularyCard> greenCards = new HashSet<VocabularyCard>();
+    public HashSet<VocabularyCard> yellowCards = new HashSet<VocabularyCard>();
 
     void Start()
     {
@@ -17,6 +23,11 @@ public class CreateSendWordCommandButton : MonoBehaviour
 
     private void CreateSendWordCommand()
     {
+        for(int i = 0; i < buttonVector.childCount; i++)
+        {
+            buttonVector.GetChild(i).GetComponent<VocabularyCard>().ResetColor();
+        }
+
         if (originCharacter < 0 || targetCharacter < 0)
         {
             Debug.Log("创建SendWordCommand失败,指定对象为空");
@@ -27,11 +38,21 @@ public class CreateSendWordCommandButton : MonoBehaviour
         swc.gameObject.AddComponent<GameObjectEntity>();
         swc.origin = originCharacter;
         swc.target = targetCharacter;
-        swc.context = new HashSet<string>(words);
-        string s = "";
-        foreach( var item in words) { s += item+" "; };
+        HashSet<string> wordset = new HashSet<string>();
+        if (b_card != "" & g_card != "")
+        {
+            wordset.Add(b_card);
+            wordset.Add(g_card);
+        }
+        if(y_card!="")
+        wordset.Add(y_card);
 
-        Debug.Log("创建SendWordComman成功,内容为" + s);
-        words.Clear();
+        swc.context = new HashSet<string>(wordset);
+
+        Debug.Log("创建SendWordComman成功,内容为" + string.Format("{0},{1},{2}",b_card,g_card,y_card));
+        b_card = "";
+        g_card = "";
+        y_card = "";
     }
+
 }

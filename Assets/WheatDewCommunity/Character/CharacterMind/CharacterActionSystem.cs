@@ -10,7 +10,7 @@ public class CharacterActionSystem : ComponentSystem
     {
         Entities.ForEach((CharacterMindProperty characterMindProperty,DialogueProperty dialogueProperty) =>
         {
-            if (characterMindProperty.Mind.ContainsKey("回答"))
+            if (characterMindProperty.DialogueImmediateMind.ContainsKey("回答"))
             {
                 dialogueProperty.dialogueChance = true;
                 

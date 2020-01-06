@@ -12,7 +12,7 @@ public class MindLogSystem : ComponentSystem
         Entities.ForEach((CharacterMindProperty characterMindProperty, CharacterProperty characterProperty) =>
         {
             mindLog = "";
-            foreach(var item in characterMindProperty.Mind)
+            foreach(var item in characterMindProperty.DialogueImmediateMind)
             {
                 mindLog += characterProperty.Name + ": " + item.Key + " " + item.Value.ToString()+"\n"; 
             }

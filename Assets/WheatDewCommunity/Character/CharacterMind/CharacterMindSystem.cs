@@ -37,36 +37,36 @@ public class CharacterMindSystem : ComponentSystem
             {
                 Debug.Log("循环查找角色,匹配id" + characterProperty.ID.ToString() + "和" + characterID);
 
-                if (characterMindProperty.Mind.ContainsKey(mind))
+                if (characterMindProperty.DialogueImmediateMind.ContainsKey(mind))
                 {
-                    characterMindProperty.Mind[mind] += value;
+                    characterMindProperty.DialogueImmediateMind[mind] += value;
                 }
                 else
                 {
-                    characterMindProperty.Mind.Add(mind, value);
+                    characterMindProperty.DialogueImmediateMind.Add(mind, value);
                 }
 
                 if (oppositeList.ContainsKey(mind))
                 {
                     Debug.Log("计算条目之间的排斥关系" + mind);
 
-                    HashSet<string> list = new HashSet<string>(characterMindProperty.Mind.Keys);
+                    HashSet<string> list = new HashSet<string>(characterMindProperty.DialogueImmediateMind.Keys);
                     Debug.Log(list);
 
                     list.IntersectWith(oppositeList[mind]);
                     float lossValue = 0;
                     foreach (var item in list)
                     {
-                        characterMindProperty.Mind[item] -= value;
-                        lossValue -= characterMindProperty.Mind[item];
+                        characterMindProperty.DialogueImmediateMind[item] -= value;
+                        lossValue -= characterMindProperty.DialogueImmediateMind[item];
                     }
                     //todo 这里的算法比较简单,未来可以改得更贴近现实一些
                     //加上传入的值减去相斥条目的值为最终值
-                    characterMindProperty.Mind[mind] += lossValue;
+                    characterMindProperty.DialogueImmediateMind[mind] += lossValue;
 
                     HashSet<string> deleteList = new HashSet<string>();
 
-                    foreach (var item in characterMindProperty.Mind)
+                    foreach (var item in characterMindProperty.DialogueImmediateMind)
                     {
                         if (item.Value <= 0)
                             deleteList.Add(item.Key);
@@ -74,7 +74,7 @@ public class CharacterMindSystem : ComponentSystem
 
                     foreach (var item in deleteList)
                     {
-                        characterMindProperty.Mind.Remove(item);
+                        characterMindProperty.DialogueImmediateMind.Remove(item);
                     }
                 }
                 
@@ -148,13 +148,13 @@ public class CharacterMindSystem : ComponentSystem
     {
         Entities.ForEach((CharacterMindProperty characterMindProperty, TimerProperty timerProperty) =>
         {
-            if (characterMindProperty.Mind == null)
+            if (characterMindProperty.DialogueImmediateMind == null)
             {
                 Debug.Log("字典为空");
                 return;
             }
-            Dictionary<string, float> mindClone = new Dictionary<string, float>(characterMindProperty.Mind);
-            foreach (var item in characterMindProperty.Mind)
+            Dictionary<string, float> mindClone = new Dictionary<string, float>(characterMindProperty.DialogueImmediateMind);
+            foreach (var item in characterMindProperty.DialogueImmediateMind)
             {
                 //ToDo 需要加上乘数
 
@@ -162,7 +162,7 @@ public class CharacterMindSystem : ComponentSystem
             }
             foreach(var item in mindClone)
             {
-                characterMindProperty.Mind[item.Key] = mindClone[item.Key];
+                characterMindProperty.DialogueImmediateMind[item.Key] = mindClone[item.Key];
             }
             //todo 写法有一些问题
         });
@@ -236,10 +236,10 @@ public class CharacterMindSystem : ComponentSystem
         Entities.ForEach((CharacterMindProperty characterMindProperty, CharacterProperty characterProperty) =>
         {
             log += characterProperty.ID+" "+ characterProperty.Name + ":\n";
-            if (characterMindProperty.Mind.Count == 0)
+            if (characterMindProperty.DialogueImmediateMind.Count == 0)
                 log += "(空)";
             else
-                foreach (var item in characterMindProperty.Mind)
+                foreach (var item in characterMindProperty.DialogueImmediateMind)
                 {
                     log += item.Key + " " + item.Value + ",";
                 }

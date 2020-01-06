@@ -52,7 +52,7 @@ public class DialogueSystem : ComponentSystem
                 corpusCommand.origin = characterProperty.ID;
                 corpusCommand.target = dialogueProperty.target;
                 string s="";
-                foreach (var tag in characterMindProperty.Mind)
+                foreach (var tag in characterMindProperty.DialogueImmediateMind)
                 {
                     s += tag.Key+" ";
                     corpusCommand.tags.Add(tag.Key);
@@ -61,7 +61,7 @@ public class DialogueSystem : ComponentSystem
                 dialogueProperty.dialogueChance = false;
                 Debug.Log("生成语料库命令( "+s+")，origin=" + corpusCommand.origin.ToString() + "target=" + corpusCommand.target);
                 //清除当前瞬时想法
-                characterMindProperty.Mind.Clear();
+                characterMindProperty.DialogueImmediateMind.Clear();
             }
         });
     }
