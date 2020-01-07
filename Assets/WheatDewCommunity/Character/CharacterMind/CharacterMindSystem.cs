@@ -82,6 +82,62 @@ public class CharacterMindSystem : ComponentSystem
         });
     }
 
+    
+    private void CharacterMoodGain(int characterID, string mood, float value)
+    {
+        Debug.Log("添加情绪条目" + mood + value.ToString());
+        Entities.ForEach((CharacterMindProperty characterMoodProperty, CharacterProperty characterProperty) =>
+        {
+
+            if (characterProperty.ID == characterID)
+            {
+                Debug.Log("循环查找角色,匹配id" + characterProperty.ID.ToString() + "和" + characterID);
+
+                if (characterMoodProperty.DialogueImmediateMind.ContainsKey(mood))
+                {
+                    characterMoodProperty.DialogueImmediateMind[mood] += value;
+                }
+                else
+                {
+                    characterMoodProperty.DialogueImmediateMind.Add(mood, value);
+                }
+
+                if (oppositeList.ContainsKey(mood))
+                {
+                    Debug.Log("计算条目之间的排斥关系" + mood);
+
+                    HashSet<string> list = new HashSet<string>(characterMoodProperty.DialogueImmediateMind.Keys);
+                    Debug.Log(list);
+
+                    list.IntersectWith(oppositeList[mood]);
+                    float lossValue = 0;
+                    foreach (var item in list)
+                    {
+                        characterMoodProperty.DialogueImmediateMind[item] -= value;
+                        lossValue -= characterMoodProperty.DialogueImmediateMind[item];
+                    }
+                    //todo 这里的算法比较简单,未来可以改得更贴近现实一些
+                    //加上传入的值减去相斥条目的值为最终值
+                    characterMoodProperty.DialogueImmediateMind[mood] += lossValue;
+
+                    HashSet<string> deleteList = new HashSet<string>();
+
+                    foreach (var item in characterMoodProperty.DialogueImmediateMind)
+                    {
+                        if (item.Value <= 0)
+                            deleteList.Add(item.Key);
+                    }
+
+                    foreach (var item in deleteList)
+                    {
+                        characterMoodProperty.DialogueImmediateMind.Remove(item);
+                    }
+                }
+
+            }
+        });
+    }
+
     /// <summary>
     /// 在互斥列表中添加条目
     /// </summary>
@@ -142,7 +198,7 @@ public class CharacterMindSystem : ComponentSystem
 
     //工作函数
     /// <summary>
-    /// 属性随时间衰减
+    /// 想法属性随时间衰减
     /// </summary>
     private void CharacterMindJob()
     {
@@ -163,6 +219,33 @@ public class CharacterMindSystem : ComponentSystem
             foreach(var item in mindClone)
             {
                 characterMindProperty.DialogueImmediateMind[item.Key] = mindClone[item.Key];
+            }
+            //todo 写法有一些问题
+        });
+    }
+    /// <summary>
+    /// 情绪属性随时间衰减
+    /// </summary>
+    private void CharacterMoodJob()
+    {
+        //情绪随时间衰减
+        Entities.ForEach((CharacterMoodProperty characterMoodProperty, TimerProperty timerProperty) =>
+        {
+            if (characterMoodProperty.Mood == null)
+            {
+                Debug.Log("情绪字典为空");
+                return;
+            }
+            Dictionary<string, float> moodClone = new Dictionary<string, float>(characterMoodProperty.Mood);
+            foreach (var item in characterMoodProperty.Mood)
+            {
+                //ToDo 需要加上乘数
+
+                //mindClone[item.Key] -= timerProperty.currentDeltaTime * 0;
+            }
+            foreach (var item in moodClone)
+            {
+                characterMoodProperty.Mood[item.Key] = moodClone[item.Key];
             }
             //todo 写法有一些问题
         });
