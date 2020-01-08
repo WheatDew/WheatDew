@@ -44,7 +44,7 @@ public class DialogueSystem : ComponentSystem
     /// </summary>
     private void DialogueJob()
     {
-        Entities.ForEach((DialogueProperty dialogueProperty,CharacterProperty characterProperty,CharacterMindProperty characterMindProperty) =>
+        Entities.ForEach((DialogueProperty dialogueProperty,CharacterProperty characterProperty,CharacterPrepareActsProperty p_CharacterPrepareActs) =>
         {
             if (dialogueProperty.dialogueChance&&dialogueProperty.target!=-1)
             {
@@ -52,16 +52,16 @@ public class DialogueSystem : ComponentSystem
                 corpusCommand.origin = characterProperty.ID;
                 corpusCommand.target = dialogueProperty.target;
                 string s="";
-                foreach (var tag in characterMindProperty.DialogueImmediateMind)
+                foreach (var tag in p_CharacterPrepareActs.PrepareDialogueActs)
                 {
-                    s += tag.Key+" ";
-                    corpusCommand.tags.Add(tag.Key);
+                    s += tag+" ";
+                    corpusCommand.tags.Add(tag);
                 }
                 corpusCommand.gameObject.SetActive(true);
                 dialogueProperty.dialogueChance = false;
                 Debug.Log("生成语料库命令( "+s+")，origin=" + corpusCommand.origin.ToString() + "target=" + corpusCommand.target);
-                //清除当前瞬时想法
-                characterMindProperty.DialogueImmediateMind.Clear();
+                //清除准备对话行动
+                p_CharacterPrepareActs.PrepareDialogueActs.Clear();
             }
         });
     }

@@ -66,10 +66,10 @@ public class CharacterSystem : ComponentSystem
     {
         HashSet<SendWordCommand> deleteList = new HashSet<SendWordCommand>();
         Entities.ForEach((SendWordCommand sendWorldCommand) => {
-            CharacterMindProperty characterMindProperty = CharacterList[sendWorldCommand.target].GetComponent<CharacterMindProperty>();
+            CharacterReceivedWordsProperty p_ReceivedWords = CharacterList[sendWorldCommand.target].GetComponent<CharacterReceivedWordsProperty>();
             foreach(var item in sendWorldCommand.context)
             {
-                characterMindProperty.ReceivedWords.Add(item);
+                p_ReceivedWords.ReceivedWords.Add(item);
             }
             deleteList.Add(sendWorldCommand);
         });

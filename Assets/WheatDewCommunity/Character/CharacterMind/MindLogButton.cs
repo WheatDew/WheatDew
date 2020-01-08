@@ -10,11 +10,11 @@ public class MindLogButton : MonoBehaviour
 
     void Start()
     {
-        characterMindSystem = World.Active.GetExistingSystem<CharacterMindSystem>();
+        //characterMindSystem = World.Active.GetExistingSystem<CharacterMindSystem>();
 
-        GetComponent<UnityEngine.UI.Button>().onClick.AddListener(delegate
-        {
-            displayText.text += characterMindSystem.GetMindLog();
-        }); 
+        //GetComponent<UnityEngine.UI.Button>().onClick.AddListener(delegate
+        //{
+        //    displayText.text += characterMindSystem.GetMindLog();
+        //}); 
     }
 }

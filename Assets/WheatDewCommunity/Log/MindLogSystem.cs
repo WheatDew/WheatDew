@@ -9,20 +9,15 @@ public class MindLogSystem : ComponentSystem
 
     protected override void OnUpdate()
     {
-        Entities.ForEach((CharacterMindProperty characterMindProperty, CharacterProperty characterProperty) =>
-        {
-            mindLog = "";
-            foreach(var item in characterMindProperty.DialogueImmediateMind)
-            {
-                mindLog += characterProperty.Name + ": " + item.Key + " " + item.Value.ToString()+"\n"; 
-            }
+        //Entities.ForEach((CharacterReceivedWordsProperty p_ReceivedWords, CharacterProperty characterProperty) =>
+        //{
 
-            mindLog += characterProperty.Name + ": ";
-            foreach (var item in characterMindProperty.ReceivedWords)
-            {
-                mindLog += item;
-            }
-            mindLog += "\n";
-        });
+        //    mindLog += characterProperty.Name + ": ";
+        //    foreach (var item in p_ReceivedWords.ReceivedWords)
+        //    {
+        //        mindLog += item;
+        //    }
+        //    mindLog += "\n";
+        //});
     }
 }
