@@ -5,4 +5,5 @@ using UnityEngine;
 public class CharacterMoodProperty : MonoBehaviour
 {
     public Dictionary<string, float> Mood = new Dictionary<string, float>();
+    public Dictionary<string, float> Tendency = new Dictionary<string, float>();
 }

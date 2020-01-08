@@ -228,7 +228,7 @@ public class CharacterMindSystem : ComponentSystem
     /// </summary>
     private void CharacterMoodJob()
     {
-        //情绪随时间衰减
+        
         Entities.ForEach((CharacterMoodProperty characterMoodProperty, TimerProperty timerProperty) =>
         {
             if (characterMoodProperty.Mood == null)
@@ -239,7 +239,7 @@ public class CharacterMindSystem : ComponentSystem
             Dictionary<string, float> moodClone = new Dictionary<string, float>(characterMoodProperty.Mood);
             foreach (var item in characterMoodProperty.Mood)
             {
-                //ToDo 需要加上乘数
+                //ToDo 目前情绪不会衰减
 
                 //mindClone[item.Key] -= timerProperty.currentDeltaTime * 0;
             }
