@@ -50,57 +50,57 @@ public class CharacterMoodSystem : ComponentSystem
     /// </summary>
     private void CharacterMoodGain(int characterID, string mood, float value)
     {
-        Debug.Log("添加情绪条目" + mood + value.ToString());
-        Entities.ForEach((CharacterReceivedWordsProperty p_ReceivedWords, CharacterProperty characterProperty) =>
-        {
+        //Debug.Log("添加情绪条目" + mood + value.ToString());
+        //Entities.ForEach((CharacterReceivedWordsProperty p_ReceivedWords, CharacterProperty characterProperty) =>
+        //{
 
-            if (characterProperty.ID == characterID)
-            {
-                Debug.Log("循环查找角色,匹配id" + characterProperty.ID.ToString() + "和" + characterID);
+        //    if (characterProperty.ID == characterID)
+        //    {
+        //        Debug.Log("循环查找角色,匹配id" + characterProperty.ID.ToString() + "和" + characterID);
 
-                if (characterMoodProperty.DialogueImmediateMind.ContainsKey(mood))
-                {
-                    characterMoodProperty.DialogueImmediateMind[mood] += value;
-                }
-                else
-                {
-                    characterMoodProperty.DialogueImmediateMind.Add(mood, value);
-                }
+        //        if (characterMoodProperty.DialogueImmediateMind.ContainsKey(mood))
+        //        {
+        //            characterMoodProperty.DialogueImmediateMind[mood] += value;
+        //        }
+        //        else
+        //        {
+        //            characterMoodProperty.DialogueImmediateMind.Add(mood, value);
+        //        }
 
-                if (oppositeList.ContainsKey(mood))
-                {
-                    Debug.Log("计算条目之间的排斥关系" + mood);
+        //        if (oppositeList.ContainsKey(mood))
+        //        {
+        //            Debug.Log("计算条目之间的排斥关系" + mood);
 
-                    HashSet<string> list = new HashSet<string>(characterMoodProperty.DialogueImmediateMind.Keys);
-                    Debug.Log(list);
+        //            HashSet<string> list = new HashSet<string>(characterMoodProperty.DialogueImmediateMind.Keys);
+        //            Debug.Log(list);
 
-                    list.IntersectWith(oppositeList[mood]);
-                    float lossValue = 0;
-                    foreach (var item in list)
-                    {
-                        characterMoodProperty.DialogueImmediateMind[item] -= value;
-                        lossValue -= characterMoodProperty.DialogueImmediateMind[item];
-                    }
-                    //todo 这里的算法比较简单,未来可以改得更贴近现实一些
-                    //加上传入的值减去相斥条目的值为最终值
-                    characterMoodProperty.DialogueImmediateMind[mood] += lossValue;
+        //            list.IntersectWith(oppositeList[mood]);
+        //            float lossValue = 0;
+        //            foreach (var item in list)
+        //            {
+        //                characterMoodProperty.DialogueImmediateMind[item] -= value;
+        //                lossValue -= characterMoodProperty.DialogueImmediateMind[item];
+        //            }
+        //            //todo 这里的算法比较简单,未来可以改得更贴近现实一些
+        //            //加上传入的值减去相斥条目的值为最终值
+        //            characterMoodProperty.DialogueImmediateMind[mood] += lossValue;
 
-                    HashSet<string> deleteList = new HashSet<string>();
+        //            HashSet<string> deleteList = new HashSet<string>();
 
-                    foreach (var item in characterMoodProperty.DialogueImmediateMind)
-                    {
-                        if (item.Value <= 0)
-                            deleteList.Add(item.Key);
-                    }
+        //            foreach (var item in characterMoodProperty.DialogueImmediateMind)
+        //            {
+        //                if (item.Value <= 0)
+        //                    deleteList.Add(item.Key);
+        //            }
 
-                    foreach (var item in deleteList)
-                    {
-                        characterMoodProperty.DialogueImmediateMind.Remove(item);
-                    }
-                }
+        //            foreach (var item in deleteList)
+        //            {
+        //                characterMoodProperty.DialogueImmediateMind.Remove(item);
+        //            }
+        //        }
 
-            }
-        });
+        //    }
+        //});
     }
 
     /// <summary>

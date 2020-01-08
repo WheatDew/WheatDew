@@ -9,15 +9,15 @@ public class MindLogSystem : ComponentSystem
 
     protected override void OnUpdate()
     {
-        //Entities.ForEach((CharacterReceivedWordsProperty p_ReceivedWords, CharacterProperty characterProperty) =>
-        //{
+        Entities.ForEach((CharacterReceivedWordsProperty p_ReceivedWords, CharacterProperty characterProperty) =>
+        {
 
-        //    mindLog += characterProperty.Name + ": ";
-        //    foreach (var item in p_ReceivedWords.ReceivedWords)
-        //    {
-        //        mindLog += item;
-        //    }
-        //    mindLog += "\n";
-        //});
+            mindLog += characterProperty.Name + ": ";
+            foreach (var item in p_ReceivedWords.ReceivedWords)
+            {
+                mindLog += item;
+            }
+            mindLog += "\n";
+        });
     }
 }

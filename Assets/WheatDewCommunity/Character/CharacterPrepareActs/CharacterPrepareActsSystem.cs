@@ -7,7 +7,7 @@ public class CharacterPrepareActsSystem : ComponentSystem
 {
     protected override void OnUpdate()
     {
-        
+        CharacterActJob();
     }
 
     private void CharacterActJob()
@@ -17,7 +17,7 @@ public class CharacterPrepareActsSystem : ComponentSystem
             if (p_PrepareActs.PrepareDialogueActs.Contains("回答"))
             {
                 p_dialogue.dialogueChance = true;
-
+                Debug.Log("检测到回答关键词,开启对话");
             }
         });
     }

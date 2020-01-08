@@ -1348,7 +1348,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: -8368199.5, y: 4129038.2}
+  m_AnchoredPosition: {x: -8563819, y: 4225561.5}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &440697863
@@ -5205,7 +5205,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 779739225}
   m_Direction: 0
   m_Value: 0
-  m_Size: 1
+  m_Size: 0.5
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -5842,6 +5842,9 @@ GameObject:
   - component: {fileID: 1735249861}
   - component: {fileID: 1735249860}
   - component: {fileID: 1735249864}
+  - component: {fileID: 1735249867}
+  - component: {fileID: 1735249866}
+  - component: {fileID: 1735249865}
   m_Layer: 0
   m_Name: Character
   m_TagString: Untagged
@@ -5928,6 +5931,42 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5bf10cdea1344482e91a4f2b58506b77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1735249865
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1735249858}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b4eedbf676de014cb2c8ac7a19fe2ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1735249866
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1735249858}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05a937e1cdefbb44a89e495f14ff1477, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1735249867
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1735249858}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a832da502182d648920eca2f460b01e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1807852040
@@ -6224,7 +6263,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1308435745}
   m_Direction: 2
   m_Value: 1
-  m_Size: 1
+  m_Size: 0
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:

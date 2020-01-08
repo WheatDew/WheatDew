@@ -26,6 +26,7 @@ public class CharacterReceivedWordsSystem : ComponentSystem
             if (p_ReceivedWords.ReceivedWords==null|| p_ReceivedWords.ReceivedWords.Count==0)
                 return;
 
+            
             //将行为列表清空
 
             foreach (var item in p_ReceivedWords.ReceivedWords)
@@ -40,7 +41,12 @@ public class CharacterReceivedWordsSystem : ComponentSystem
                         break;
                 }
             }
-
+            string log = "";
+            foreach(var item in p_ReceivedWords.Act)
+            {
+                log += item+" ";
+            }
+            Debug.Log("将接受对话词语初步处理为行为,处理结果为:"+log);
             //将接收词语缓冲区清空
             p_ReceivedWords.ReceivedWords.Clear();
         });

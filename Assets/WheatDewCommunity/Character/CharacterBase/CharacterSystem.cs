@@ -65,13 +65,16 @@ public class CharacterSystem : ComponentSystem
     private void CatchSendWordCommandJob()
     {
         HashSet<SendWordCommand> deleteList = new HashSet<SendWordCommand>();
-        Entities.ForEach((SendWordCommand sendWorldCommand) => {
-            CharacterReceivedWordsProperty p_ReceivedWords = CharacterList[sendWorldCommand.target].GetComponent<CharacterReceivedWordsProperty>();
-            foreach(var item in sendWorldCommand.context)
+        Entities.ForEach((SendWordCommand sendWordCommand) => {
+            CharacterReceivedWordsProperty p_ReceivedWords = CharacterList[sendWordCommand.target].GetComponent<CharacterReceivedWordsProperty>();
+            string log = "";
+            foreach (var item in sendWordCommand.context)
             {
                 p_ReceivedWords.ReceivedWords.Add(item);
+                log += item+" ";
             }
-            deleteList.Add(sendWorldCommand);
+            deleteList.Add(sendWordCommand);
+            Debug.Log("写入ReceivedWords属性,ID" + sendWordCommand.target + " 内容:" + log);
         });
 
         foreach(var item in deleteList)
