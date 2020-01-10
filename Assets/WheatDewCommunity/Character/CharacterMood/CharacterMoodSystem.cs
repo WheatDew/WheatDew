@@ -27,7 +27,8 @@ public class CharacterMoodSystem : ComponentSystem
         {
             if (characterMoodProperty.Mood == null)
             {
-                Debug.Log("情绪字典为空");
+                //如果情绪为空,则初始化情绪
+                characterMoodProperty.Mood.Add("平静", 50f);
                 return;
             }
             Dictionary<string, float> moodClone = new Dictionary<string, float>(characterMoodProperty.Mood);
@@ -35,20 +36,51 @@ public class CharacterMoodSystem : ComponentSystem
             {
                 //ToDo 目前情绪不会衰减
 
-                //mindClone[item.Key] -= timerProperty.currentDeltaTime * 0;
+                moodClone[item.Key] -= timerProperty.currentDeltaTime * 0;
             }
             foreach (var item in moodClone)
             {
                 characterMoodProperty.Mood[item.Key] = moodClone[item.Key];
             }
-            //todo 写法有一些问题
+            //todo 写法有一些问题,而且这个函数遍历写的有点多,感觉遍历对象数量多的时候可能会很卡
+
+            //如果对应条目大于平静的值,则将该条目添加到表达中
+            characterMoodProperty.Expression.Clear();
+            foreach(var item in characterMoodProperty.Mood)
+            {
+                if(item.Value>characterMoodProperty.Mood["平静"])
+                {
+                    characterMoodProperty.Expression.Add(item.Key);
+                }
+            }
+
+            //如果没有大于平静的条目,则将平静添加到表达中
+            if (characterMoodProperty.Expression.Count == 0)
+            {
+                characterMoodProperty.Expression.Add("平静");
+            }
         });
     }
 
+    private void CharacterMoodGain(int characterID,string mood,float value)
+    {
+        Entities.ForEach((CharacterProperty p_Character, CharacterMoodProperty p_CharacterMood) =>
+        {
+            if (p_Character.ID == characterID)
+            {
+                if (p_CharacterMood.Mood.ContainsKey(mood))
+                    p_CharacterMood.Mood[mood] += value;
+                else
+                    p_CharacterMood.Mood.Add(mood, value);
+            }
+        });
+    }
+
+
     /// <summary>
-    /// 添加情绪条目
+    /// 添加情绪条目,存在相消的情况
     /// </summary>
-    private void CharacterMoodGain(int characterID, string mood, float value)
+    private void CharacterMoodGainWithOpposite(int characterID, string mood, float value)
     {
         //Debug.Log("添加情绪条目" + mood + value.ToString());
         //Entities.ForEach((CharacterReceivedWordsProperty p_ReceivedWords, CharacterProperty characterProperty) =>
