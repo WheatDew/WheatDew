@@ -77,7 +77,9 @@ public class CorpusSystem : ComponentSystem
             foreach (var tag in tags)
             {
                 CorpusOrigin[sentence].Tags.Add(tag);
+                //Debug.Log(string.Format("源列表添加sentence:{0} tag:{1}", sentence, tag));
                 CorpusWithTagAdd(tag, sentence);
+                //Debug.Log(string.Format("标签列表添加tag:{0} sentence:{1}", tag, sentence));
             }
         }
         else
@@ -86,7 +88,9 @@ public class CorpusSystem : ComponentSystem
             foreach (var tag in tags)
             {
                 CorpusOrigin[sentence].Tags.Add(tag);
+                //Debug.Log(string.Format("源列表添加sentence:{0} tag:{1}", sentence, tag));
                 CorpusWithTagAdd(tag, sentence);
+                //Debug.Log(string.Format("标签列表添加tag:{0} sentence:{1}", tag, sentence));
             }
         }
     }
@@ -112,10 +116,21 @@ public class CorpusSystem : ComponentSystem
     /// </summary>
     public string GetProperSentence(List<string> tags)
     {
-        if (tags.Count == 0)
-            return "";
+        string log1 = "";
+        foreach(var tag in tags)
+        {
+            log1 += tag + " ";
+        }
 
-        HashSet<string> result = CorpusWithTag[tags[0]];
+        Debug.Log(string.Format("搜索标签" + log1));
+        if (tags.Count == 0)
+        {
+            Debug.Log("语料库为空");
+            return "";
+        }
+
+
+        HashSet<string> result = new HashSet<string>(CorpusWithTag[tags[0]]);
         foreach (var tag in tags)
         {
             result.IntersectWith(CorpusWithTag[tag]);
@@ -124,8 +139,17 @@ public class CorpusSystem : ComponentSystem
         enumerator.MoveNext();
         if (enumerator.Current==null)
         {
-            return "";
+            string log = "";
+            foreach(var item in tags)
+            {
+                log += item + " ";
+            }
+            Debug.Log(string.Format("在语料库中找不到符合条件({0})语句",log));
+            DisplayTagCorpus();
+            return "……";
         }
+
+        Debug.Log(string.Format("从语料库返回{0}", enumerator.Current));
         return enumerator.Current;
     }
 
@@ -205,9 +229,11 @@ public class CorpusSystem : ComponentSystem
             dialogueCommand.origin = corpusCommand.origin;
             dialogueCommand.target = corpusCommand.target;
             dialogueCommand.content = GetProperSentence(corpusCommand.tags);
+
             dialogueCommand.gameObject.SetActive(true);
             string s="";
             foreach (var item in corpusCommand.tags) s += item+" ";
+
 
             Debug.Log("捕获语料库预制体成功( "+s+"),内容为" + dialogueCommand.content + "生成最终对话命令");
             Object.Destroy(corpusCommand.gameObject);
