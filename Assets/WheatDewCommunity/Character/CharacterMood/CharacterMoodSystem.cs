@@ -27,7 +27,7 @@ public class CharacterMoodSystem : ComponentSystem
 
         Entities.ForEach((CharacterMoodProperty characterMoodProperty, TimerProperty timerProperty) =>
         {
-            if (characterMoodProperty.Mood == null)
+            if (characterMoodProperty.Mood.Count==0)
             {
                 //如果情绪为空,则初始化情绪
                 characterMoodProperty.Mood.Add("平静", 50f);
@@ -47,14 +47,15 @@ public class CharacterMoodSystem : ComponentSystem
             //todo 写法有一些问题,而且这个函数遍历写的有点多,感觉遍历对象数量多的时候可能会很卡
 
             //如果对应条目大于平静的值,则将该条目添加到表达中
-            characterMoodProperty.Expression.Clear();
+            HashSet<string> temp = new HashSet<string>();
             foreach(var item in characterMoodProperty.Mood)
             {
                 if(item.Value>characterMoodProperty.Mood["平静"])
                 {
-                    characterMoodProperty.Expression.Add(item.Key);
+                    temp.Add(item.Key);
                 }
             }
+            characterMoodProperty.Expression = new HashSet<string>(temp);
 
             //如果没有大于平静的条目,则将平静添加到表达中
             if (characterMoodProperty.Expression.Count == 0)
@@ -68,24 +69,24 @@ public class CharacterMoodSystem : ComponentSystem
     {
         Entities.ForEach((CharacterMoodProperty p_Mood,CharacterReceivedWordsProperty p_ReceivedWords,CharacterProperty p_character) =>
         {
-            if (p_ReceivedWords.Act.Contains("回应")&&p_ReceivedWords.Act.Contains("消极表达"))
+            if (p_ReceivedWords.Act.Contains("v回应")&&p_ReceivedWords.Act.Contains("v消极表达"))
                 foreach (var item in p_ReceivedWords.Act)
                 {
                     if(p_Mood.Tendency.ContainsKey(item))
                     {
                         CharacterMoodGain(p_character.ID, "高兴", -p_Mood.Tendency[item]);
                         CharacterMoodGain(p_character.ID, "生气", p_Mood.Tendency[item]);
-                        Debug.Log("up");
+                        Debug.Log("down");
                     }
                 }
-            else if(p_ReceivedWords.Act.Contains("回应")&&p_ReceivedWords.Act.Contains("积极表达"))
+            else if(p_ReceivedWords.Act.Contains("v回应")&&p_ReceivedWords.Act.Contains("v积极表达"))
                 foreach(var item in p_ReceivedWords.Act)
                 {
                     if (p_Mood.Tendency.ContainsKey(item))
                     {
                         CharacterMoodGain(p_character.ID, "高兴", p_Mood.Tendency[item]);
                         CharacterMoodGain(p_character.ID, "生气", -p_Mood.Tendency[item]);
-                        Debug.Log("down");
+                        Debug.Log("up");
                     }
                 }
         });

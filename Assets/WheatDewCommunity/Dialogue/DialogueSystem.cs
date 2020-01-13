@@ -65,7 +65,7 @@ public class DialogueSystem : ComponentSystem
                 foreach(var tag in p_CharacterMood.Expression)
                 {
                     s += tag + " ";
-                    corpusCommand.tags.Add(tag);
+                    corpusCommand.tags.Add('m'+ tag);
                 }
                 corpusCommand.gameObject.SetActive(true);
                 dialogueProperty.dialogueChance = false;

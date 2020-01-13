@@ -14,17 +14,17 @@ public class WorldInitialization : MonoBehaviour
     //测试预设
     private void WorldTestPrefab()
     {
-        Dictionary<string, float> tendencyofOrigin = new Dictionary<string, float>();
-        tendencyofOrigin.Add("仿生人", 60f);
-        tendencyofOrigin.Add("机械", 30f);
-        tendencyofOrigin.Add("神话", -30f);
-        tendencyofOrigin.Add("写作", -30f);
-        tendencyofOrigin.Add("游泳", -30f);
-        tendencyofOrigin.Add("理性", 30f);
-        tendencyofOrigin.Add("哲学", -30f);
-        tendencyofOrigin.Add("科学", 60f);
-        CreateCharacterCreateCommand("origin",true,1, tendencyofOrigin);
-        CreateCharacterCreateCommand("target", false,2);
+        Dictionary<string, float> tendencyTarget = new Dictionary<string, float>();
+        CreateCharacterCreateCommand("origin",true,1);
+        tendencyTarget.Add("g仿生人", 60f);
+        tendencyTarget.Add("g机械", 30f);
+        tendencyTarget.Add("g神话", -30f);
+        tendencyTarget.Add("g写作", -30f);
+        tendencyTarget.Add("g游泳", -30f);
+        tendencyTarget.Add("g理性", 30f);
+        tendencyTarget.Add("g哲学", -30f);
+        tendencyTarget.Add("g科学", 60f);
+        CreateCharacterCreateCommand("target", false,2, tendencyTarget);
     }
 
     //简单函数

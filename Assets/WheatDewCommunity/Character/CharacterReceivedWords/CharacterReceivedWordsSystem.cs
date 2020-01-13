@@ -33,8 +33,8 @@ public class CharacterReceivedWordsSystem : ComponentSystem
             {
                 switch (item)
                 {
-                    case "询问":
-                        p_ReceivedWords.Act.Add("回答");
+                    case "v询问":
+                        p_ReceivedWords.Act.Add("v回答");
                         defaultFlag = false;
                         break;
                     default:
@@ -45,7 +45,7 @@ public class CharacterReceivedWordsSystem : ComponentSystem
 
             //如果不存在需要做处理的词语,添加词语回应
             if (defaultFlag)
-                p_ReceivedWords.Act.Add("回应");
+                p_ReceivedWords.Act.Add("v回应");
 
             string log = "";
             foreach(var item in p_ReceivedWords.Act)

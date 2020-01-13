@@ -1326,7 +1326,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d14292c37c5cdc442a7e17a8ce8531a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  word: "\u79D1\u5B66"
+  word: "g\u79D1\u5B66"
   card: 1
   createSendWordCommandButton: {fileID: 204507860}
 --- !u!114 &388567579
@@ -1562,7 +1562,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: -8908030, y: 4395402}
+  m_AnchoredPosition: {x: -9151514, y: 4515537}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &440697863
@@ -2845,7 +2845,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d14292c37c5cdc442a7e17a8ce8531a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  word: "\u79EF\u6781\u8868\u8FBE"
+  word: "v\u79EF\u6781\u8868\u8FBE"
   card: 0
   createSendWordCommandButton: {fileID: 204507860}
 --- !u!114 &850520096
@@ -4189,7 +4189,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d14292c37c5cdc442a7e17a8ce8531a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  word: "\u5929\u6C14"
+  word: "g\u5929\u6C14"
   card: 1
   createSendWordCommandButton: {fileID: 204507860}
 --- !u!114 &1225763255
@@ -5323,7 +5323,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d14292c37c5cdc442a7e17a8ce8531a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  word: "\u8BE2\u95EE"
+  word: "v\u8BE2\u95EE"
   card: 0
   createSendWordCommandButton: {fileID: 204507860}
 --- !u!1 &1513100016
@@ -5630,7 +5630,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 779739225}
   m_Direction: 0
   m_Value: 0
-  m_Size: 0.5
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -5875,7 +5875,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d14292c37c5cdc442a7e17a8ce8531a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  word: "\u65F6\u95F4"
+  word: "g\u65F6\u95F4"
   card: 1
   createSendWordCommandButton: {fileID: 204507860}
 --- !u!1 &1618952184
@@ -6765,7 +6765,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1308435745}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -7038,7 +7038,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d14292c37c5cdc442a7e17a8ce8531a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  word: "\u65E5\u671F"
+  word: "g\u65E5\u671F"
   card: 1
   createSendWordCommandButton: {fileID: 204507860}
 --- !u!114 &2075904616
@@ -7297,7 +7297,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d14292c37c5cdc442a7e17a8ce8531a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  word: "\u6D88\u6781\u8868\u8FBE"
+  word: "v\u6D88\u6781\u8868\u8FBE"
   card: 0
   createSendWordCommandButton: {fileID: 204507860}
 --- !u!114 &2098683662

@@ -23,6 +23,8 @@ public class CorpusSystem : ComponentSystem
     private Dictionary<string,Item> CorpusOrigin = new Dictionary<string,Item>();
     //元素为标签集合,索引为语句内容
     private Dictionary<string, HashSet<string>> CorpusWithTag = new Dictionary<string, HashSet<string>>();
+    //匹配条件放宽的语料库,标签为索引,语句集合为内容
+    private Dictionary<string, HashSet<string>> CorpusWithShortTag = new Dictionary<string, HashSet<string>>();
 
     protected override void OnCreate()
     {
@@ -67,6 +69,8 @@ public class CorpusSystem : ComponentSystem
         }
     }
 
+
+
     /// <summary>
     /// 给现有的条目添加标签
     /// </summary>
@@ -91,6 +95,25 @@ public class CorpusSystem : ComponentSystem
                 //Debug.Log(string.Format("源列表添加sentence:{0} tag:{1}", sentence, tag));
                 CorpusWithTagAdd(tag, sentence);
                 //Debug.Log(string.Format("标签列表添加tag:{0} sentence:{1}", tag, sentence));
+            }
+        }
+    }
+
+    /// <summary>
+    /// 将标签和句子的宽松匹配关系添加到宽松列表中(shortTags),默认该函数的使用前提是句子已经加入到源列表中
+    /// </summary>
+    private void shortTagAdd(string sentence,List<string> tags)
+    {
+        foreach(var tag in tags)
+        {
+            if (CorpusWithShortTag.ContainsKey(tag))
+            {
+                CorpusWithShortTag[tag].Add(sentence);
+            }
+            else
+            {
+                CorpusWithShortTag.Add(tag, new HashSet<string>());
+                CorpusWithShortTag[tag].Add(sentence);
             }
         }
     }
@@ -126,36 +149,82 @@ public class CorpusSystem : ComponentSystem
         if (tags.Count == 0)
         {
             Debug.Log("语料库为空");
-            return "";
+            return "……";
         }
 
+        //如果首标签匹配不到,说明完全匹配的方法已经不可行了
         if (!CorpusWithTag.ContainsKey(tags[0]))
         {
             Debug.Log(string.Format("在语料库中找不到列表首标签{0}", tags[0]));
-            return "……";
         }
-
-        HashSet<string> result = new HashSet<string>(CorpusWithTag[tags[0]]);
-        foreach (var tag in tags)
+        else
         {
-            result.IntersectWith(CorpusWithTag[tag]);
-        }
-        IEnumerator<string> enumerator = result.GetEnumerator();
-        enumerator.MoveNext();
-        if (enumerator.Current==null)
-        {
-            string log = "";
-            foreach(var item in tags)
+            HashSet<string> result = new HashSet<string>(CorpusWithTag[tags[0]]);
+            foreach (var tag in tags)
             {
-                log += item + " ";
+                result.IntersectWith(CorpusWithTag[tag]);
             }
-            Debug.Log(string.Format("在语料库中找不到符合条件({0})语句",log));
-            DisplayTagCorpus();
-            return "……";
+            IEnumerator<string> enumerator = result.GetEnumerator();
+            enumerator.MoveNext();
+
+            if (enumerator.Current == null)
+            {
+                string log = "";
+                foreach (var item in tags)
+                {
+                    log += item + " ";
+                }
+                Debug.Log(string.Format("在语料库中找不到符合条件({0})语句", log));
+                DisplayTagCorpus();
+            }
+            else
+            {
+                Debug.Log(string.Format("从语料库返回{0}", enumerator.Current));
+                return enumerator.Current;
+            }
         }
 
-        Debug.Log(string.Format("从语料库返回{0}", enumerator.Current));
-        return enumerator.Current;
+        //完全匹配失效的情况下的不完全匹配
+        List<string> matchTags = new List<string>();
+        foreach(var tag in tags)
+        {
+            if (tag == "v回应"||tag[0]=='m')
+                matchTags.Add(tag);
+        }
+
+        //再执行一次匹配
+        if (!CorpusWithTag.ContainsKey(matchTags[0]))
+        {
+            Debug.Log(string.Format("在语料库中找不到列表首标签{0}", matchTags[0]));
+        }
+        else
+        {
+            HashSet<string> result = new HashSet<string>(CorpusWithTag[matchTags[0]]);
+            foreach (var tag in matchTags)
+            {
+                result.IntersectWith(CorpusWithShortTag[tag]);
+            }
+            IEnumerator<string> enumerator = result.GetEnumerator();
+            enumerator.MoveNext();
+
+            if (enumerator.Current == null)
+            {
+                string log = "";
+                foreach (var item in matchTags)
+                {
+                    log += item + " ";
+                }
+                Debug.Log(string.Format("在宽松语料库中找不到符合条件({0})语句", log));
+                DisplayTagCorpus();
+            }
+            else
+            {
+                Debug.Log(string.Format("从宽松语料库返回{0}", enumerator.Current));
+                return enumerator.Current;
+            }
+        }
+
+        return "……";
     }
 
     /// <summary>
@@ -169,6 +238,7 @@ public class CorpusSystem : ComponentSystem
             string line;
             string tag = "";
             List<string> tags = new List<string>();
+            List<string> shortTags = new List<string>();
 
             while ((line = sr.ReadLine()) != null)
             {
@@ -179,16 +249,17 @@ public class CorpusSystem : ComponentSystem
                 }
                 else if (line[0]=='#')
                 {
-                    //目前识别后的处理方式和@一样
                     tag = line.Substring(1);
                     tags.Add(line.Substring(1));
+                    shortTags.Add(line.Substring(1));
                 }
                 else if (tag != "" && line != "")
                 {
                     TagAdd(line, tags);
-
+                    shortTagAdd(line, shortTags);
                     tag = "";
                     tags.Clear();
+                    shortTags.Clear();
                 }
             }
         }
@@ -221,7 +292,6 @@ public class CorpusSystem : ComponentSystem
             {
                 dialogueCommandPrefab = dialogueCommand;
                 dialogueCommand.gameObject.SetActive(false);
-
             });
         }
         
