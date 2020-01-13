@@ -19,6 +19,11 @@ public class CharacterPrepareActsSystem : ComponentSystem
                 p_dialogue.dialogueChance = true;
                 Debug.Log("检测到回答关键词,开启对话");
             }
+            else if (p_PrepareActs.PrepareDialogueActs.Contains("回应"))
+            {
+                p_dialogue.dialogueChance = true;
+                Debug.Log("检测到回应关键词,开启对话");
+            }
         });
     }
 }

@@ -7,6 +7,7 @@ using System.IO;
 //计算角色的情绪属性
 //情绪属性存在衰减
 //不同情绪条目之间存在相消关系
+[UpdateBefore(typeof(CharacterMindSystem))]
 public class CharacterMoodSystem : ComponentSystem
 {
     //相消关系列表,从文件初始化
@@ -14,7 +15,8 @@ public class CharacterMoodSystem : ComponentSystem
 
     protected override void OnUpdate()
     {
-        
+        TendencyJob();
+        CharacterMoodJob();
     }
 
     /// <summary>
@@ -62,6 +64,36 @@ public class CharacterMoodSystem : ComponentSystem
         });
     }
 
+    private void TendencyJob()
+    {
+        Entities.ForEach((CharacterMoodProperty p_Mood,CharacterReceivedWordsProperty p_ReceivedWords,CharacterProperty p_character) =>
+        {
+            if (p_ReceivedWords.Act.Contains("回应")&&p_ReceivedWords.Act.Contains("消极表达"))
+                foreach (var item in p_ReceivedWords.Act)
+                {
+                    if(p_Mood.Tendency.ContainsKey(item))
+                    {
+                        CharacterMoodGain(p_character.ID, "高兴", -p_Mood.Tendency[item]);
+                        CharacterMoodGain(p_character.ID, "生气", p_Mood.Tendency[item]);
+                        Debug.Log("up");
+                    }
+                }
+            else if(p_ReceivedWords.Act.Contains("回应")&&p_ReceivedWords.Act.Contains("积极表达"))
+                foreach(var item in p_ReceivedWords.Act)
+                {
+                    if (p_Mood.Tendency.ContainsKey(item))
+                    {
+                        CharacterMoodGain(p_character.ID, "高兴", p_Mood.Tendency[item]);
+                        CharacterMoodGain(p_character.ID, "生气", -p_Mood.Tendency[item]);
+                        Debug.Log("down");
+                    }
+                }
+        });
+    }
+
+    /// <summary>
+    /// 添加情绪条目,不存在相消的情况
+    /// </summary>
     private void CharacterMoodGain(int characterID,string mood,float value)
     {
         Entities.ForEach((CharacterProperty p_Character, CharacterMoodProperty p_CharacterMood) =>

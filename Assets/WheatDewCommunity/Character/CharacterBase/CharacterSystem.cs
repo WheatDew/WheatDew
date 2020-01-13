@@ -40,10 +40,12 @@ public class CharacterSystem : ComponentSystem
             counter++;
             CharacterProperty characterProperty = character.GetComponent<CharacterProperty>();
             DialogueProperty dialogueProperty = character.GetComponent<DialogueProperty>();
+            CharacterMoodProperty characterMoodProperty = character.GetComponent<CharacterMoodProperty>();
             characterProperty.ID = counter;
             characterProperty.Name = characterCreateCommand.Name;
             characterProperty.IsMainCharacter = characterCreateCommand.IsMainCharacter;
             dialogueProperty.target = characterCreateCommand.target;
+            characterMoodProperty.Tendency = new Dictionary<string, float>(characterCreateCommand.Tendency);
             CharacterList.Add(counter, character);
             Object.Destroy(characterCreateCommand.gameObject);
             character.SetActive(true);

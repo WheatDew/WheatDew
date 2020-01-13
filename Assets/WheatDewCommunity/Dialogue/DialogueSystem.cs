@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Unity.Entities;
 
+[UpdateAfter(typeof(CharacterMindSystem))]
 public class DialogueSystem : ComponentSystem
 {
     public CorpusCommand corpusCommandPrefab;
@@ -44,7 +45,7 @@ public class DialogueSystem : ComponentSystem
     /// </summary>
     private void DialogueJob()
     {
-        Entities.ForEach((DialogueProperty dialogueProperty,CharacterProperty characterProperty,CharacterPrepareActsProperty p_CharacterPrepareActs) =>
+        Entities.ForEach((DialogueProperty dialogueProperty,CharacterProperty characterProperty,CharacterPrepareActsProperty p_CharacterPrepareActs,CharacterMoodProperty p_CharacterMood) =>
         {
             if (dialogueProperty.dialogueChance&&dialogueProperty.target!=-1)
             {
@@ -52,9 +53,18 @@ public class DialogueSystem : ComponentSystem
                 corpusCommand.origin = characterProperty.ID;
                 corpusCommand.target = dialogueProperty.target;
                 string s="";
+                s += "行为:";
+                //遍历预行为列表
                 foreach (var tag in p_CharacterPrepareActs.PrepareDialogueActs)
                 {
                     s += tag+" ";
+                    corpusCommand.tags.Add(tag);
+                }
+                s += "情绪:";
+                //遍历情绪列表
+                foreach(var tag in p_CharacterMood.Expression)
+                {
+                    s += tag + " ";
                     corpusCommand.tags.Add(tag);
                 }
                 corpusCommand.gameObject.SetActive(true);

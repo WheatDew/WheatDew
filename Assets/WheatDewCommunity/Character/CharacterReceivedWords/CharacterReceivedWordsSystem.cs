@@ -7,7 +7,7 @@ using Unity.Entities;
 //对接收到的原始信息进行初步的处理,列出在接收到对话信息时人物应该做什么事情或者产生怎样的想法
 //对于接收到的句子,处理结束后将接收缓冲区清空,处理结果也同样在被想法系统获取处理后清空
 
-[UpdateBefore(typeof(CharacterMindSystem))]
+[UpdateBefore(typeof(CharacterMoodSystem))]
 public class CharacterReceivedWordsSystem : ComponentSystem
 {
     protected override void OnUpdate()
@@ -26,21 +26,27 @@ public class CharacterReceivedWordsSystem : ComponentSystem
             if (p_ReceivedWords.ReceivedWords==null|| p_ReceivedWords.ReceivedWords.Count==0)
                 return;
 
-            
-            //将行为列表清空
 
+            //将行为列表清空
+            bool defaultFlag = true;
             foreach (var item in p_ReceivedWords.ReceivedWords)
             {
                 switch (item)
                 {
                     case "询问":
                         p_ReceivedWords.Act.Add("回答");
+                        defaultFlag = false;
                         break;
                     default:
                         p_ReceivedWords.Act.Add(item);
                         break;
                 }
             }
+
+            //如果不存在需要做处理的词语,添加词语回应
+            if (defaultFlag)
+                p_ReceivedWords.Act.Add("回应");
+
             string log = "";
             foreach(var item in p_ReceivedWords.Act)
             {

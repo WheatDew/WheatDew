@@ -129,6 +129,11 @@ public class CorpusSystem : ComponentSystem
             return "";
         }
 
+        if (!CorpusWithTag.ContainsKey(tags[0]))
+        {
+            Debug.Log(string.Format("在语料库中找不到列表首标签{0}", tags[0]));
+            return "……";
+        }
 
         HashSet<string> result = new HashSet<string>(CorpusWithTag[tags[0]]);
         foreach (var tag in tags)
@@ -169,6 +174,12 @@ public class CorpusSystem : ComponentSystem
             {
                 if (line[0] == '@')
                 {
+                    tag = line.Substring(1);
+                    tags.Add(line.Substring(1));
+                }
+                else if (line[0]=='#')
+                {
+                    //目前识别后的处理方式和@一样
                     tag = line.Substring(1);
                     tags.Add(line.Substring(1));
                 }
