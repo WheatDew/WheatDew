@@ -27,4 +27,5 @@ public class TextBox : MonoBehaviour
     {
         textBox.text = displayDialogueSystem.GetDialogueForUI(1, 2);
     }
+
 }

@@ -310,7 +310,7 @@ public class CorpusSystem : ComponentSystem
             dialogueCommand.origin = corpusCommand.origin;
             dialogueCommand.target = corpusCommand.target;
             dialogueCommand.content = GetProperSentence(corpusCommand.tags);
-
+            dialogueCommand.life = 5f;
             dialogueCommand.gameObject.SetActive(true);
             string s="";
             foreach (var item in corpusCommand.tags) s += item+" ";

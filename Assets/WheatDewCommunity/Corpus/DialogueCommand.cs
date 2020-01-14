@@ -8,4 +8,5 @@ public class DialogueCommand : MonoBehaviour
     public int origin;
     public int target;
     public string content;
+    public float life;
 }

@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class TestCom : MonoBehaviour
 {
-    public int ID;
-    public string ss;
+
+    private void Start()
+    {
+
+    }
 }
+
