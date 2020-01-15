@@ -41,19 +41,14 @@ public class DisplayDialogueSystem : ComponentSystem
     /// <summary>
     /// 获取内容
     /// </summary>
-    public void GetDialogueForUI(int origin, int target,out string content,out float life)
+    public void GetDialogueForUI(int origin, int target,ref string content,ref float life)
     {
-        content = "";
-        life = -1f;
         Vector2Int temp = new Vector2Int { x = origin, y = target };
-        //Debug.Log("origin:" + origin + "target:" + target);
         if (DialogueSet.ContainsKey(temp))
         {
             content = DialogueSet[temp].content;
             life = DialogueSet[temp].life;
             DialogueSet.Remove(temp);
-        }
-
-        
+        } 
     }
 }

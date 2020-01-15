@@ -29,16 +29,8 @@ public class TextBox : MonoBehaviour
 
     private void DisplayDialogueJob()
     {
-        string t_Content;
-        float t_Life;
-        displayDialogueSystem.GetDialogueForUI(1, 2, out t_Content, out t_Life);
 
-        if(t_Life!=-1f)
-        {
-            content = t_Content;
-            life = t_Life;
-            Debug.Log(string.Format("set content={0},life={1}", content, life));
-        }
+        displayDialogueSystem.GetDialogueForUI(1, 2,ref content, ref life);
 
         if (life > 0)
         {
@@ -46,7 +38,7 @@ public class TextBox : MonoBehaviour
         }
         else
         {
-            textBox.text = "(空)";
+            textBox.text = "";
         }
 
         life -= p_Timer.currentDeltaTime;
