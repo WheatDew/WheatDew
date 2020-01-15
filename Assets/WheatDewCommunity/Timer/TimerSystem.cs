@@ -11,7 +11,6 @@ public class TimerSystem : ComponentSystem
         float deltaTimer = Time.deltaTime;
         referTime += deltaTimer;
         TimerJob(deltaTimer);
-        DialogueTimerJob(deltaTimer);
     }
 
     //简单函数
@@ -20,15 +19,7 @@ public class TimerSystem : ComponentSystem
         Entities.ForEach((TimerProperty timerProperty) =>
         {
             timerProperty.currentTime = referTime;
-            timerProperty.currentTime = deltaTime;
-        });
-    }
-
-    private void DialogueTimerJob(float deltaTime)
-    {
-        Entities.ForEach((DialogueCommand c_dialogue) =>
-        {
-            c_dialogue.life -= deltaTime;
+            timerProperty.currentDeltaTime = deltaTime;
         });
     }
 }
