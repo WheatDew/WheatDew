@@ -5,5 +5,6 @@ using UnityEngine;
 public class CharacterReceivedWordsProperty : MonoBehaviour
 {
     public HashSet<string> ReceivedWords = new HashSet<string>();
+    public HashSet<HashSet<string>> ReceivedSentencesForMemory = new HashSet<HashSet<string>>();
     public HashSet<string> Act = new HashSet<string>();
 }

@@ -53,6 +53,9 @@ public class CharacterReceivedWordsSystem : ComponentSystem
                 log += item+" ";
             }
             Debug.Log("将接受对话词语初步处理为行为,处理结果为:"+log);
+
+            p_ReceivedWords.ReceivedSentencesForMemory.Add(new HashSet<string>(p_ReceivedWords.ReceivedWords));
+
             //将接收词语缓冲区清空
             p_ReceivedWords.ReceivedWords.Clear();
         });

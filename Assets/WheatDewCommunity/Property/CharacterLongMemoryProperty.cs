@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CharacterLongMemoryProperty : MonoBehaviour
 {
-    Dictionary<string, LongMemory_word> LongMemory = new Dictionary<string, LongMemory_word>();
+    public HashSet<string> LongMemory = new HashSet<string>();
 }
 
 public struct LongMemory_word
