@@ -15,12 +15,12 @@ public class DisplayButtonHideClick : MonoBehaviour
         btn = GetComponent<Button>();
         target.transform.localScale = Vector3.zero;
 
-        btn.onClick.AddListener(delegate { target.localScale = Vector3.one; clickFlag = false; });
+        btn.onClick.AddListener(delegate { target.localScale = Vector3.one; clickFlag = false;});
     }
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0)&&clickFlag)
+        if (Input.GetMouseButtonUp(0)&&clickFlag)
             target.localScale = Vector3.zero;
         clickFlag = true;
     }

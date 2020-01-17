@@ -1181,7 +1181,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -1620,6 +1620,7 @@ GameObject:
   - component: {fileID: 382827340}
   - component: {fileID: 382827339}
   - component: {fileID: 382827338}
+  - component: {fileID: 382827341}
   m_Layer: 5
   m_Name: search
   m_TagString: Untagged
@@ -1726,6 +1727,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 382827336}
   m_CullTransparentMesh: 0
+--- !u!114 &382827341
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 382827336}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bfd4d09d63e08454ab7cbad9a00c00b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  backgroundImageController: {fileID: 1181053977}
+  mapName: library
 --- !u!1 &388567576
 GameObject:
   m_ObjectHideFlags: 0
@@ -1949,6 +1964,7 @@ GameObject:
   - component: {fileID: 423987474}
   - component: {fileID: 423987473}
   - component: {fileID: 423987472}
+  - component: {fileID: 423987475}
   m_Layer: 5
   m_Name: game
   m_TagString: Untagged
@@ -2055,6 +2071,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 423987470}
   m_CullTransparentMesh: 0
+--- !u!114 &423987475
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 423987470}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bfd4d09d63e08454ab7cbad9a00c00b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  backgroundImageController: {fileID: 1181053977}
+  mapName: bedroom
 --- !u!1 &427648475
 GameObject:
   m_ObjectHideFlags: 0
@@ -2173,7 +2203,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: -13960194, y: 6888235}
+  m_AnchoredPosition: {x: -16532478, y: 8157455}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &440697863
@@ -2358,6 +2388,7 @@ GameObject:
   - component: {fileID: 500884805}
   - component: {fileID: 500884804}
   - component: {fileID: 500884803}
+  - component: {fileID: 500884806}
   m_Layer: 5
   m_Name: reading
   m_TagString: Untagged
@@ -2464,6 +2495,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 500884801}
   m_CullTransparentMesh: 0
+--- !u!114 &500884806
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 500884801}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bfd4d09d63e08454ab7cbad9a00c00b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  backgroundImageController: {fileID: 1181053977}
+  mapName: bedroom
 --- !u!1 &501909802
 GameObject:
   m_ObjectHideFlags: 0
@@ -2867,6 +2912,7 @@ GameObject:
   - component: {fileID: 666037954}
   - component: {fileID: 666037953}
   - component: {fileID: 666037952}
+  - component: {fileID: 666037955}
   m_Layer: 5
   m_Name: travel
   m_TagString: Untagged
@@ -2973,6 +3019,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 666037950}
   m_CullTransparentMesh: 0
+--- !u!114 &666037955
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 666037950}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bfd4d09d63e08454ab7cbad9a00c00b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  backgroundImageController: {fileID: 1181053977}
+  mapName: JimingTemple
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -3272,6 +3332,7 @@ GameObject:
   - component: {fileID: 782558306}
   - component: {fileID: 782558305}
   - component: {fileID: 782558304}
+  - component: {fileID: 782558307}
   m_Layer: 5
   m_Name: shopping
   m_TagString: Untagged
@@ -3378,6 +3439,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 782558302}
   m_CullTransparentMesh: 0
+--- !u!114 &782558307
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 782558302}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bfd4d09d63e08454ab7cbad9a00c00b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  backgroundImageController: {fileID: 1181053977}
+  mapName: market
 --- !u!1 &782829097
 GameObject:
   m_ObjectHideFlags: 0
@@ -4317,12 +4392,12 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 1569514248}
   - {fileID: 1631925689}
   - {fileID: 1446599587}
   - {fileID: 1332514634}
   - {fileID: 1913667758}
   - {fileID: 2120334279}
-  - {fileID: 1569514248}
   m_Father: {fileID: 72024108}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4540,6 +4615,7 @@ GameObject:
   - component: {fileID: 1166495168}
   - component: {fileID: 1166495167}
   - component: {fileID: 1166495166}
+  - component: {fileID: 1166495169}
   m_Layer: 5
   m_Name: eating
   m_TagString: Untagged
@@ -4646,6 +4722,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1166495164}
   m_CullTransparentMesh: 0
+--- !u!114 &1166495169
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1166495164}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bfd4d09d63e08454ab7cbad9a00c00b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  backgroundImageController: {fileID: 1181053977}
+  mapName: restaurant
 --- !u!1 &1181053974
 GameObject:
   m_ObjectHideFlags: 0
@@ -4655,6 +4745,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1181053975}
+  - component: {fileID: 1181053977}
+  - component: {fileID: 1181053976}
   m_Layer: 5
   m_Name: BackgroundController
   m_TagString: Untagged
@@ -4681,6 +4773,32 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1181053976
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1181053974}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5bf10cdea1344482e91a4f2b58506b77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1181053977
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1181053974}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73a436126c6abd448958d5144a5754b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ImageBackground: {fileID: 1807804672}
+  backgroundImageList: {fileID: 1781926666}
 --- !u!1 &1196303876
 GameObject:
   m_ObjectHideFlags: 0
@@ -5155,6 +5273,7 @@ GameObject:
   - component: {fileID: 1217409720}
   - component: {fileID: 1217409719}
   - component: {fileID: 1217409718}
+  - component: {fileID: 1217409721}
   m_Layer: 5
   m_Name: stroll
   m_TagString: Untagged
@@ -5261,6 +5380,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1217409716}
   m_CullTransparentMesh: 0
+--- !u!114 &1217409721
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1217409716}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bfd4d09d63e08454ab7cbad9a00c00b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  backgroundImageController: {fileID: 1181053977}
+  mapName: park
 --- !u!1 &1223928751
 GameObject:
   m_ObjectHideFlags: 0
@@ -5312,7 +5445,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -6138,7 +6271,7 @@ RectTransform:
   m_Children:
   - {fileID: 9094652}
   m_Father: {fileID: 1077961111}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -6366,6 +6499,7 @@ GameObject:
   - component: {fileID: 1415352286}
   - component: {fileID: 1415352285}
   - component: {fileID: 1415352284}
+  - component: {fileID: 1415352287}
   m_Layer: 5
   m_Name: painting
   m_TagString: Untagged
@@ -6472,6 +6606,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1415352282}
   m_CullTransparentMesh: 0
+--- !u!114 &1415352287
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1415352282}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bfd4d09d63e08454ab7cbad9a00c00b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  backgroundImageController: {fileID: 1181053977}
+  mapName: bedroom
 --- !u!1 &1446599586
 GameObject:
   m_ObjectHideFlags: 0
@@ -6501,7 +6649,7 @@ RectTransform:
   m_Children:
   - {fileID: 2072843246}
   m_Father: {fileID: 1077961111}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -7291,7 +7439,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 779739225}
   m_Direction: 0
   m_Value: 0
-  m_Size: 0.5
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -7363,7 +7511,7 @@ RectTransform:
   - {fileID: 1781926665}
   - {fileID: 1181053975}
   m_Father: {fileID: 1077961111}
-  m_RootOrder: 5
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -7612,7 +7760,7 @@ RectTransform:
   - {fileID: 501909803}
   - {fileID: 2118550784}
   m_Father: {fileID: 1077961111}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -8070,6 +8218,7 @@ GameObject:
   - component: {fileID: 1735249867}
   - component: {fileID: 1735249866}
   - component: {fileID: 1735249865}
+  - component: {fileID: 1735249868}
   m_Layer: 0
   m_Name: Character
   m_TagString: Untagged
@@ -8194,6 +8343,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a832da502182d648920eca2f460b01e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1735249868
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1735249858}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f8e9af4676c20940a3116e44dd210c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mapPosition: bedroom
 --- !u!1 &1781926664
 GameObject:
   m_ObjectHideFlags: 0
@@ -8488,6 +8650,7 @@ GameObject:
   - component: {fileID: 1874350470}
   - component: {fileID: 1874350469}
   - component: {fileID: 1874350468}
+  - component: {fileID: 1874350471}
   m_Layer: 5
   m_Name: shopping
   m_TagString: Untagged
@@ -8594,6 +8757,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1874350466}
   m_CullTransparentMesh: 0
+--- !u!114 &1874350471
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1874350466}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bfd4d09d63e08454ab7cbad9a00c00b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  backgroundImageController: {fileID: 1181053977}
+  mapName: store
 --- !u!1 &1907255730
 GameObject:
   m_ObjectHideFlags: 0
@@ -8660,7 +8837,7 @@ RectTransform:
   m_Children:
   - {fileID: 330261738}
   m_Father: {fileID: 1077961111}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -8679,6 +8856,7 @@ GameObject:
   - component: {fileID: 1927846763}
   - component: {fileID: 1927846762}
   - component: {fileID: 1927846761}
+  - component: {fileID: 1927846764}
   m_Layer: 5
   m_Name: reading
   m_TagString: Untagged
@@ -8785,6 +8963,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1927846759}
   m_CullTransparentMesh: 0
+--- !u!114 &1927846764
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1927846759}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bfd4d09d63e08454ab7cbad9a00c00b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  backgroundImageController: {fileID: 1181053977}
+  mapName: library
 --- !u!1 &1960714042
 GameObject:
   m_ObjectHideFlags: 0
@@ -9079,7 +9271,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1308435745}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -9177,7 +9369,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_Color: {r: 0.735849, g: 0.735849, b: 0.735849, a: 0.02745098}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -9830,7 +10022,7 @@ RectTransform:
   - {fileID: 8103302}
   - {fileID: 1907255731}
   m_Father: {fileID: 1077961111}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}

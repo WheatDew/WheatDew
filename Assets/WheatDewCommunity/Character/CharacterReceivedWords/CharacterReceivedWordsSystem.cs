@@ -37,6 +37,10 @@ public class CharacterReceivedWordsSystem : ComponentSystem
                         p_ReceivedWords.Act.Add("v回答");
                         defaultFlag = false;
                         break;
+                    case "v相遇":
+                        p_ReceivedWords.Act.Add("v相遇");
+                        defaultFlag = false;
+                        break;
                     default:
                         p_ReceivedWords.Act.Add(item);
                         break;
