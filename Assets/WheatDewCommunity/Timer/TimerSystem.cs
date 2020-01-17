@@ -8,6 +8,7 @@ public class TimerSystem : ComponentSystem
     private float referTime= 86390f;
     private int referDays = 739265;
     public string date;
+    public int h;
 
     protected override void OnUpdate()
     {
@@ -34,11 +35,17 @@ public class TimerSystem : ComponentSystem
             referDays += (int)(referTime / 86400f);
             referTime %= 86400f;
         }
-        int y = 0, m = 0, d = 0, h = 0, min = 0, sec = 0;
+        int y = 0, m = 0, d = 0, min = 0, sec = 0;
 
         TimeToSecondUnitDate(referTime,out h,out min,out sec);
         TimeToDayUnitDate(referDays,out y,out m,out d);
         date = string.Format("{0:0000}年 {1:00}月 {2:00}日 {3:00}时 {4:00}分 {5:00}秒",y,m,d,h,min,sec);
+    }
+
+    //将参考时间增加
+    public void TimeGain(float value)
+    {
+        referTime += value;
     }
 
     private void TimeToSecondUnitDate(in float referTime,out int h,out int min, out int sec)

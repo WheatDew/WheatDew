@@ -11,7 +11,7 @@ public class CharacterPrepareActsSystem : ComponentSystem
 
     protected override void OnCreate()
     {
-        
+        InitializingKeywordForStartingDialogueList();
     }
 
     protected override void OnStartRunning()
@@ -31,7 +31,11 @@ public class CharacterPrepareActsSystem : ComponentSystem
             HashSet<string> temp = new HashSet<string>(KeywordForStartingDialogueList);
             temp.IntersectWith(p_PrepareActs.PrepareDialogueActs);
             if (temp.Count != 0)
+            {
                 CreateCurposCommand();
+                Debug.Log("检测到动作关键词{0},开启对话");
+            }
+
         });
     }
 
