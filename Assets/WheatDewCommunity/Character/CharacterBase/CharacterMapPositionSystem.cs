@@ -44,4 +44,43 @@ public class CharacterMapPositionSystem : ComponentSystem
         });
     }
 
+    //设定固定位置
+    public void SetPositionByPosition(string characterName)
+    {
+        Entities.ForEach((CharacterProperty p_character,CharacterMapPositionProperty p_MapPosition) =>
+        {
+            if(p_character.Name==characterName)
+            {
+                if(s_Timer.d==1)
+                {
+                    p_MapPosition.mapPosition = "park";
+                }
+                else if (s_Timer.d == 2)
+                {
+                    p_MapPosition.mapPosition = "restaurant";
+                }
+                else if (s_Timer.d == 3)
+                {
+                    p_MapPosition.mapPosition = "library";
+                }
+                else if (s_Timer.d == 4)
+                {
+                    p_MapPosition.mapPosition = "market";
+                }
+                else if (s_Timer.d == 5)
+                {
+                    p_MapPosition.mapPosition = "JimingTemple";
+                }
+                else if (s_Timer.d == 6)
+                {
+                    p_MapPosition.mapPosition = "store";
+                }
+                else if (s_Timer.d == 7)
+                {
+                    p_MapPosition.mapPosition = "home";
+                }
+            }
+        });
+    }
+
 }

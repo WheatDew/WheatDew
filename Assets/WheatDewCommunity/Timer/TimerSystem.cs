@@ -8,7 +8,7 @@ public class TimerSystem : ComponentSystem
     private float referTime= 86390f;
     private int referDays = 739265;
     public string date;
-    public int h;
+    public int y, m, d, h, min, sec;
 
     protected override void OnUpdate()
     {
@@ -35,7 +35,6 @@ public class TimerSystem : ComponentSystem
             referDays += (int)(referTime / 86400f);
             referTime %= 86400f;
         }
-        int y = 0, m = 0, d = 0, min = 0, sec = 0;
 
         TimeToSecondUnitDate(referTime,out h,out min,out sec);
         TimeToDayUnitDate(referDays,out y,out m,out d);
