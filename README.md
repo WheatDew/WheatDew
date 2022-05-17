@@ -1,7 +1,7 @@
 # WheatDew
 一个简单的以扩展性为主的开发框架
 #### unity版本
-2019.2.17f1
+2021.3.1f1
 #### 使用方法
 1. 在wheatdewcommunity\data文件夹中修改corpus.txt,添加语料
 
