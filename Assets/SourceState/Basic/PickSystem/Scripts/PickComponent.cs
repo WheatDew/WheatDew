@@ -4,13 +4,13 @@ using UnityEngine;
 
 namespace Origin
 {
-    public class CPick : MonoBehaviour
+    public class PickComponent : MonoBehaviour
     {
 
         //开始运行时将自身添加到列表
         private void Start()
         {
-            FindObjectOfType<SPick>().pickList.Add(name, this);
+            FindObjectOfType<PickSystem>().pickList.Add(name, this);
         }
 
 
@@ -18,17 +18,17 @@ namespace Origin
         {
             if (Input.GetKeyDown(KeyCode.C))
             {
-                SPick.S.BeforePicking();
+                PickSystem.S.CreateFocusPage();
             }
 
             if (Input.GetKey(KeyCode.C))
             {
-                SPick.S.DuringPicking();
+                PickSystem.S.DisplayFocusItemInfo();
             }
 
             if (Input.GetKeyUp(KeyCode.C))
             {
-                SPick.S.AfterPicked(name);
+                PickSystem.S.PickCheckout(name);
             }
         }
     }

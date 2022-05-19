@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Origin
 {
-    public class CBuildingItem : MonoBehaviour
+    public class Building : MonoBehaviour
     {
         public float length, width, height;
         public List<Material> meshRendererList = new List<Material>();
@@ -13,6 +13,7 @@ namespace Origin
         {
 
         }
+
     }
 }
 

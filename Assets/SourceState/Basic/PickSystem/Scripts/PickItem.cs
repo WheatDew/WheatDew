@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Origin
 {
-    public class CPickItem : MonoBehaviour
+    public class PickItem : MonoBehaviour
     {
         public string pickItemName;
         public uint pickItemCount;

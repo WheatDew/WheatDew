@@ -4,30 +4,31 @@ using UnityEngine;
 
 namespace Origin
 {
-    public class CPack : MonoBehaviour
+    public class PackComponent : MonoBehaviour
     {
 
-        public Dictionary<string, uint> packItems = new Dictionary<string, uint>();
+        public Dictionary<string, ItemData> pack = new Dictionary<string, ItemData>();
+
 
         private void Start()
         {
-            SPack.S.cpackList.Add(name, this);
+            PackSystem.S.cpackList.Add(name, this);
         }
 
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.I))
             {
-                SPack.S.SwitchPackPage(name);
+                PackSystem.S.SwitchPackPage(name);
             }
 
             if (Input.GetKeyDown(KeyCode.Alpha2))
             {
-                SPack.S.GainPackItem(name, "测试", 20);
+                PackSystem.S.GainPackItem(name, "测试", 20);
             }
             if (Input.GetKeyDown(KeyCode.Alpha3))
             {
-                SPack.S.LosePackItem(name, "测试", 20);
+                PackSystem.S.LosePackItem(name, "测试", 20);
             }
         }
     }

@@ -10,7 +10,7 @@ namespace Origin
 
         public CPackItem packItemPrefab;
 
-        public CPack targetPack;
+        public PackComponent targetPack;
 
         public Dictionary<string, CPackItem> itemList = new Dictionary<string, CPackItem>();
 
@@ -21,7 +21,7 @@ namespace Origin
 
         public void UpdataPackPage()
         {
-            Dictionary<string, uint> targetList = targetPack.packItems;
+            Dictionary<string, ItemData> targetList = targetPack.pack;
 
             Dictionary<string, CPackItem> recordList = itemList;
 
@@ -45,17 +45,15 @@ namespace Origin
             {
                 if (recordList.ContainsKey(item.Key))
                 {
-                    recordList[item.Key].itemName.text = item.Key;
-                    recordList[item.Key].itemCount.text = item.Value.ToString();
-                    print(string.Format("设置条目:{0}", item.Key));
+                    recordList[item.Key].itemName.text = item.Value.name;
+                    recordList[item.Key].itemCount.text = item.Value.count.ToString();
                 }
                 else
                 {
                     CPackItem obj = Instantiate(packItemPrefab, content);
-                    obj.itemName.text = item.Key;
-                    obj.itemCount.text = item.Value.ToString();
+                    obj.itemName.text = item.Value.name;
+                    obj.itemCount.text = item.Value.count.ToString();
                     recordList.Add(item.Key, obj);
-                    print(string.Format("创建条目:{0}", item.Key));
                 }
             }
 
