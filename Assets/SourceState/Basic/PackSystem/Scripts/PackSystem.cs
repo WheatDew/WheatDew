@@ -71,6 +71,39 @@ namespace Origin
             }
             return "执行成功";
         }
+
+        
+        public void OpenTargetPack(string selfKey)
+        {
+            RaycastHit result;
+            if (Physics.Raycast(Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0)), out result, 100, 1 << 6))
+            {
+                print("射线检测成功");
+                BuildingPack buildingPack = result.collider.GetComponent<BuildingPack>();
+                Dictionary<string,ItemData> requirement = buildingPack.requirement;
+                Dictionary<string, ItemData> pack = cpackList[selfKey].pack;
+                if (requirement != null)
+                {
+                    foreach(var item in requirement)
+                    {
+                        if (pack.ContainsKey(item.Key))
+                        {
+                            if (pack[item.Key].count > requirement[item.Key].count)
+                            {
+                                pack[item.Key].count -= requirement[item.Key].count;
+                                requirement[item.Key].count = 0;
+                            }
+                            else
+                            {
+                                requirement[item.Key].count -= pack[item.Key].count;
+                                pack[item.Key].count = 0;
+                            }
+                        }
+                    }
+                    buildingPack.CheckRequirement();
+                }
+            }
+        }
     }
 
     public class ItemData

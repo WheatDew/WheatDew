@@ -10,7 +10,7 @@ namespace Origin
         //开始运行时将自身添加到列表
         private void Start()
         {
-            FindObjectOfType<PickSystem>().pickList.Add(name, this);
+            //FindObjectOfType<PickSystem>().pickList.Add(name, this);
         }
 
 
@@ -28,7 +28,7 @@ namespace Origin
 
             if (Input.GetKeyUp(KeyCode.C))
             {
-                PickSystem.S.PickCheckout(name);
+                PickSystem.S.PickCheckout(GetComponent<CCharacter>().key);
             }
         }
     }

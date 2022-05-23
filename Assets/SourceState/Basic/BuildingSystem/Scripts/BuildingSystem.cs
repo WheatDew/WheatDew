@@ -35,7 +35,8 @@ namespace Origin
 
         //资源库
         public Dictionary<string, Building> buildingList = new Dictionary<string, Building>();
-
+        public Dictionary<string, BuildingRequirement> requirements = new Dictionary<string, BuildingRequirement>();
+        
         //单一引用的预制体
         [SerializeField] private BuildingBluePrintFloatPicture floatPicturePrefab;
         [HideInInspector] private BuildingBluePrintFloatPicture floatPicture;
@@ -85,6 +86,7 @@ namespace Origin
                     collider.isTrigger = true;
             }
             obj.gameObject.AddComponent<BuildingBluePrint>().buildingName=buildingName;
+            obj.GetComponent<BuildingPack>().requirement = new Dictionary<string, ItemData>(requirements[buildingName].requirement);
 
         }
 
@@ -107,16 +109,20 @@ namespace Origin
 
             for (int i = 0; i < target.childCount; i++)
             {
-                MeshRenderer meshRenderer = target.GetChild(i).GetComponent<MeshRenderer>();
-
-                newTmMatArray = new Material[meshRenderer.materials.Length];//数组初始化长度
-                                                                            //获取全部材质
-                for (int j = 0; j < newTmMatArray.Length; j++)
+                if (target.GetChild(i).tag != "NoTranslucent")
                 {
-                    newTmMatArray[j] = tmMat;
+                    MeshRenderer meshRenderer = target.GetChild(i).GetComponent<MeshRenderer>();
+
+                    newTmMatArray = new Material[meshRenderer.materials.Length];//数组初始化长度
+                                                                                //获取全部材质
+                    for (int j = 0; j < newTmMatArray.Length; j++)
+                    {
+                        newTmMatArray[j] = tmMat;
+                    }
+
+                    meshRenderer.materials = newTmMatArray;//将透明数组赋给模型材质
                 }
 
-                meshRenderer.materials = newTmMatArray;//将透明数组赋给模型材质
             }
         }
 
@@ -143,6 +149,15 @@ namespace Origin
         }
 
         #endregion
+    }
+
+    public class BuildingRequirement
+    {
+        public Dictionary<string, ItemData> requirement=new Dictionary<string, ItemData>();
+        public BuildingRequirement(Dictionary<string,ItemData> requirement)
+        {
+            this.requirement = new Dictionary<string, ItemData>(requirement);
+        }
     }
 }
 

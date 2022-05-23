@@ -8,10 +8,12 @@ namespace Origin
     {
         //基础属性
         public string characterName;
+        public string key;
 
-        private void Start()
+        private void Awake()
         {
             SCharacter.CreateCharacter("lianxi", this);
+            key = name + Random.Range(int.MinValue, int.MaxValue).ToString();
         }
 
 

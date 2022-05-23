@@ -12,24 +12,12 @@ namespace Origin
 
         private void Start()
         {
-            PackSystem.S.cpackList.Add(name, this);
+            Init();
         }
 
-        private void Update()
+        public virtual void Init()
         {
-            if (Input.GetKeyDown(KeyCode.I))
-            {
-                PackSystem.S.SwitchPackPage(name);
-            }
 
-            if (Input.GetKeyDown(KeyCode.Alpha2))
-            {
-                PackSystem.S.GainPackItem(name, "测试", 20);
-            }
-            if (Input.GetKeyDown(KeyCode.Alpha3))
-            {
-                PackSystem.S.LosePackItem(name, "测试", 20);
-            }
         }
     }
 }
