@@ -4,15 +4,15 @@ using UnityEngine;
 
 namespace Origin
 {
-    public class UPack : MonoBehaviour
+    public class PackPage : MonoBehaviour
     {
         public Transform content;
 
-        public CPackItem packItemPrefab;
+        public PackPageItem packItemPrefab;
 
-        public PackComponent targetPack;
+        public string targetPack;
 
-        public Dictionary<string, CPackItem> itemList = new Dictionary<string, CPackItem>();
+        public Dictionary<string, PackPageItem> itemList = new Dictionary<string, PackPageItem>();
 
         private void Update()
         {
@@ -21,9 +21,9 @@ namespace Origin
 
         public void UpdataPackPage()
         {
-            Dictionary<string, ItemData> targetList = targetPack.pack;
+            Dictionary<string, ItemData> targetList = PackSystem.S.PackList[targetPack].pack;
 
-            Dictionary<string, CPackItem> recordList = itemList;
+            Dictionary<string, PackPageItem> recordList = itemList;
 
             HashSet<string> removeList = new HashSet<string>();
 
@@ -50,9 +50,11 @@ namespace Origin
                 }
                 else
                 {
-                    CPackItem obj = Instantiate(packItemPrefab, content);
+                    PackPageItem obj = Instantiate(packItemPrefab, content);
+                    obj.target = targetPack;
                     obj.itemName.text = item.Value.name;
                     obj.itemCount.text = item.Value.count.ToString();
+
                     recordList.Add(item.Key, obj);
                 }
             }

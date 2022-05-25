@@ -9,26 +9,49 @@ namespace Origin
         private static PackSystem _s;
         public static PackSystem S { get { return _s; } }
 
-        public UPack packPagePrefab;
-        private UPack packPage;
+        public PackPage packPagePrefab;
+        private PackPage packPage;
+
+        //右键按钮菜单
+        public RightMenu rightMenu;
+        public RightMenuItem rightMenuItem;
 
         //组件列表
-        public Dictionary<string, PackComponent> cpackList = new Dictionary<string, PackComponent>();
+        public Dictionary<string, PackComponent> PackList = new Dictionary<string, PackComponent>();
+
 
         private void Awake()
         {
             if (!_s) _s = this;
+
+
         }
 
-        public int CreatePackPage(string name)
+        private void Start()
+        {
+            CommandSystem.S.Declare("GainPackItem", PackItemGainCommand);
+        }
+
+        //命令
+        public InfoData PackItemGainCommand(params string[] values)
+        {
+            string s = "PackItemGainCommand";
+            foreach(var item in values)
+            {
+                s += item + " ";
+            }
+            Debug.Log(s);
+            PackList[values[0]].PackItemGain(values[1], int.Parse(values[2]));
+            return null;
+        }
+
+        public void CreatePackPage(string name)
         {
             if (packPage == null)
             {
                 packPage = Instantiate(packPagePrefab, FindObjectOfType<Canvas>().transform);
-                packPage.targetPack = cpackList[name];
+                packPage.targetPack = name;
             }
-
-            return 0;
         }
 
         public int SwitchPackPage(string name)
@@ -36,7 +59,7 @@ namespace Origin
             if (packPage == null)
             {
                 packPage = Instantiate(packPagePrefab, FindObjectOfType<Canvas>().transform);
-                packPage.targetPack = cpackList[name];
+                packPage.targetPack = name;
             }
             else
                 Destroy(packPage.gameObject);
@@ -44,32 +67,15 @@ namespace Origin
             return 0;
         }
 
-        //添加角色背包物品 [名字]&[物品名字]&[数量]
-        public int GainPackItem(string component,string item,uint count)
+        //创建右键菜单
+        public void CreateItemRightMenu(string target,PackPageItem packPageItem,List<CommandButton> buttons)
         {
-            PackComponent target = cpackList[component];
-            if (!target.pack.ContainsKey(item))
-                target.pack.Add(item, new ItemData(item,count));
-            else
-                target.pack[item].count += count;
-
-            return 0;
-        }
-
-        public string LosePackItem(string component,string item,uint count)
-        {
-            PackComponent target = cpackList[component];
-            if (!target.pack.ContainsKey(item))
-                return "不存在该物品";
-            else if (target.pack[item].count < count)
-                return "物品数量不够";
-            else
-            {
-                target.pack[item].count -= count;
-                if (target.pack[item].count == 0)
-                    target.pack.Remove(item);
-            }
-            return "执行成功";
+            RightMenu rightMenuEntity = Instantiate(rightMenu, FindObjectOfType<Canvas>().transform);
+            List<CommandButton> commandButtons = new List<CommandButton>();
+            commandButtons.Add(new CommandButton("增加", string.Format("{0},{1},{2},1", "GainPackItem",
+                target,packPageItem.itemName.text, packPageItem.itemCount.text)));
+            rightMenuEntity.Init(commandButtons,rightMenuItem);
+            
         }
 
         
@@ -81,7 +87,7 @@ namespace Origin
                 print("射线检测成功");
                 BuildingPack buildingPack = result.collider.GetComponent<BuildingPack>();
                 Dictionary<string,ItemData> requirement = buildingPack.requirement;
-                Dictionary<string, ItemData> pack = cpackList[selfKey].pack;
+                Dictionary<string, ItemData> pack = PackList[selfKey].pack;
                 if (requirement != null)
                 {
                     foreach(var item in requirement)
@@ -109,37 +115,24 @@ namespace Origin
     public class ItemData
     {
         public string name;
-        public uint count;
+        public int count;
 
-        public ItemData(string name,uint count)
+        public ItemData(string name,int count)
         {
             this.name = name;
             this.count = count;
         }
+    }
 
-        public bool Greater(ItemData other)
+    public class CommandButton
+    {
+        public string name;
+        public string command;
+
+        public CommandButton(string name,string command)
         {
-            if (other.name == name && other.count < count)
-            {
-                return true;
-            }
-            return false;
-        }
-        public bool Less(ItemData other)
-        {
-            if(other.name == name && other.count > count)
-            {
-                return true;
-            }
-            return false;
-        }
-        public bool Equality(ItemData other)
-        {
-            if(other.name == name && other.count == count)
-            {
-                return true;
-            }
-            return false;
+            this.name = name;
+            this.command = command;
         }
     }
 }

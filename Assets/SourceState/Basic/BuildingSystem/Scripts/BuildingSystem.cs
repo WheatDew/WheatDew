@@ -27,7 +27,7 @@ namespace Origin
         {
             if (!_s) _s = this;
 
-            Init();
+            BasicInit();
         }
 
         //场景中的引用
@@ -44,7 +44,7 @@ namespace Origin
         [HideInInspector] public BuildingBluePrintPage bluePrintPage;
 
         //初始化函数
-        public void Init()
+        public void BasicInit()
         {
             for(int i = 0; i < buildingPrefabList.Count; i++)
             {

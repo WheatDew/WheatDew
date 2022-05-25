@@ -53,7 +53,7 @@ namespace Origin
                 if(result.collider.tag == "PickItem")
                 {
                     PickItem pickItem = result.collider.gameObject.GetComponent<PickItem>();
-                    PackSystem.S.GainPackItem(name, pickItem.pickItemName, pickItem.pickItemCount);
+                    PackSystem.S.PackList[name].PackItemGain(pickItem.pickItemName, pickItem.pickItemCount);
                     Destroy(result.collider.gameObject);
                 }
 

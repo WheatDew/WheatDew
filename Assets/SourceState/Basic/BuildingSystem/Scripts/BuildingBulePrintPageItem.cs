@@ -11,7 +11,7 @@ namespace Origin
         public Sprite sprite;
         public string buildingName;
         public List<string> itemName =new List<string>();
-        public List<uint> count = new List<uint>();
+        public List<int> count = new List<int>();
 
         private void Start()
         {

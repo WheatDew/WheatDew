@@ -7,7 +7,7 @@ namespace Origin
     public class PickItem : MonoBehaviour
     {
         public string pickItemName;
-        public uint pickItemCount;
+        public int pickItemCount;
 
 
     }

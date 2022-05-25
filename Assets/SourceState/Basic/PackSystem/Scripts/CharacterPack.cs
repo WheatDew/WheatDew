@@ -11,7 +11,7 @@ namespace Origin
         public override void Init()
         {
             character = GetComponent<CCharacter>();
-            PackSystem.S.cpackList.Add(character.key, this);
+            PackSystem.S.PackList.Add(character.key, this);
             print(character.key);
         }
 
