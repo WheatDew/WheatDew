@@ -17,7 +17,9 @@ namespace Origin
 
         //引用的预制体列表
         public List<Building> buildingPrefabList = new List<Building>(); //测试
-        public List<string> buildingPrefabNameList = new List<string>();//测试
+        public List<string> buildingDataNameList = new List<string>();//测试
+        public List<string> buildingRequirementList = new List<string>();//测试
+        public List<Sprite> buildingIconList = new List<Sprite>();//测试
 
         public Material tmMat; //透明材质
 
@@ -34,8 +36,7 @@ namespace Origin
         public Dictionary<string, BuildingComponent> cbuildingList = new Dictionary<string, BuildingComponent>();
 
         //资源库
-        public Dictionary<string, Building> buildingList = new Dictionary<string, Building>();
-        public Dictionary<string, BuildingRequirement> requirements = new Dictionary<string, BuildingRequirement>();
+        public Dictionary<string, BuildingData> BuildingDataList = new Dictionary<string, BuildingData>();
         
         //单一引用的预制体
         [SerializeField] private BuildingBluePrintFloatPicture floatPicturePrefab;
@@ -48,8 +49,24 @@ namespace Origin
         {
             for(int i = 0; i < buildingPrefabList.Count; i++)
             {
-                buildingList.Add(buildingPrefabNameList[i], buildingPrefabList[i]);
+                BuildingData buildingData = new BuildingData();
+                buildingData.icon = buildingIconList[i];
+                buildingData.building = buildingPrefabList[i];
+                Dictionary<string, int> requirement = new Dictionary<string, int>();
+                string[] requirements = buildingRequirementList[i].Split('&');
+                for(int j = 0; j < requirements.Length; j++)
+                {
+                    string[] Items = requirements[j].Split(' ');
+                    requirement.Add(Items[0], int.Parse(Items[1]));
+                }
+                buildingData.requirement = requirement;
+                BuildingDataList.Add(buildingDataNameList[i],buildingData);
             }
+        }
+
+        public void BluePrintPage()
+        {
+
         }
 
         //打开关闭蓝图界面
@@ -58,6 +75,10 @@ namespace Origin
             if (bluePrintPage == null)
             {
                 bluePrintPage = Instantiate(bluePrintPagePrefab, FindObjectOfType<Canvas>().transform);
+                foreach(var item in BuildingDataList)
+                {
+                    bluePrintPage.CreateItem(item.Value.icon,item.Key);
+                }
             }
             else
                 Destroy(bluePrintPage.gameObject);
@@ -76,7 +97,7 @@ namespace Origin
         //创建蓝图
         public void CreateBuildingBluePrint(string buildingName)
         {
-            Building obj = Instantiate(buildingList[buildingName]);
+            Building obj = Instantiate(BuildingDataList[buildingName].building);
             SetTranslucentMaterial(obj.transform);
             for (int i = 0; i < obj.transform.childCount; i++)
             {
@@ -86,14 +107,14 @@ namespace Origin
                     collider.isTrigger = true;
             }
             obj.gameObject.AddComponent<BuildingBluePrint>().buildingName=buildingName;
-            obj.GetComponent<BuildingPack>().requirement = new Dictionary<string, ItemData>(requirements[buildingName].requirement);
+            obj.GetComponent<BuildingPack>().requirement = new Dictionary<string, int>(BuildingDataList[buildingName].requirement);
 
         }
 
         //创建建筑
         public void CreateBuiling(string buildingName,Vector3 position,Quaternion rotation)
         {
-            Instantiate(buildingList[buildingName],position,rotation);
+            Instantiate(BuildingDataList[buildingName].building,position,rotation);
 
         }
 
@@ -151,13 +172,11 @@ namespace Origin
         #endregion
     }
 
-    public class BuildingRequirement
+    public class BuildingData
     {
-        public Dictionary<string, ItemData> requirement=new Dictionary<string, ItemData>();
-        public BuildingRequirement(Dictionary<string,ItemData> requirement)
-        {
-            this.requirement = new Dictionary<string, ItemData>(requirement);
-        }
+        public Sprite icon;
+        public Building building;
+        public Dictionary<string, int> requirement = new Dictionary<string, int>();
     }
 }
 

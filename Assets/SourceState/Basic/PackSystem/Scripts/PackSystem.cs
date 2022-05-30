@@ -19,6 +19,8 @@ namespace Origin
         //组件列表
         public Dictionary<string, PackComponent> PackList = new Dictionary<string, PackComponent>();
 
+        //效果列表
+        public Dictionary<string, ItemEffectData> itemEffectList = new Dictionary<string, ItemEffectData>();
 
         private void Awake()
         {
@@ -29,21 +31,33 @@ namespace Origin
 
         private void Start()
         {
-            CommandSystem.S.Declare("GainPackItem", PackItemGainCommand);
+            CommandSystem.S.Declare("PackItemGain", PackItemGainCommand);
+            CommandSystem.S.Declare("PackItemUse", PackItemUseCommand);
+
+            //初始化测试数据
+            itemEffectList.Add("Grass", new ItemEffectData(10));
         }
 
         //命令
-        public InfoData PackItemGainCommand(params string[] values)
+        public InfoData PackItemGainCommand(string[] values)
         {
-            string s = "PackItemGainCommand";
-            foreach(var item in values)
-            {
-                s += item + " ";
-            }
-            Debug.Log(s);
-            PackList[values[0]].PackItemGain(values[1], int.Parse(values[2]));
+            PackList[values[1]].PackItemGain(values[2], int.Parse(values[3]));
             return null;
         }
+
+        public InfoData PackItemUseCommand(string[] values)
+        {
+            if (itemEffectList.ContainsKey(values[2]))
+            {
+                PackList[values[1]].PackItemGain(values[2], -1);
+                StatusSystem.S.statusList[values[1]].FoodGain(itemEffectList[values[2]].foodValue);
+            }
+
+            return null;    
+        }
+
+
+        //通常函数
 
         public void CreatePackPage(string name)
         {
@@ -68,17 +82,18 @@ namespace Origin
         }
 
         //创建右键菜单
-        public void CreateItemRightMenu(string target,PackPageItem packPageItem,List<CommandButton> buttons)
+        public void CreateItemRightMenu(string target, PackPageItem packPageItem, List<CommandButton> buttons)
         {
             RightMenu rightMenuEntity = Instantiate(rightMenu, FindObjectOfType<Canvas>().transform);
             List<CommandButton> commandButtons = new List<CommandButton>();
-            commandButtons.Add(new CommandButton("增加", string.Format("{0},{1},{2},1", "GainPackItem",
-                target,packPageItem.itemName.text, packPageItem.itemCount.text)));
-            rightMenuEntity.Init(commandButtons,rightMenuItem);
-            
+            //commandButtons.Add(new CommandButton("add", string.Format("{0} {1} {2} 1", "PackItemGain",
+            //    target, packPageItem.itemName.text, packPageItem.itemCount.text)));
+            commandButtons.Add(new CommandButton("use", string.Format("{0} {1} {2}", "PackItemUse", target, packPageItem.itemName.text)));
+            rightMenuEntity.Init(commandButtons, rightMenuItem);
+
         }
 
-        
+
         public void OpenTargetPack(string selfKey)
         {
             RaycastHit result;
@@ -86,7 +101,7 @@ namespace Origin
             {
                 print("射线检测成功");
                 BuildingPack buildingPack = result.collider.GetComponent<BuildingPack>();
-                Dictionary<string,ItemData> requirement = buildingPack.requirement;
+                Dictionary<string,int> requirement = buildingPack.requirement;
                 Dictionary<string, ItemData> pack = PackList[selfKey].pack;
                 if (requirement != null)
                 {
@@ -94,14 +109,14 @@ namespace Origin
                     {
                         if (pack.ContainsKey(item.Key))
                         {
-                            if (pack[item.Key].count > requirement[item.Key].count)
+                            if (pack[item.Key].count > requirement[item.Key])
                             {
-                                pack[item.Key].count -= requirement[item.Key].count;
-                                requirement[item.Key].count = 0;
+                                pack[item.Key].count -= requirement[item.Key];
+                                requirement[item.Key] = 0;
                             }
                             else
                             {
-                                requirement[item.Key].count -= pack[item.Key].count;
+                                requirement[item.Key] -= pack[item.Key].count;
                                 pack[item.Key].count = 0;
                             }
                         }
@@ -121,6 +136,16 @@ namespace Origin
         {
             this.name = name;
             this.count = count;
+        }
+    }
+
+    public class ItemEffectData
+    {
+        public float foodValue;
+
+        public ItemEffectData(float foodValue)
+        {
+            this.foodValue=foodValue;
         }
     }
 

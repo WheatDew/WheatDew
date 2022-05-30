@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Origin
 {
-    public delegate InfoData Command(params string[] address);
+    public delegate InfoData Command(string[] values);
     public class CommandSystem : MonoBehaviour
     {
         private static CommandSystem _s;
@@ -23,34 +23,27 @@ namespace Origin
             return null;
         }
 
-        public int Execute(string name,params string[] address)
+        public InfoData Execute(string command)
         {
-            commandList[name](address);
-            return 0;
-        }
-        public int Execute(string command)
-        {
-            string[] temp = command.Split(',');
-            string[] values =new string[temp.Length - 1];
-            for(int i = 0; i < values.Length; i++)
+            //拆分命令（如果命令是由多条命令组成的话）
+            string[] commands = command.Split('&');
+
+            //拆分命令头和命令值
+            for (int i = 0; i < commands.Length; i++)
             {
-                values[i] = temp[i + 1];
+                Debug.Log(commands[i]);
+                string[] values = commands[i].Split(' ');
+                if (values.Length > 0)
+                    commandList[values[0]](values);
+                else
+                    Debug.Log("命令长度错误");
             }
-            commandList[temp[0]](values);
-            return 0;
+
+
+
+
+            return null;
         }
-
-        //public int Subscribe(string name, Command command)
-        //{
-        //    commandList[name] += command;
-        //    return 0;
-        //}
-
-        //public int Unsubscribe(string name, Command command)
-        //{
-        //    commandList[name] -= command;
-        //    return 0;
-        //}
 
     }
 

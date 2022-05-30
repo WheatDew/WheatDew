@@ -12,6 +12,13 @@ namespace Origin
         private void Awake()
         {
             if (!_s) _s = this;
+
+            
+        }
+
+        private void Start()
+        {
+            CommandInit();
         }
 
         public Dictionary<string, StatusComponent> statusList = new Dictionary<string, StatusComponent>();
@@ -19,17 +26,46 @@ namespace Origin
         [SerializeField] private StatusPage statusPagePrefab;
         [HideInInspector] public StatusPage statusPage;
 
+        public void CommandInit()
+        {
+            CommandSystem.S.Declare("StatusFoodGain", StatusFoodGain);
+        }
 
-        public void SwitchStatusPage(string name)
+        //√¸¡Ó
+        public InfoData StatusFoodGain(string[] values)
+        {
+            statusList[values[1]].statusData.food += float.Parse(values[2]);
+            return null;
+        }
+
+        public void SwitchStatusPage(StatusData statusData)
         {
             if (statusPage == null)
             {
-                statusPage = Instantiate(statusPagePrefab);
+                statusPage = Instantiate(statusPagePrefab,FindObjectOfType<Canvas>().transform);
+                statusPage.Init(statusData);
             }
             else
             {
-                Destroy(statusPage);
+                Destroy(statusPage.gameObject);
             }
+        }
+    }
+
+    public class StatusData
+    {
+        public string name;
+        public float food;
+
+        public StatusData()
+        {
+            this.name = "default";
+            this.food = 0;
+        }
+        public StatusData(string name,float food)
+        {
+            this.name = name;   
+            this.food = food;
         }
     }
 }

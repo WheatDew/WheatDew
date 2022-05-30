@@ -7,7 +7,7 @@ namespace Origin
 {
     public class BuildingPack : PackComponent
     {
-        public Dictionary<string, ItemData> requirement = new Dictionary<string, ItemData>();
+        public Dictionary<string, int> requirement = new Dictionary<string, int>();
         public TextMeshPro info;
 
         private void Start()
@@ -21,7 +21,7 @@ namespace Origin
 
             foreach (var item in requirement)
             {
-                if (item.Value.count != 0)
+                if (item.Value != 0)
                     return;
             }
 
@@ -35,7 +35,7 @@ namespace Origin
             string s = "";
             foreach (var item in requirement)
             {
-                s += item.Value.name + ":" + item.Value.count.ToString() + '\n';
+                s += item.Key + ":" + item.Value.ToString() + '\n';
             }
 
             info.text = s;

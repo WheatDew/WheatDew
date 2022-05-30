@@ -1,18 +1,27 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class StatusPage : MonoBehaviour
+namespace Origin
 {
-    // Start is called before the first frame update
-    void Start()
+    public class StatusPage : MonoBehaviour
     {
-        
-    }
+        public TextMeshProUGUI nameText;
+        public Image foodBar;
+        StatusData data;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        public void Init(StatusData data)
+        {
+            this.data = data;
+        }
+
+        private void Update()
+        {
+            nameText.text = data.name;
+            foodBar.rectTransform.localScale =  new Vector3(data.food/50,1,1);
+        }
     }
 }
+
