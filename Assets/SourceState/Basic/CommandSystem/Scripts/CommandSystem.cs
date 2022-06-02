@@ -39,12 +39,22 @@ namespace Origin
                     Debug.Log("命令长度错误");
             }
 
-
-
-
             return null;
         }
 
+    }
+
+    
+    public static class CMath
+    {
+        public static Vector3 ToVector3(string origin)
+        {
+            origin =origin[1..^1];
+            string[] values = origin.Split(',');
+            return new Vector3(float.Parse(values[0]), float.Parse(values[1]), float.Parse(values[2]));
+        }
+
+        
     }
 
     public class CommandData
@@ -58,5 +68,6 @@ namespace Origin
         public int controller;
     }
 
+    
 }
 

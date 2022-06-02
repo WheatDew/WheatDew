@@ -52,12 +52,12 @@ namespace Origin
                 BuildingData buildingData = new BuildingData();
                 buildingData.icon = buildingIconList[i];
                 buildingData.building = buildingPrefabList[i];
-                Dictionary<string, int> requirement = new Dictionary<string, int>();
+                Dictionary<string, ItemData> requirement = new Dictionary<string, ItemData>();
                 string[] requirements = buildingRequirementList[i].Split('&');
                 for(int j = 0; j < requirements.Length; j++)
                 {
                     string[] Items = requirements[j].Split(' ');
-                    requirement.Add(Items[0], int.Parse(Items[1]));
+                    requirement.Add(Items[0], new ItemData(Items[0], int.Parse(Items[1])));
                 }
                 buildingData.requirement = requirement;
                 BuildingDataList.Add(buildingDataNameList[i],buildingData);
@@ -107,7 +107,7 @@ namespace Origin
                     collider.isTrigger = true;
             }
             obj.gameObject.AddComponent<BuildingBluePrint>().buildingName=buildingName;
-            obj.GetComponent<BuildingPack>().requirement = new Dictionary<string, int>(BuildingDataList[buildingName].requirement);
+            obj.GetComponent<BuildingPack>().requirement = new Dictionary<string, ItemData>(BuildingDataList[buildingName].requirement);
 
         }
 
@@ -176,7 +176,7 @@ namespace Origin
     {
         public Sprite icon;
         public Building building;
-        public Dictionary<string, int> requirement = new Dictionary<string, int>();
+        public Dictionary<string, ItemData> requirement = new Dictionary<string, ItemData>();
     }
 }
 

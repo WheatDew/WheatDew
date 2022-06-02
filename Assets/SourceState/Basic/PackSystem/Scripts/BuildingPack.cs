@@ -7,7 +7,7 @@ namespace Origin
 {
     public class BuildingPack : PackComponent
     {
-        public Dictionary<string, int> requirement = new Dictionary<string, int>();
+        public Dictionary<string, ItemData> requirement = new Dictionary<string, ItemData>();
         public TextMeshPro info;
 
         private void Start()
@@ -18,13 +18,11 @@ namespace Origin
         public void CheckRequirement()
         {
             UpdateRequirementInfo();
-
             foreach (var item in requirement)
             {
-                if (item.Value != 0)
+                if (item.Value.count != 0)
                     return;
             }
-
             BuildingSystem.S.CreateBuiling(GetComponent<BuildingBluePrint>().buildingName,transform.position,transform.rotation);
             Destroy(gameObject);
 
@@ -35,7 +33,7 @@ namespace Origin
             string s = "";
             foreach (var item in requirement)
             {
-                s += item.Key + ":" + item.Value.ToString() + '\n';
+                s += item.Key + ":" + item.Value.count.ToString() + '\n';
             }
 
             info.text = s;

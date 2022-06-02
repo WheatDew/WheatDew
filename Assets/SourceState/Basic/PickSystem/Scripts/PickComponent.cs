@@ -10,26 +10,32 @@ namespace Origin
         //开始运行时将自身添加到列表
         private void Start()
         {
-            //FindObjectOfType<PickSystem>().pickList.Add(name, this);
+            PickSystem.s.pickList.Add(name, this);
         }
 
 
         private void Update()
         {
+            Job();
+        }
+        virtual public InfoData Job()
+        {
             if (Input.GetKeyDown(KeyCode.C))
             {
-                PickSystem.S.CreateFocusPage();
+                PickSystem.s.CreateFocusPage();
             }
 
             if (Input.GetKey(KeyCode.C))
             {
-                PickSystem.S.DisplayFocusItemInfo();
+                PickSystem.s.DisplayFocusItemInfo();
             }
 
             if (Input.GetKeyUp(KeyCode.C))
             {
-                PickSystem.S.PickCheckout(GetComponent<CCharacter>().key);
+                PickSystem.s.PickCheckout(GetComponent<CCharacter>().key);
             }
+
+            return null;
         }
     }
 }

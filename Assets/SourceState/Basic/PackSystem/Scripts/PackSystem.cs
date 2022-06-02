@@ -101,7 +101,11 @@ namespace Origin
             {
                 print("…‰œﬂºÏ≤‚≥…π¶");
                 BuildingPack buildingPack = result.collider.GetComponent<BuildingPack>();
-                Dictionary<string,int> requirement = buildingPack.requirement;
+                Dictionary<string,ItemData> requirement = buildingPack.requirement;
+                foreach(var item in requirement)
+                {
+                    Debug.Log(item.Key+" "+item.Value.ToString());
+                }
                 Dictionary<string, ItemData> pack = PackList[selfKey].pack;
                 if (requirement != null)
                 {
@@ -109,14 +113,14 @@ namespace Origin
                     {
                         if (pack.ContainsKey(item.Key))
                         {
-                            if (pack[item.Key].count > requirement[item.Key])
+                            if (pack[item.Key].count > requirement[item.Key].count)
                             {
-                                pack[item.Key].count -= requirement[item.Key];
-                                requirement[item.Key] = 0;
+                                pack[item.Key].count -= requirement[item.Key].count;
+                                requirement[item.Key].count = 0;
                             }
                             else
                             {
-                                requirement[item.Key] -= pack[item.Key].count;
+                                requirement[item.Key].count -= pack[item.Key].count;
                                 pack[item.Key].count = 0;
                             }
                         }
