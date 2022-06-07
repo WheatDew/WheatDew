@@ -10,7 +10,7 @@ namespace Origin
 
         private void Start()
         {
-            StatusSystem.S.statusList.Add(GetComponent<CCharacter>().key,this);
+            StatusSystem.S.statusList.Add(GetComponent<EntityComponent>().key,this);
 
             statusData.name = name;
             statusData.food = 50;

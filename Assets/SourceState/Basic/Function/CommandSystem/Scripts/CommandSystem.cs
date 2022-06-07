@@ -25,6 +25,8 @@ namespace Origin
 
         public InfoData Execute(string command)
         {
+            InfoData infoData=new InfoData();
+
             //拆分命令（如果命令是由多条命令组成的话）
             string[] commands = command.Split('&');
 
@@ -34,14 +36,13 @@ namespace Origin
                 Debug.Log(commands[i]);
                 string[] values = commands[i].Split(' ');
                 if (values.Length > 0)
-                    commandList[values[0]](values);
+                   infoData = commandList[values[0]](values);
                 else
                     Debug.Log("命令长度错误");
             }
 
-            return null;
+            return infoData;
         }
-
     }
 
     
@@ -64,8 +65,10 @@ namespace Origin
 
     public class InfoData
     {
-        public string info;
-        public int controller;
+        public string name;
+        public string stringValue;
+        public int intValue;
+        public float floatValue;
     }
 
     

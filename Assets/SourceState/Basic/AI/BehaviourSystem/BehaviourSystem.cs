@@ -1,17 +1,47 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
-public class BehaviourSystem : MonoBehaviour
+namespace Origin
 {
-    private static BehaviourSystem _s;
-    public static BehaviourSystem s { get { return _s; } }
-
-    private void Awake()
+    public class BehaviourSystem : MonoBehaviour
     {
-        if (_s != null) _s = this;
+        private static BehaviourSystem _s;
+        public static BehaviourSystem s { get { return _s; } }
+
+        private void Awake()
+        {
+            if (!_s) _s = this;
+        }
+
+        public Dictionary<string, BehaviourComponent> components = new Dictionary<string, BehaviourComponent>();
+
+        
     }
 
-    public Dictionary<string, Behaviour> behaviours = new Dictionary<string, Behaviour>();
+    public class BehaviourData
+    {
+        public string type;
+        public float weight;
+        public string weightCalculation;
+        public UnityAction action;
 
+        public BehaviourData()
+        {
+            type = "default";
+            weight = 0;
+            weightCalculation = null;
+            action = null;
+        }
+
+        public BehaviourData(string tpye,float weight,string weightCalculation,UnityAction action)
+        {
+            this.type = tpye;
+            this.weight = weight;
+            this.weightCalculation = weightCalculation;
+            this.action = action;
+        }
+    }
 }
+

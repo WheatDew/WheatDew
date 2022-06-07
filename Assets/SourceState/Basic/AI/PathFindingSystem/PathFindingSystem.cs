@@ -23,13 +23,24 @@ namespace Origin
             CommandSystem.S.Declare("SetTargetPosition", SetTargetPositionCommand);
         }
 
+
+        #region √¸¡Ó
         //√¸¡Ó
         private InfoData SetTargetPositionCommand(string[] values)
         {
-            componentList[values[0]].agent.destination = CMath.ToVector3(values[1]);
+            componentList[values[1]].agent.destination = CMath.ToVector3(values[2]);
             return null;
         }
+        #endregion
 
+        #region π¶ƒ‹
+
+        public void SetTargetPosition(string key,Vector3 targetPosition)
+        {
+            componentList[key].agent.destination = targetPosition;
+        }
+
+        #endregion
     }
 }
 

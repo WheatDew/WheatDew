@@ -30,8 +30,8 @@ namespace Origin
             {
                 if (pack[itemName].count + itemCount < 0)
                 {
-                    infoData.info = "物品数量不能为负数";
-                    infoData.controller = -2;
+                    infoData.stringValue = "物品数量不能为负数";
+                    infoData.intValue = -2;
                     return infoData;
                 }
                 else
@@ -47,8 +47,8 @@ namespace Origin
                 }
                 else
                 {
-                    infoData.info = "物品数量不能为负数";
-                    infoData.controller = -1;
+                    infoData.stringValue = "物品数量不能为负数";
+                    infoData.intValue = -1;
                     return infoData;
                 }
             }

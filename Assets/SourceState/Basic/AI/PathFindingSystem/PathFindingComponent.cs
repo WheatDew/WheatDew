@@ -8,6 +8,8 @@ namespace Origin
     public class PathFindingComponent : MonoBehaviour
     {
         [HideInInspector] public NavMeshAgent agent;
+        [HideInInspector] public BehaviourComponent behaviour;
+        
         public PickItem pickTarget;
         public Transform target;
 
@@ -16,30 +18,25 @@ namespace Origin
             agent = GetComponent<NavMeshAgent>();
             PathFindingSystem.s.componentList.Add(GetComponent<EntityComponent>().key, this);
             agent.stoppingDistance = 2;
-            test();
+
+            behaviour = GetComponent<BehaviourComponent>();
+            behaviour.behaviourDatas.Add(new BehaviourData("type", -10,
+                string.Format("GetFoodWeight {0} {1}", GetComponent<EntityComponent>().key, 30),
+                PickClosestItem));
         }
 
-        public void Update()
+        private void Update()
         {
-            if (pickTarget != null)
+            if(pickTarget != null&&Vector3.Distance(transform.position,pickTarget.transform.position)<=2)
             {
-                if (Vector3.Distance(pickTarget.transform.position, transform.position) <= 2)
-                {
-                    pickTarget.Destroy();
-                    PickClosestItem();
-                }
+                Destroy(pickTarget.gameObject);
             }
-        }
-
-        public void test()
-        {
-            PickClosestItem();
         }
 
         public void PickClosestItem()
         {
             string closestItem = PickSystem.s.ClosestItem(transform.position);
-            if(closestItem != null)
+            if (closestItem != null)
             {
                 PickItem target = PickSystem.s.pickItems[closestItem];
                 pickTarget = target;

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class EntitySystem : MonoBehaviour
 {
+
     #region 数据列表
 
     public static Dictionary<string,EntityComponent> entities = new Dictionary<string,EntityComponent>();

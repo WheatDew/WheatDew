@@ -12,7 +12,6 @@ namespace Origin
         {
             character = GetComponent<CCharacter>();
             PackSystem.S.PackList.Add(character.key, this);
-            print(character.key);
         }
 
         private void Update()

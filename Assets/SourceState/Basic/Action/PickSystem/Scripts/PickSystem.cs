@@ -20,7 +20,55 @@ namespace Origin
         private void Awake()
         {
             if (!_s) _s = this;
+
+            
         }
+
+        private void Start()
+        {
+            CommandSystem.S.Declare("GetClosestItem", GetClosestItemCommand);
+            CommandSystem.S.Declare("AppraiseTargetDistance", AppraiseTargetDistanceCommand);
+            CommandSystem.S.Declare("PickItem", PickItemCommand);
+        }
+
+        #region 命令函数
+
+        public InfoData GetClosestItemCommand(string[] values)
+        {
+            InfoData infoData = new InfoData();
+
+            infoData.stringValue = ClosestItem(pickList[values[1]].transform.position);
+            infoData.intValue = 1;
+            return infoData;
+        }
+
+        public InfoData AppraiseTargetDistanceCommand(string[] values)
+        {
+            InfoData infoData = new InfoData();
+
+            if (Vector3.Distance(pickList[values[1]].transform.position,
+                pickItems[values[2]].transform.position) <= 2)
+            {
+                infoData.intValue = 1;
+                infoData.stringValue = values[2];
+            }
+            else
+                infoData.intValue = 0;
+
+            return infoData;
+        }
+
+        public InfoData PickItemCommand(string[] values)
+        {
+            InfoData infoData = new InfoData();
+
+            PickItem(values[1], values[2]);
+            infoData.intValue = 1;
+
+            return infoData;
+        }
+
+        #endregion
 
 
         #region 功能函数
@@ -89,6 +137,8 @@ namespace Origin
 
             return result;
         }
+
+        
 
         #endregion
 
