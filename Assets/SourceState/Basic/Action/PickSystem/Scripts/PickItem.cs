@@ -12,19 +12,19 @@ namespace Origin
 
         private void Start()
         {
-            key = GetComponent<EntityComponent>().key;
-            PickSystem.s.pickItems.Add(key,this);
+            key = transform.GetInstanceID().ToString();
+            PickSystem.s.items.Add(key,this);
         }
 
         public void Destroy()
         {
-            PickSystem.s.pickItems.Remove(key);
+            PickSystem.s.items.Remove(key);
             Destroy(gameObject);
         }
 
         private void OnDestroy()
         {
-            PickSystem.s.pickItems.Remove(key);
+            PickSystem.s.items.Remove(key);
         }
 
     }

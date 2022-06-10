@@ -6,6 +6,8 @@ namespace Origin
 {
     public class AIPickComponent : PickComponent
     {
+
+
         override public InfoData Job()
         {
             

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 namespace Origin
@@ -10,8 +11,8 @@ namespace Origin
         private static PickSystem _s;
         public static PickSystem s { get { return _s; } }
         //组件列表
-        public Dictionary<string, PickComponent> pickList = new Dictionary<string, PickComponent>();
-        public Dictionary<string,PickItem> pickItems = new Dictionary<string, PickItem>();
+        public Dictionary<string, PickComponent> components = new Dictionary<string, PickComponent>();
+        public Dictionary<string,PickItem> items = new Dictionary<string, PickItem>();
 
         //功能所需变量
         public CFocus focusPrefab;
@@ -26,9 +27,7 @@ namespace Origin
 
         private void Start()
         {
-            CommandSystem.S.Declare("GetClosestItem", GetClosestItemCommand);
-            CommandSystem.S.Declare("AppraiseTargetDistance", AppraiseTargetDistanceCommand);
-            CommandSystem.S.Declare("PickItem", PickItemCommand);
+            TaskSystem.s.Declare("PickClosestItem", PickCloseItemTask);
         }
 
         #region 命令函数
@@ -37,7 +36,7 @@ namespace Origin
         {
             InfoData infoData = new InfoData();
 
-            infoData.stringValue = ClosestItem(pickList[values[1]].transform.position);
+            infoData.stringValue = ClosestItem(components[values[1]].transform.position);
             infoData.intValue = 1;
             return infoData;
         }
@@ -46,8 +45,8 @@ namespace Origin
         {
             InfoData infoData = new InfoData();
 
-            if (Vector3.Distance(pickList[values[1]].transform.position,
-                pickItems[values[2]].transform.position) <= 2)
+            if (Vector3.Distance(components[values[1]].transform.position,
+                items[values[2]].transform.position) <= 2)
             {
                 infoData.intValue = 1;
                 infoData.stringValue = values[2];
@@ -70,6 +69,24 @@ namespace Origin
 
         #endregion
 
+        #region 行为函数
+
+        public async void PickCloseItemTask(string[] values,TaskData taskData)
+        {
+            Transform proposer = components[values[1]].transform;
+            string itemName = ClosestItem(proposer.position);
+            Transform target = items[itemName].transform;
+
+            PathFindingSystem.s.SetTargetPosition(values[1],target.position);
+
+            while (Vector3.Distance(target.position, proposer.position) > 2)
+            {
+                await new WaitForSeconds(Time.deltaTime);
+            }
+            PickItem(values[1], itemName);
+        }
+
+        #endregion
 
         #region 功能函数
 
@@ -116,16 +133,18 @@ namespace Origin
 
         public void PickItem(string component,string item)
         {
+            print("pickItem " + component + " " + item);
             PackSystem.S.PackList[component].PackItemGain(
-                pickItems[item].pickItemName, pickItems[item].pickItemCount);
-            Destroy(pickItems[item].gameObject);
+                items[item].pickItemName, items[item].pickItemCount);
+            items[item].Destroy();
         }
 
         public string ClosestItem(Vector3 self)
         {
             string result=null;
             float distance = 9999;
-            foreach(var item in pickItems)
+            print(items.Count);
+            foreach(var item in items)
             {
                 float tempDistance = Vector3.Distance(item.Value.transform.position, self);
                 if (Vector3.Distance(item.Value.transform.position, self) < distance)
@@ -138,7 +157,14 @@ namespace Origin
             return result;
         }
 
-        
+        public void PrintInfo()
+        {
+            print(components.Count);
+            foreach(var item in components)
+            {
+                print(item.Key);
+            }
+        }
 
         #endregion
 

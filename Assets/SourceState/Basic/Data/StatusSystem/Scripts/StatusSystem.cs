@@ -12,13 +12,17 @@ namespace Origin
         private void Awake()
         {
             if (!_s) _s = this;
-
             
         }
 
         private void Start()
         {
             CommandInit();
+        }
+
+        private void Update()
+        {
+            
         }
 
         public Dictionary<string, StatusComponent> statusList = new Dictionary<string, StatusComponent>();
@@ -28,9 +32,9 @@ namespace Origin
 
         public void CommandInit()
         {
-            CommandSystem.S.Declare("StatusFoodGain", StatusFoodGain);
-            CommandSystem.S.Declare("GetFoodStatus", GetFoodStatus);
-            CommandSystem.S.Declare("GetFoodWeight", GetFoodWeight);
+            CommandSystem.s.Declare("StatusFoodGain", StatusFoodGain);
+            CommandSystem.s.Declare("GetFoodStatus", GetFoodStatus);
+            CommandSystem.s.Declare("GetFoodWeight", GetFoodWeight);
         }
 
         //√¸¡Ó

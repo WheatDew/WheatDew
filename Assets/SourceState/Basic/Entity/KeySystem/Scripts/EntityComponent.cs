@@ -9,7 +9,8 @@ public class EntityComponent : MonoBehaviour
 
     private void Awake()
     {
-        EntitySystem.DistributeKey(this);
+        //EntitySystem.DistributeKey(this);
+
     }
 
 

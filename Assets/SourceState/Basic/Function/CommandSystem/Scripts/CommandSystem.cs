@@ -8,7 +8,7 @@ namespace Origin
     public class CommandSystem : MonoBehaviour
     {
         private static CommandSystem _s;
-        public static CommandSystem S { get { return _s; } }
+        public static CommandSystem s { get { return _s; } }
 
         private Dictionary<string, Command> commandList = new Dictionary<string, Command>();
 
@@ -69,6 +69,7 @@ namespace Origin
         public string stringValue;
         public int intValue;
         public float floatValue;
+        public string[] results;
     }
 
     

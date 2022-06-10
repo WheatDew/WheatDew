@@ -10,7 +10,7 @@ namespace Origin
 
         private void Start()
         {
-            StatusSystem.S.statusList.Add(GetComponent<EntityComponent>().key,this);
+            StatusSystem.S.statusList.Add(transform.GetInstanceID().ToString(),this);
 
             statusData.name = name;
             statusData.food = 50;
@@ -18,11 +18,6 @@ namespace Origin
 
         public void Update()
         {
-
-            if (Input.GetKeyDown(KeyCode.U))
-            {
-                StatusSystem.S.SwitchStatusPage(statusData);
-            }
 
             FoodUpdata();
         }

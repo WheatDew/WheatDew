@@ -31,8 +31,8 @@ namespace Origin
 
         private void Start()
         {
-            CommandSystem.S.Declare("PackItemGain", PackItemGainCommand);
-            CommandSystem.S.Declare("PackItemUse", PackItemUseCommand);
+            CommandSystem.s.Declare("PackItemGain", PackItemGainCommand);
+            CommandSystem.s.Declare("PackItemUse", PackItemUseCommand);
 
             //初始化测试数据
             itemEffectList.Add("Grass", new ItemEffectData(10));

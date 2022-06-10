@@ -16,7 +16,7 @@ namespace Origin
             textMeshPro.text = name;
             GetComponent<Button>().onClick.AddListener(delegate
             {
-                CommandSystem.S.Execute(command);
+                CommandSystem.s.Execute(command);
             });
         }
 

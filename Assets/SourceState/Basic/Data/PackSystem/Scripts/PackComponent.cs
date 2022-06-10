@@ -6,7 +6,7 @@ namespace Origin
 {
     public class PackComponent : MonoBehaviour
     {
-
+        public string key;
         public Dictionary<string, ItemData> pack = new Dictionary<string, ItemData>();
 
 
@@ -17,7 +17,8 @@ namespace Origin
 
         public virtual void Init()
         {
-
+            key = transform.GetInstanceID().ToString();
+            PackSystem.S.PackList.Add(key, this);
         }
 
         //功能函数

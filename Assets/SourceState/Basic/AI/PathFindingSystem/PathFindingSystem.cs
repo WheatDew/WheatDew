@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,20 +18,9 @@ namespace Origin
 
         public Dictionary<string, PathFindingComponent> componentList = new Dictionary<string, PathFindingComponent>();
 
-
-        public void CommandInit()
-        {
-            CommandSystem.S.Declare("SetTargetPosition", SetTargetPositionCommand);
-        }
+        #region 任务
 
 
-        #region 命令
-        //命令
-        private InfoData SetTargetPositionCommand(string[] values)
-        {
-            componentList[values[1]].agent.destination = CMath.ToVector3(values[2]);
-            return null;
-        }
         #endregion
 
         #region 功能
