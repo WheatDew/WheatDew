@@ -102,7 +102,7 @@ namespace Origin
         {
             
             RaycastHit result;
-            if (Physics.Raycast(Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0)), out result, 100,1<<6))
+            if (Physics.Raycast(Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0)), out result, 100,1<<9))
             {
                 focus.focusName.text = result.collider.name;
             }
@@ -118,7 +118,7 @@ namespace Origin
             Destroy(focus.gameObject);
 
             RaycastHit result;
-            if (Physics.Raycast(Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0)), out result, 100,1<<6))
+            if (Physics.Raycast(Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0)), out result, 100,1<<9))
             {
                 if(result.collider.tag == "PickItem")
                 {
@@ -126,8 +126,6 @@ namespace Origin
                     PackSystem.S.PackList[name].PackItemGain(pickItem.pickItemName, pickItem.pickItemCount);
                     Destroy(result.collider.gameObject);
                 }
-
-
             }        
         }
 

@@ -30,6 +30,8 @@ namespace Origin
             if (!_s) _s = this;
 
             BasicInit();
+
+            CommandInit();
         }
 
         //场景中的引用
@@ -64,10 +66,22 @@ namespace Origin
             }
         }
 
-        public void BluePrintPage()
-        {
+        #region 命令
 
+        public void CommandInit()
+        {
+            CommandSystem.s.Declare("SwitchBluePrintPage", SwitchBluePrintPageCommand);
         }
+
+        public InfoData SwitchBluePrintPageCommand(string[] values)
+        {
+            SwitchBluePrintPage();
+
+            return null;
+        }
+
+        #endregion
+
 
         //打开关闭蓝图界面
         public void SwitchBluePrintPage()

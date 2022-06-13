@@ -34,7 +34,7 @@ namespace Origin
 
             if (Input.GetKeyUp(KeyCode.C))
             {
-                PickSystem.s.PickCheckout(GetComponent<CCharacter>().key);
+                PickSystem.s.PickCheckout(key);
             }
 
             return null;
