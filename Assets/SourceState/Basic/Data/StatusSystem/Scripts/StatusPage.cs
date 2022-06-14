@@ -12,6 +12,17 @@ namespace Origin
         public Image foodBar;
         StatusData data;
 
+        public Button backButton;
+
+        private void Start()
+        {
+            backButton.onClick.AddListener(delegate
+            {
+                SelectionSystem.s.selectionMenu.gameObject.SetActive(true);
+                Destroy(gameObject);
+            });
+        }
+
         public void Init(StatusData data)
         {
             this.data = data;

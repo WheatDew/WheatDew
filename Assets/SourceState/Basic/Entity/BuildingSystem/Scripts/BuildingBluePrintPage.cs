@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Origin
 {
@@ -10,6 +11,16 @@ namespace Origin
         public PackComponent cpack;
         public BuildingBulePrintPageItem itemPrefab;
         public Transform contentTransform;
+        public Button backButton;
+
+        private void Start()
+        {
+            backButton.onClick.AddListener(delegate
+            {
+                SelectionSystem.s.selectionMenu.gameObject.SetActive(true);
+                Destroy(gameObject);
+            });
+        }
 
         public void CreateItem(Sprite icon,string buildingName)
         {

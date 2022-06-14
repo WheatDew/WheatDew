@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Origin
 {
@@ -14,6 +15,17 @@ namespace Origin
 
         public Dictionary<string, PackPageItem> itemList = new Dictionary<string, PackPageItem>();
 
+        public Button backButton;
+
+        private void Start()
+        {
+            backButton.onClick.AddListener(delegate
+            {
+                SelectionSystem.s.selectionMenu.gameObject.SetActive(true);
+                Destroy(gameObject);
+            });
+        }
+
         private void Update()
         {
             UpdataPackPage();
@@ -21,7 +33,7 @@ namespace Origin
 
         public void UpdataPackPage()
         {
-            Dictionary<string, ItemData> targetList = PackSystem.S.PackList[targetPack].pack;
+            Dictionary<string, ItemData> targetList = PackSystem.S.components[targetPack].pack;
 
             Dictionary<string, PackPageItem> recordList = itemList;
 

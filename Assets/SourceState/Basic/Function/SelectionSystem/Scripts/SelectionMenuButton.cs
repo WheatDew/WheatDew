@@ -11,11 +11,13 @@ namespace Origin
         public Button button;
         public TextMeshProUGUI buttonText;
         public string command;
+        public string key;
 
-        public void Init(string buttonText,string command)
+        public void Init(string buttonText,string command,string key)
         {
             this.buttonText.text = buttonText;
             this.command = command;
+            this.key = key;
             button.onClick.AddListener(delegate
             {
                 ButtonCommand();
@@ -24,8 +26,8 @@ namespace Origin
 
         public void ButtonCommand()
         {
-            CommandSystem.s.Execute(command + " " +
-                SelectionSystem.s.currentSelection.transform.GetInstanceID());
+            CommandSystem.s.Execute(command + " " +key);
+            SelectionSystem.s.selectionMenu.gameObject.SetActive(false);
         }
     }
 }

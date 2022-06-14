@@ -35,9 +35,18 @@ namespace Origin
             CommandSystem.s.Declare("StatusFoodGain", StatusFoodGain);
             CommandSystem.s.Declare("GetFoodStatus", GetFoodStatus);
             CommandSystem.s.Declare("GetFoodWeight", GetFoodWeight);
+            CommandSystem.s.Declare("SwitchStatusPage", SwitchStatusPageCommand);
         }
 
         //√¸¡Ó
+
+        public InfoData SwitchStatusPageCommand(string[] values)
+        {
+            SwitchStatusPage(statusList[values[1]].statusData);
+
+            return null;
+        }
+
         public InfoData StatusFoodGain(string[] values)
         {
             statusList[values[1]].statusData.food += float.Parse(values[2]);

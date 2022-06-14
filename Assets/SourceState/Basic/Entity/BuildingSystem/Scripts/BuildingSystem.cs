@@ -35,7 +35,7 @@ namespace Origin
         }
 
         //场景中的引用
-        public Dictionary<string, BuildingComponent> cbuildingList = new Dictionary<string, BuildingComponent>();
+        public Dictionary<string, BuildingComponent> components = new Dictionary<string, BuildingComponent>();
 
         //资源库
         public Dictionary<string, BuildingData> BuildingDataList = new Dictionary<string, BuildingData>();

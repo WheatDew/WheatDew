@@ -17,7 +17,7 @@ namespace Origin
         public RightMenuItem rightMenuItem;
 
         //组件列表
-        public Dictionary<string, PackComponent> PackList = new Dictionary<string, PackComponent>();
+        public Dictionary<string, PackComponent> components = new Dictionary<string, PackComponent>();
 
         //效果列表
         public Dictionary<string, ItemEffectData> itemEffectList = new Dictionary<string, ItemEffectData>();
@@ -33,6 +33,8 @@ namespace Origin
         {
             CommandSystem.s.Declare("PackItemGain", PackItemGainCommand);
             CommandSystem.s.Declare("PackItemUse", PackItemUseCommand);
+            CommandSystem.s.Declare("SwitchPackPage", SwitchPackPageCommand);
+
 
             //初始化测试数据
             itemEffectList.Add("Grass", new ItemEffectData(10));
@@ -41,7 +43,7 @@ namespace Origin
         //命令
         public InfoData PackItemGainCommand(string[] values)
         {
-            PackList[values[1]].PackItemGain(values[2], int.Parse(values[3]));
+            components[values[1]].PackItemGain(values[2], int.Parse(values[3]));
             return null;
         }
 
@@ -49,13 +51,19 @@ namespace Origin
         {
             if (itemEffectList.ContainsKey(values[2]))
             {
-                PackList[values[1]].PackItemGain(values[2], -1);
+                components[values[1]].PackItemGain(values[2], -1);
                 StatusSystem.S.statusList[values[1]].FoodGain(itemEffectList[values[2]].foodValue);
             }
 
             return null;    
         }
 
+        public InfoData SwitchPackPageCommand(string[] values)
+        {
+            SwitchPackPage(values[1]);
+            return null;
+
+        }
 
         //通常函数
 
@@ -106,7 +114,7 @@ namespace Origin
                 {
                     Debug.Log(item.Key+" "+item.Value.ToString());
                 }
-                Dictionary<string, ItemData> pack = PackList[selfKey].pack;
+                Dictionary<string, ItemData> pack = components[selfKey].pack;
                 if (requirement != null)
                 {
                     foreach(var item in requirement)

@@ -10,6 +10,12 @@ namespace Origin
 
         public string buildingName = "default";
 
+        private void Start()
+        {
+            print(transform.GetInstanceID().ToString());
+            BuildingSystem.S.components.Add(transform.GetInstanceID().ToString(), this);
+        }
+
         private void Update()
         {
 

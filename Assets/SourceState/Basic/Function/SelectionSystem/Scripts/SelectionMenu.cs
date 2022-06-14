@@ -10,16 +10,22 @@ namespace Origin
         public SelectionMenuButton buttonPrefab;
         public Transform parent;
 
-        private void Start()
-        {
-            CreateButton();
-        }
 
-        public void CreateButton()
+        public void ButtonInit(HashSet<string> values,string key)
         {
-            SelectionMenuButton button;
-            button = Instantiate(buttonPrefab, parent);
-            button.Init("Building","SwitchBluePrintPage");
+            for(int i = 0; i < parent.childCount; i++)
+            {
+                print("destroy" + parent.GetChild(i).name);
+                Destroy(parent.GetChild(i).gameObject);
+            }
+            foreach(var item in values)
+            {
+                string[] aguments = item.Split(' ');
+                SelectionMenuButton button;
+                button = Instantiate(buttonPrefab, parent);
+                button.Init(aguments[0], aguments[1],key);
+            }
+
 
         }
     }

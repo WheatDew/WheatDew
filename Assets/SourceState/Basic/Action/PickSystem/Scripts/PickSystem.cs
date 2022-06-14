@@ -123,7 +123,7 @@ namespace Origin
                 if(result.collider.tag == "PickItem")
                 {
                     PickItem pickItem = result.collider.gameObject.GetComponent<PickItem>();
-                    PackSystem.S.PackList[name].PackItemGain(pickItem.pickItemName, pickItem.pickItemCount);
+                    PackSystem.S.components[name].PackItemGain(pickItem.pickItemName, pickItem.pickItemCount);
                     Destroy(result.collider.gameObject);
                 }
             }        
@@ -132,7 +132,7 @@ namespace Origin
         public void PickItem(string component,string item)
         {
             print("pickItem " + component + " " + item);
-            PackSystem.S.PackList[component].PackItemGain(
+            PackSystem.S.components[component].PackItemGain(
                 items[item].pickItemName, items[item].pickItemCount);
             items[item].Destroy();
         }
