@@ -38,6 +38,7 @@ namespace Origin
 
             //初始化测试数据
             itemEffectList.Add("Grass", new ItemEffectData(10));
+            itemEffectList.Add("Patota", new ItemEffectData(30));
         }
 
         //命令
