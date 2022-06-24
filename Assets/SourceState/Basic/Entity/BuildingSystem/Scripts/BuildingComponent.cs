@@ -24,7 +24,16 @@ namespace Origin
             {
                 BuildingSystem.S.SwitchBluePrintPage();
             }
-            
+
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                RaycastHit result;
+                if(Physics.Raycast(ray,out result, 100, 1 << 9))
+                {
+                    print(result.collider.name);
+                }
+            }
         }
 
     }
