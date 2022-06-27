@@ -6,9 +6,6 @@ using UnityEngine.UI;
 namespace Origin
 {
 
-    /*
-     检测的层级要求为7，无名称要求
-     */
 
     public class BuildingSystem : MonoBehaviour
     {
@@ -16,7 +13,7 @@ namespace Origin
         public static BuildingSystem S { get { return _s; } }
 
         //引用的预制体列表
-        public List<Building> buildingPrefabList = new List<Building>(); //测试
+        public List<BuildingComponent> buildingPrefabList = new List<BuildingComponent>(); //测试
         public List<string> buildingDataNameList = new List<string>();//测试
         public List<string> buildingRequirementList = new List<string>();//测试
         public List<Sprite> buildingIconList = new List<Sprite>();//测试
@@ -35,8 +32,10 @@ namespace Origin
         }
 
         //场景中的引用
-        public Dictionary<string, BuildingComponent> components = new Dictionary<string, BuildingComponent>();
+        public Dictionary<string, CharacterBuildingComponent> components = new Dictionary<string, CharacterBuildingComponent>();
 
+        //建筑组件
+        public Dictionary<string, BuildingComponent> buildings = new Dictionary<string, BuildingComponent>();
         //资源库
         public Dictionary<string, BuildingData> BuildingDataList = new Dictionary<string, BuildingData>();
         
@@ -111,25 +110,28 @@ namespace Origin
         //创建蓝图
         public void CreateBuildingBluePrint(string buildingName)
         {
-            Building obj = Instantiate(BuildingDataList[buildingName].building);
-            SetTranslucentMaterial(obj.transform);
-            for (int i = 0; i < obj.transform.childCount; i++)
+            BuildingComponent bluePrint = Instantiate(BuildingDataList[buildingName].building);
+            bluePrint.buildingTypeName = buildingName;
+            bluePrint.isbluePrint=true;
+            SetTranslucentMaterial(bluePrint.transform);
+            for (int i = 0; i < bluePrint.transform.childCount; i++)
             {
-                Collider collider = obj.transform.GetChild(i).GetComponent<Collider>();
+                Collider collider = bluePrint.transform.GetChild(i).GetComponent<Collider>();
 
                 if (collider != null)
                     collider.isTrigger = true;
             }
-            obj.gameObject.AddComponent<BuildingBluePrint>().buildingName=buildingName;
-            obj.GetComponent<BuildingPack>().requirement = new Dictionary<string, ItemData>(BuildingDataList[buildingName].requirement);
+            bluePrint.gameObject.AddComponent<BuildingBluePrint>().buildingName=buildingName;
+            bluePrint.GetComponent<BuildingPack>().requirement = new Dictionary<string, ItemData>(BuildingDataList[buildingName].requirement);
 
         }
 
         //创建建筑
-        public void CreateBuiling(string buildingName,Vector3 position,Quaternion rotation)
+        public void CreateBuiling(string buildingName,Transform origin)
         {
-            Instantiate(BuildingDataList[buildingName].building,position,rotation);
-
+            BuildingComponent obj = Instantiate(BuildingDataList[buildingName].building);
+            obj.transform.position = origin.position;
+            obj.transform.rotation = origin.rotation;
         }
 
 
@@ -189,7 +191,7 @@ namespace Origin
     public class BuildingData
     {
         public Sprite icon;
-        public Building building;
+        public BuildingComponent building;
         public Dictionary<string, ItemData> requirement = new Dictionary<string, ItemData>();
     }
 }

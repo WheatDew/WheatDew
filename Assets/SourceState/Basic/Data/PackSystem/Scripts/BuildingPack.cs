@@ -10,8 +10,12 @@ namespace Origin
         public Dictionary<string, ItemData> requirement = new Dictionary<string, ItemData>();
         public TextMeshPro info;
 
+        public BuildingComponent building;
+
         private void Start()
         {
+            Init();
+            building=GetComponent<BuildingComponent>();
             UpdateRequirementInfo();
         }
 
@@ -23,7 +27,7 @@ namespace Origin
                 if (item.Value.count != 0)
                     return;
             }
-            BuildingSystem.S.CreateBuiling(GetComponent<BuildingBluePrint>().buildingName,transform.position,transform.rotation);
+            BuildingSystem.S.CreateBuiling(building.buildingTypeName, transform);
             Destroy(gameObject);
 
         }

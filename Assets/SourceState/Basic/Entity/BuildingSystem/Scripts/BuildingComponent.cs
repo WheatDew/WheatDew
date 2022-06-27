@@ -6,36 +6,18 @@ namespace Origin
 {
     public class BuildingComponent : MonoBehaviour
     {
-        public bool isPrepare = false;
-
-        public string buildingName = "default";
+        public string buildingTypeName;
+        public bool isbluePrint;
 
         private void Start()
         {
-            print(transform.GetInstanceID().ToString());
-            BuildingSystem.S.components.Add(transform.GetInstanceID().ToString(), this);
+            BuildingSystem.S.buildings.Add(transform.GetInstanceID().ToString(), this);
         }
 
-        private void Update()
+        public void OnDestroy()
         {
-
-            //¿∂ÕºΩÁ√Ê
-            if (Input.GetKeyDown(KeyCode.B))
-            {
-                BuildingSystem.S.SwitchBluePrintPage();
-            }
-
-            if (Input.GetKeyDown(KeyCode.E))
-            {
-                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                RaycastHit result;
-                if(Physics.Raycast(ray,out result, 100, 1 << 9))
-                {
-                    print(result.collider.name);
-                }
-            }
+            BuildingSystem.S.buildings.Remove(transform.GetInstanceID().ToString());
         }
-
     }
 }
 

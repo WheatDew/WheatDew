@@ -20,6 +20,7 @@ namespace Origin
 
             key = transform.GetInstanceID().ToString();
             PackSystem.S.components.Add(key, this);
+            print(key);
         }
 
         //功能函数
