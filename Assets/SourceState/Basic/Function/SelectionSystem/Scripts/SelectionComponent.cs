@@ -6,7 +6,7 @@ namespace Origin
 {
     public class SelectionComponent : MonoBehaviour
     {
-        public string key;
+        [HideInInspector] public string key;
         public Transform target;
 
         private void Start()

@@ -18,6 +18,7 @@ namespace Origin
         public Dictionary<string, SelectionComponent> components = new Dictionary<string, SelectionComponent>();
 
         [HideInInspector] public GameObject currentSelection;
+
         public StatusData selectionStatusData;
 
         private void Awake()
@@ -29,7 +30,6 @@ namespace Origin
         {
             selectionInfo = Instantiate(selectionInfoPrefab,FindObjectOfType<Canvas>().transform);
             selectionMenu = Instantiate(selectionMenuPrefab, FindObjectOfType<Canvas>().transform);
-
         }
 
         public void Update()
@@ -84,6 +84,7 @@ namespace Origin
                             selectionStatusData = StatusSystem.S.statusList[targetKey].statusData;
                             selectionMenu.gameObject.SetActive(true);
                             UpdateSelectionPage(targetKey);
+                            CameraSystem.s.camera.enabled=false;
                         }
                     }
                 }
@@ -95,6 +96,7 @@ namespace Origin
                         currentSelection = null;
                         selectionStatusData = null;
                         selectionMenu.gameObject.SetActive(false);
+                        CameraSystem.s.camera.enabled = true;
                     }
                 }
             }
