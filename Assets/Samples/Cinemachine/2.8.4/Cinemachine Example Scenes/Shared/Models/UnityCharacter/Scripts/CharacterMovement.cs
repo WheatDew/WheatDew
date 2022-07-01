@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Cinemachine.Examples
-{
+
 
 [AddComponentMenu("")] // Don't display in add component menu
 public class CharacterMovement : MonoBehaviour
@@ -22,56 +21,61 @@ public class CharacterMovement : MonoBehaviour
     private Quaternion freeRotation;
     private Camera mainCamera;
     private float velocity;
+    public static bool isMoving=true;
 
-	// Use this for initialization
-	void Start ()
-	{
-	    anim = GetComponent<Animator>();
-	    mainCamera = Camera.main;
-	}
+    // Use this for initialization
+    void Start()
+    {
+        anim = GetComponent<Animator>();
+        mainCamera = Camera.main;
+    }
 
-	// Update is called once per frame
-	void FixedUpdate ()
-	{
-	    input.x = Input.GetAxis("Horizontal");
-	    input.y = Input.GetAxis("Vertical");
-
-		// set speed to both vertical and horizontal inputs
-        if (useCharacterForward)
-            speed = Mathf.Abs(input.x) + input.y;
-        else
-            speed = Mathf.Abs(input.x) + Mathf.Abs(input.y);
-
-        speed = Mathf.Clamp(speed, 0f, 1f);
-        speed = Mathf.SmoothDamp(anim.GetFloat("Speed"), speed, ref velocity, 0.1f);
-        anim.SetFloat("Speed", speed);
-
-	    if (input.y < 0f && useCharacterForward)
-            direction = input.y;
-	    else
-            direction = 0f;
-
-        anim.SetFloat("Direction", direction);
-
-        // set sprinting
-	    isSprinting = ((Input.GetKey(sprintJoystick) || Input.GetKey(sprintKeyboard)) && input != Vector2.zero && direction >= 0f);
-        anim.SetBool("isSprinting", isSprinting);
-
-        // Update target direction relative to the camera view (or not if the Keep Direction option is checked)
-        UpdateTargetDirection();
-        if (input != Vector2.zero && targetDirection.magnitude > 0.1f)
+    // Update is called once per frame
+    void FixedUpdate()
+    {
+        if (isMoving)
         {
-            Vector3 lookDirection = targetDirection.normalized;
-            freeRotation = Quaternion.LookRotation(lookDirection, transform.up);
-            var diferenceRotation = freeRotation.eulerAngles.y - transform.eulerAngles.y;
-            var eulerY = transform.eulerAngles.y;
+            input.x = Input.GetAxis("Horizontal");
+            input.y = Input.GetAxis("Vertical");
 
-            if (diferenceRotation < 0 || diferenceRotation > 0) eulerY = freeRotation.eulerAngles.y;
-            var euler = new Vector3(0, eulerY, 0);
+            // set speed to both vertical and horizontal inputs
+            if (useCharacterForward)
+                speed = Mathf.Abs(input.x) + input.y;
+            else
+                speed = Mathf.Abs(input.x) + Mathf.Abs(input.y);
 
-            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(euler), turnSpeed * turnSpeedMultiplier * Time.deltaTime);
+            speed = Mathf.Clamp(speed, 0f, 1f);
+            speed = Mathf.SmoothDamp(anim.GetFloat("Speed"), speed, ref velocity, 0.1f);
+            anim.SetFloat("Speed", speed);
+
+            if (input.y < 0f && useCharacterForward)
+                direction = input.y;
+            else
+                direction = 0f;
+
+            anim.SetFloat("Direction", direction);
+
+            // set sprinting
+            isSprinting = ((Input.GetKey(sprintJoystick) || Input.GetKey(sprintKeyboard)) && input != Vector2.zero && direction >= 0f);
+            anim.SetBool("isSprinting", isSprinting);
+
+            // Update target direction relative to the camera view (or not if the Keep Direction option is checked)
+            UpdateTargetDirection();
+            if (input != Vector2.zero && targetDirection.magnitude > 0.1f)
+            {
+                Vector3 lookDirection = targetDirection.normalized;
+                freeRotation = Quaternion.LookRotation(lookDirection, transform.up);
+                var diferenceRotation = freeRotation.eulerAngles.y - transform.eulerAngles.y;
+                var eulerY = transform.eulerAngles.y;
+
+                if (diferenceRotation < 0 || diferenceRotation > 0) eulerY = freeRotation.eulerAngles.y;
+                var euler = new Vector3(0, eulerY, 0);
+
+                transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(euler), turnSpeed * turnSpeedMultiplier * Time.deltaTime);
+            }
         }
-	}
+
+    }
 
     public virtual void UpdateTargetDirection()
     {
@@ -98,6 +102,4 @@ public class CharacterMovement : MonoBehaviour
             targetDirection = input.x * right + Mathf.Abs(input.y) * forward;
         }
     }
-}
-
 }

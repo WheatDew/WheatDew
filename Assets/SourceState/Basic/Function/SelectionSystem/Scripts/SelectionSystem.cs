@@ -77,14 +77,19 @@ namespace Origin
                         if (currentSelection != result.collider.gameObject)
                         {
                             if (currentSelection != null)
-                                currentSelection.layer = 9;
-                            result.collider.gameObject.layer = 8;
+                            {
+                                SetLayer(currentSelection.transform, 9);
+                                
+                            }
+
+                            SetLayer(result.collider.transform, 8);
                             currentSelection = result.collider.gameObject;
                             string targetKey = currentSelection.GetComponent<SelectionComponent>().key;
                             selectionStatusData = StatusSystem.S.statusList[targetKey].statusData;
                             selectionMenu.gameObject.SetActive(true);
                             UpdateSelectionPage(targetKey);
                             CameraSystem.s.camera.enabled=false;
+                            CharacterMovement.isMoving = false;
                         }
                     }
                 }
@@ -92,11 +97,12 @@ namespace Origin
                 {
                     if (currentSelection != null)
                     {
-                        currentSelection.layer = 9;
+                        SetLayer(currentSelection.transform, 9);
                         currentSelection = null;
                         selectionStatusData = null;
                         selectionMenu.gameObject.SetActive(false);
                         CameraSystem.s.camera.enabled = true;
+                        CharacterMovement.isMoving = true;
                     }
                 }
             }
@@ -113,6 +119,15 @@ namespace Origin
         }
 
         #endregion
+
+        public void SetLayer(Transform t,int layer)
+        {
+            t.gameObject.layer = layer;
+            for(int i = 0; i < t.childCount; i++)
+            {
+                SetLayer(t.GetChild(i), layer);
+            }
+        }
     }
 }
 

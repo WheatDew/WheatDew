@@ -16,6 +16,6 @@ public class CameraSystem : MonoBehaviour
 
     public void DisableCameraMoving()
     {
-        camera.enabled = false;
+        
     }
 }
