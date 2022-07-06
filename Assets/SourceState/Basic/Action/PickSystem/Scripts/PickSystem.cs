@@ -25,10 +25,7 @@ namespace Origin
             
         }
 
-        private void Start()
-        {
-            TaskSystem.s.Declare("PickClosestItem", PickCloseItemTask);
-        }
+        
 
         #region 命令函数
 
@@ -71,20 +68,7 @@ namespace Origin
 
         #region 行为函数
 
-        public async void PickCloseItemTask(string[] values,TaskData taskData)
-        {
-            Transform proposer = components[values[1]].transform;
-            string itemName = ClosestItem(proposer.position);
-            Transform target = items[itemName].transform;
-
-            PathFindingSystem.s.SetTargetPosition(values[1],target.position);
-
-            while (Vector3.Distance(target.position, proposer.position) > 2)
-            {
-                await new WaitForSeconds(Time.deltaTime);
-            }
-            PickItem(values[1], itemName);
-        }
+        
 
         #endregion
 
