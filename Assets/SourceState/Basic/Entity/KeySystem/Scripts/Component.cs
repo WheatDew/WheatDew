@@ -6,7 +6,7 @@ namespace Origin
 {
     public class Component : MonoBehaviour
     {
-        
+
     }
 }
 

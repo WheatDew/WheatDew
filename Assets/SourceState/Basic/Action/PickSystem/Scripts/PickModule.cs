@@ -18,21 +18,18 @@ namespace Origin
         }
 
         /// <summary>
-        /// 
+        /// 拾取距离最近的物体
         /// </summary>
         /// <param name="values">command,proposer</param>
         /// <param name="taskData"></param>
         public async void PickCloseItemTask(string[] values, TaskData taskData)
         {
-
+            //获取发起对象的transform
             Transform proposer = s_pick.components[values[1]].transform;
+            //获取最近的目标名称
             string itemName = s_pick.ClosestItem(proposer.position);
+            //获取目标的transform
             Transform target = s_pick.items[itemName].transform;
-
-            if (values.Length == 3 && values[2] == "true" && Vector3.Distance(proposer.position, target.position) > 5)
-            {
-                return;
-            }
 
             PathFindingSystem.s.SetTargetPosition(values[1], target.position);
 

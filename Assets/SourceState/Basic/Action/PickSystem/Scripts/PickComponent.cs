@@ -24,21 +24,6 @@ namespace Origin
         {
             
 
-            //if (Input.GetKeyDown(KeyCode.C))
-            //{
-            //    PickSystem.s.CreateFocusPage();
-            //}
-
-            //if (Input.GetKey(KeyCode.C))
-            //{
-            //    PickSystem.s.DisplayFocusItemInfo();
-            //}
-
-            //if (Input.GetKeyUp(KeyCode.C))
-            //{
-            //    PickSystem.s.PickCheckout(key);
-            //}
-
             return null;
         }
     }
