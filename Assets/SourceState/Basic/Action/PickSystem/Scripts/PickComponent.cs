@@ -4,8 +4,10 @@ using UnityEngine;
 
 namespace Origin
 {
+    
     public class PickComponent : MonoBehaviour
     {
+        public enum Subject {Player,AI };
         public string key;
 
         //开始运行时将自身添加到列表
@@ -18,11 +20,13 @@ namespace Origin
 
         private void Update()
         {
-            Job();
+            PickClosedItemJob();
         }
-        virtual public InfoData Job()
+
+
+        public InfoData PickClosedItemJob()
         {
-            
+            TaskSystem.s.Execute(string.Format("{0} {1}", "PickClosedItem",key) );
 
             return null;
         }
