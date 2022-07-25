@@ -13,8 +13,7 @@ namespace Origin
             //初始化
             s_pick = PickSystem.s;
             //添加命令
-            TaskSystem.s.Declare("PickClosestItem", PickCloseItemTask);
-
+            TaskSystem.s.Declare("PickClosestItem", PickClosestItemTask);
         }
 
         /// <summary>
@@ -22,9 +21,14 @@ namespace Origin
         /// </summary>
         /// <param name="values">command,proposer</param>
         /// <param name="taskData"></param>
-        public async void PickCloseItemTask(string[] values, TaskData taskData)
+        public async void PickClosestItemTask(string[] values, TaskData taskData)
         {
             //获取发起对象的transform
+            if (!s_pick.components.ContainsKey(values[1]))
+            {
+                Debug.LogError(string.Format("不存在ID{0}", values[1]));
+                return;
+            }
             Transform proposer = s_pick.components[values[1]].transform;
             //获取最近的目标名称
             string itemName = s_pick.ClosestItem(proposer.position);

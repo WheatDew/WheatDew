@@ -38,6 +38,7 @@ namespace Origin
         //延时执行行为(字符串版本)
         public async void Execute(string value)
         {
+            Debug.Log("执行" + value);
             string[] commands=value.Split('@');
             if (commands.Length == 2)
                 await new WaitForSeconds(float.Parse(commands[1]));

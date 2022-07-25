@@ -15,18 +15,20 @@ namespace Origin
         {
             key = transform.GetInstanceID().ToString();
             PickSystem.s.components.Add(key, this);
+            Debug.Log("pickComponentKey:" + key);
         }
 
 
         private void Update()
         {
-            PickClosedItemJob();
+            if(Input.GetKeyDown(KeyCode.F))
+                PickClosedItemJob();
         }
 
 
         public InfoData PickClosedItemJob()
         {
-            TaskSystem.s.Execute(string.Format("{0} {1}", "PickClosedItem",key) );
+            TaskSystem.s.Execute(string.Format("{0} {1}", "PickClosestItem",key) );
 
             return null;
         }
