@@ -22,12 +22,12 @@ namespace Origin
                 if (building!=null&&buildingPack!=null)
                 {
 
-                    Dictionary<string, ItemData> requirement = buildingPack.requirement;
+                    Dictionary<string, Item> requirement = buildingPack.requirement;
                     foreach (var item in requirement)
                     {
                         Debug.Log(item.Key + " " + item.Value.ToString());
                     }
-                    Dictionary<string, ItemData> pack = 
+                    Dictionary<string, Item> pack = 
                         PackSystem.S.components[value].pack;
                     if (requirement != null)
                     {

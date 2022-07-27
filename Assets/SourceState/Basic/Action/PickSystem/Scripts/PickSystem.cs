@@ -54,15 +54,15 @@ namespace Origin
             return infoData;
         }
 
-        public InfoData PickItemCommand(string[] values)
-        {
-            InfoData infoData = new InfoData();
+        //public InfoData PickItemCommand(string[] values)
+        //{
+        //    InfoData infoData = new InfoData();
 
-            PickItem(values[1], values[2]);
-            infoData.intValue = 1;
+        //    PickItem(values[1], values[2]);
+        //    infoData.intValue = 1;
 
-            return infoData;
-        }
+        //    return infoData;
+        //}
 
         #endregion
 
@@ -97,29 +97,29 @@ namespace Origin
             return 0;
         }
 
-        public void PickCheckout(string name)
-        {
-            Destroy(focus.gameObject);
+        //public void PickCheckout(string name)
+        //{
+        //    Destroy(focus.gameObject);
 
-            RaycastHit result;
-            if (Physics.Raycast(Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0)), out result, 100,1<<9))
-            {
-                if(result.collider.tag == "PickItem")
-                {
-                    PickItem pickItem = result.collider.gameObject.GetComponent<PickItem>();
-                    PackSystem.S.components[name].PackItemGain(pickItem.pickItemName, pickItem.pickItemCount);
-                    Destroy(result.collider.gameObject);
-                }
-            }        
-        }
+        //    RaycastHit result;
+        //    if (Physics.Raycast(Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0)), out result, 100,1<<9))
+        //    {
+        //        if(result.collider.tag == "PickItem")
+        //        {
+        //            PickItem pickItem = result.collider.gameObject.GetComponent<PickItem>();
+        //            PackSystem.S.components[name].PackItemGain(pickItem.pickItemName, pickItem.pickItemCount);
+        //            Destroy(result.collider.gameObject);
+        //        }
+        //    }        
+        //}
 
-        public void PickItem(string component,string item)
-        {
-            print("pickItem " + component + " " + item);
-            PackSystem.S.components[component].PackItemGain(
-                items[item].pickItemName, items[item].pickItemCount);
-            items[item].Destroy();
-        }
+        //public void PickItem(string component,string item)
+        //{
+        //    print("pickItem " + component + " " + item);
+        //    PackSystem.S.components[component].PackItemGain(
+        //        items[item].pickItemName, items[item].pickItemCount);
+        //    items[item].Destroy();
+        //}
 
         public string ClosestItem(Vector3 self)
         {

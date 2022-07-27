@@ -33,7 +33,7 @@ namespace Origin
 
         public void UpdataPackPage()
         {
-            Dictionary<string, ItemData> targetList = PackSystem.S.components[targetPack].pack;
+            Dictionary<string, Item> targetList = PackSystem.S.components[targetPack].pack;
 
             Dictionary<string, PackPageItem> recordList = itemList;
 

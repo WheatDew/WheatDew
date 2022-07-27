@@ -7,7 +7,7 @@ namespace Origin
 {
     public class BuildingPack : PackComponent
     {
-        public Dictionary<string, ItemData> requirement = new Dictionary<string, ItemData>();
+        public Dictionary<string, Item> requirement = new Dictionary<string, Item>();
         public TextMeshPro info;
 
         public BuildingComponent building;

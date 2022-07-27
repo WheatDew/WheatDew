@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
-
-
+using UnityEngine.EventSystems;
 
 [AddComponentMenu("")] // Don't display in add component menu
 public class CharacterMovement : MonoBehaviour
@@ -22,6 +21,8 @@ public class CharacterMovement : MonoBehaviour
     private Camera mainCamera;
     private float velocity;
     public static bool isMoving=true;
+
+    public GameObject weapon;
 
     // Use this for initialization
     void Start()
@@ -75,6 +76,24 @@ public class CharacterMovement : MonoBehaviour
             }
         }
 
+        //Attack
+        if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
+        {
+            anim.SetTrigger("Attack");
+            
+        }
+
+    }
+
+    public void DisplayWeapon()
+    {
+        weapon.SetActive(true);
+    }
+
+    public void HiddenWeapon()
+    {
+        if (!anim.GetBool("Attack"))
+            weapon.SetActive(false);
     }
 
     public virtual void UpdateTargetDirection()

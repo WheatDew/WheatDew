@@ -6,43 +6,31 @@ namespace Origin
 {
     public class PickModule : MonoBehaviour
     {
-        [HideInInspector] public PickSystem s_pick;
+        public PickSystem pickSystem;
 
         private void Start()
         {
-            //初始化
-            s_pick = PickSystem.s;
-            //添加命令
-            TaskSystem.s.Declare("PickClosestItem", PickClosestItemTask);
+            TaskSystem.s.Declare("PickItem", PickItem);
         }
 
-        /// <summary>
-        /// 拾取距离最近的物体
-        /// </summary>
-        /// <param name="values">command,proposer</param>
-        /// <param name="taskData"></param>
-        public async void PickClosestItemTask(string[] values, TaskData taskData)
+        public void PickItem(string[] value,TaskData taskData)
         {
-            //获取发起对象的transform
-            if (!s_pick.components.ContainsKey(values[1]))
+            HashSet<string> items = RangeSystem.s.components[value[1]].currentRange;
+            foreach (string item in items)
             {
-                Debug.LogError(string.Format("不存在ID{0}", values[1]));
-                return;
+                if (EntitySystem.s.components[item].itemName != "")
+                {
+                    EntitySystem.s.DestroyEntity(item);
+                    PackSystem.S.PackItemGain(value[1], EntitySystem.s.components[item].itemName, EntitySystem.s.components[item].itemCount);
+                }
             }
-            Transform proposer = s_pick.components[values[1]].transform;
-            //获取最近的目标名称
-            string itemName = s_pick.ClosestItem(proposer.position);
-            //获取目标的transform
-            Transform target = s_pick.items[itemName].transform;
 
-            PathFindingSystem.s.SetTargetPosition(values[1], target.position);
+            items.Clear();
+            InfoInSceneSystem.s.HiddenItemInfoInScene();
 
-            while (Vector3.Distance(target.position, proposer.position) > 2)
-            {
-                await new WaitForSeconds(Time.deltaTime);
-            }
-            s_pick.PickItem(values[1], itemName);
+            
         }
     }
+
 }
 

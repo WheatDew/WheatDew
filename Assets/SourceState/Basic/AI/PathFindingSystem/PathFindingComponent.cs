@@ -10,8 +10,8 @@ namespace Origin
         [HideInInspector] public NavMeshAgent agent;
         [HideInInspector] public TaskComponent behaviour;
         
-        public PickItem pickTarget;
-        public Transform target;
+        [HideInInspector] public PickItem pickTarget;
+        [HideInInspector] public Transform target;
 
         private void Start()
         {

@@ -9,26 +9,26 @@ namespace Origin
     {
         public enum Subject {Player,AI };
         public string key;
+        private RangeComponent c_range;
 
         //开始运行时将自身添加到列表
         private void Start()
         {
             key = transform.GetInstanceID().ToString();
             PickSystem.s.components.Add(key, this);
-            Debug.Log("pickComponentKey:" + key);
         }
 
 
         private void Update()
         {
-            if(Input.GetKeyDown(KeyCode.F))
+            if(Input.GetKeyDown(KeyCode.E))
                 PickClosedItemJob();
         }
 
 
         public InfoData PickClosedItemJob()
         {
-            TaskSystem.s.Execute(string.Format("{0} {1}", "PickClosestItem",key) );
+            TaskSystem.s.Execute(string.Format("PickItem {0}", key));
 
             return null;
         }

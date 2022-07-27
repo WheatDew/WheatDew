@@ -31,33 +31,34 @@ namespace Origin
 
         private void Start()
         {
-            CommandSystem.s.Declare("PackItemGain", PackItemGainCommand);
-            CommandSystem.s.Declare("PackItemUse", PackItemUseCommand);
+            //CommandSystem.s.Declare("PackItemGain", PackItemGainCommand);
+            //CommandSystem.s.Declare("PackItemUse", PackItemUseCommand);
             CommandSystem.s.Declare("SwitchPackPage", SwitchPackPageCommand);
-
 
             //初始化测试数据
             itemEffectList.Add("Grass", new ItemEffectData(10));
             itemEffectList.Add("Patota", new ItemEffectData(30));
         }
 
+
+
         //命令
-        public InfoData PackItemGainCommand(string[] values)
-        {
-            components[values[1]].PackItemGain(values[2], int.Parse(values[3]));
-            return null;
-        }
+        //public InfoData PackItemGainCommand(string[] values)
+        //{
+        //    components[values[1]].PackItemGain(values[2], int.Parse(values[3]));
+        //    return null;
+        //}
 
-        public InfoData PackItemUseCommand(string[] values)
-        {
-            if (itemEffectList.ContainsKey(values[2]))
-            {
-                components[values[1]].PackItemGain(values[2], -1);
-                StatusSystem.S.statusList[values[1]].FoodGain(itemEffectList[values[2]].foodValue);
-            }
+        //public InfoData PackItemUseCommand(string[] values)
+        //{
+        //    if (itemEffectList.ContainsKey(values[2]))
+        //    {
+        //        components[values[1]].PackItemGain(values[2], -1);
+        //        StatusSystem.S.statusList[values[1]].FoodGain(itemEffectList[values[2]].foodValue);
+        //    }
 
-            return null;    
-        }
+        //    return null;    
+        //}
 
         public InfoData SwitchPackPageCommand(string[] values)
         {
@@ -67,6 +68,41 @@ namespace Origin
         }
 
         //通常函数
+
+        public InfoData PackItemGain(string targetName,string itemName, int itemCount)
+        {
+            InfoData infoData = new InfoData();
+            PackComponent target = components[targetName];
+            Dictionary<string,Item> pack=target.pack;
+            if (pack.ContainsKey(itemName))
+            {
+                if (pack[itemName].count + itemCount < 0)
+                {
+                    infoData.stringValue = "物品数量不能为负数";
+                    infoData.intValue = -2;
+                    return infoData;
+                }
+                else
+                {
+                    pack[itemName].count += itemCount;
+                }
+            }
+            else
+            {
+                if (itemCount > 0)
+                {
+                    pack.Add(itemName, new Item(itemName, itemCount));
+                }
+                else
+                {
+                    infoData.stringValue = "物品数量不能为负数";
+                    infoData.intValue = -1;
+                    return infoData;
+                }
+            }
+
+            return infoData;
+        }
 
         public void CreatePackPage(string name)
         {
@@ -110,12 +146,12 @@ namespace Origin
             {
                 print("射线检测成功");
                 BuildingPack buildingPack = result.collider.GetComponent<BuildingPack>();
-                Dictionary<string,ItemData> requirement = buildingPack.requirement;
+                Dictionary<string,Item> requirement = buildingPack.requirement;
                 foreach(var item in requirement)
                 {
                     Debug.Log(item.Key+" "+item.Value.ToString());
                 }
-                Dictionary<string, ItemData> pack = components[selfKey].pack;
+                Dictionary<string, Item> pack = components[selfKey].pack;
                 if (requirement != null)
                 {
                     foreach(var item in requirement)
@@ -140,12 +176,12 @@ namespace Origin
         }
     }
 
-    public class ItemData
+    public class Item
     {
         public string name;
         public int count;
 
-        public ItemData(string name,int count)
+        public Item(string name,int count)
         {
             this.name = name;
             this.count = count;
