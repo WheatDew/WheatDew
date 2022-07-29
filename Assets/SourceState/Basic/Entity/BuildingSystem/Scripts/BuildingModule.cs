@@ -8,27 +8,25 @@ namespace Origin
     {
         private void Start()
         {
-            new NewCommand("FinishBuilding", FinishBuilding);
+            TaskSystem.s.Declare("FinishBuilding", FinishBuilding);
+
         }
 
-        public void FinishBuilding(string value)
+        public void FinishBuilding(string[] values,TaskData taskData)
         {
-            Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2));
-            RaycastHit result;
-            if (Physics.Raycast(ray, out result, 100, 1 << 9))
+            BuildingComponent building = BuildingSystem.S.buildings[values[2]];
+            BuildingPack buildingPack = building.GetComponent<BuildingPack>();
+            if (building != null && buildingPack != null)
             {
-                BuildingComponent building = result.collider.gameObject.GetComponent<BuildingComponent>();
-                BuildingPack buildingPack = result.collider.GetComponent<BuildingPack>();
-                if (building!=null&&buildingPack!=null)
+                if (buildingPack.requirement.Count != 0)
                 {
-
                     Dictionary<string, Item> requirement = buildingPack.requirement;
                     foreach (var item in requirement)
                     {
                         Debug.Log(item.Key + " " + item.Value.ToString());
                     }
-                    Dictionary<string, Item> pack = 
-                        PackSystem.S.components[value].pack;
+                    Dictionary<string, Item> pack =
+                        PackSystem.S.components[values[1]].pack;
                     if (requirement != null)
                     {
                         foreach (var item in requirement)
@@ -49,9 +47,10 @@ namespace Origin
                         }
                         buildingPack.CheckRequirement();
                     }
-
-
                 }
+                
+
+
             }
 
         }

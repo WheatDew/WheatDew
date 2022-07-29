@@ -6,13 +6,12 @@ namespace Origin
 {
     public class CharacterBuildingComponent : MonoBehaviour
     {
-        public bool isPrepare = false;
-
-        public string buildingName = "default";
+        private RangeComponent c_range;
 
         string key;
         private void Start()
         {
+            c_range = GetComponent<RangeComponent>();
             key = transform.GetInstanceID().ToString();
             BuildingSystem.S.components.Add(key,this);
         }
@@ -20,15 +19,18 @@ namespace Origin
         private void Update()
         {
 
-            //À¶Í¼½çÃæ
-            if (Input.GetKeyDown(KeyCode.B))
-            {
-                BuildingSystem.S.SwitchBluePrintPage();
-            }
-
             if (Input.GetKeyDown(KeyCode.E))
             {
-                NewCommandSystem.Execute(string.Format("FinishBuilding {0}",key));
+                foreach(var item in c_range.currentRange)
+                {
+                    Debug.Log("ÅÐ¶Ï½¨Öþ" + item);
+                    if (BuildingSystem.S.buildings.ContainsKey(item))
+                    {
+                        TaskSystem.s.Execute(string.Format("FinishBuilding {0} {1}", key, item));
+                        break;
+                    }
+                }
+                
             }
         }
 

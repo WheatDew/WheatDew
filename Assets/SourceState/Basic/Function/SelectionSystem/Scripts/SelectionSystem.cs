@@ -17,7 +17,7 @@ namespace Origin
 
         public Dictionary<string, SelectionComponent> components = new Dictionary<string, SelectionComponent>();
 
-        [HideInInspector] public GameObject currentSelection;
+        public GameObject currentSelection;
 
         public StatusData selectionStatusData;
 
@@ -34,7 +34,12 @@ namespace Origin
 
         public void Update()
         {
-            SelectionJob();
+            //SelectionJob();
+            if (Input.GetKeyDown(KeyCode.Tab))
+            {
+                UpdateSelectionPage(currentSelection.transform.GetInstanceID().ToString());
+
+            }
         }
 
 
@@ -50,15 +55,30 @@ namespace Origin
         {
             if(currentSelection != null)
             {
-                HashSet<string> values = new HashSet<string>();
-                if (BuildingSystem.S.components.ContainsKey(key))
-                    values.Add("Build SwitchBluePrintPage");
-                if (PackSystem.S.components.ContainsKey(key))
-                    values.Add("Pack SwitchPackPage");
-                if (StatusSystem.S.statusList.ContainsKey(key))
-                    values.Add("Status SwitchStatusPage");
+                if (!selectionMenu.gameObject.activeSelf)
+                {
+                    selectionStatusData = StatusSystem.S.statusList[key].statusData;
+                    selectionMenu.gameObject.SetActive(true);
+                    HashSet<string> values = new HashSet<string>();
+                    if (BuildingSystem.S.components.ContainsKey(key))
+                        values.Add("Build SwitchBluePrintPage");
+                    if (PackSystem.S.components.ContainsKey(key))
+                        values.Add("Pack SwitchPackPage");
+                    if (StatusSystem.S.statusList.ContainsKey(key))
+                        values.Add("Status SwitchStatusPage");
 
-                selectionMenu.ButtonInit(values,key);
+                    selectionMenu.ButtonInit(values, key);
+                    CameraSystem.s.camera.enabled = false;
+                    CharacterMovement.isMoving = false;
+                }
+                else
+                {
+                    selectionMenu.gameObject.SetActive(false);
+                    CameraSystem.s.camera.enabled = true;
+                    CharacterMovement.isMoving = true;
+                }
+
+
             }
         }
 

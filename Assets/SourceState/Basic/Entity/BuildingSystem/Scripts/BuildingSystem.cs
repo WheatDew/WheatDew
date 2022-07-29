@@ -129,9 +129,13 @@ namespace Origin
         //´´½¨½¨Öþ
         public void CreateBuiling(string buildingName,Transform origin)
         {
-            BuildingComponent obj = Instantiate(BuildingDataList[buildingName].building);
-            obj.transform.position = origin.position;
-            obj.transform.rotation = origin.rotation;
+            if (BuildingDataList.ContainsKey(buildingName))
+            {
+                BuildingComponent obj = Instantiate(BuildingDataList[buildingName].building);
+                obj.transform.position = origin.position;
+                obj.transform.rotation = origin.rotation;
+            }
+
         }
 
 
