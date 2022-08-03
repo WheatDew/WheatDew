@@ -27,7 +27,6 @@ Material:
   m_Shader: {fileID: 4800000, guid: 6459b2db96a08ca41b0f9b39dc7ad59e, type: 3}
   m_ValidKeywords:
   - N_F_CS_ON
-  - N_F_ESSGI_ON
   - N_F_ESSR_ON
   - N_F_ESSS_ON
   - N_F_O_ON
@@ -319,7 +318,7 @@ Material:
     - _N_F_CS: 1
     - _N_F_DCS: 0
     - _N_F_ESSAO: 0
-    - _N_F_ESSGI: 1
+    - _N_F_ESSGI: 0
     - _N_F_ESSR: 1
     - _N_F_ESSS: 1
     - _N_F_FR: 0
@@ -396,7 +395,7 @@ Material:
     - _SelfShadowAffectedByLightShadowStrength: 0
     - _SelfShadowHardness: 1
     - _SelfShadowRealTimeShadowColorPower: 1
-    - _SelfShadowRealtimeShadowIntensity: 0.8
+    - _SelfShadowRealtimeShadowIntensity: 1
     - _SelfShadowShadowTAtViewDirection: 0
     - _SelfShadowThreshold: 0.93
     - _ShadowColorTexturePower: 0

@@ -24,21 +24,20 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Mat_Xiaoxi_Hair
-  m_Shader: {fileID: 4800000, guid: 6459b2db96a08ca41b0f9b39dc7ad59e, type: 3}
+  m_Shader: {fileID: 4800000, guid: 6e4ae4064600d784cac1e41a9e6f2e59, type: 3}
   m_ValidKeywords:
-  - N_F_CS_ON
-  - N_F_ESSGI_ON
-  - N_F_ESSR_ON
-  - N_F_ESSS_ON
-  - N_F_O_ON
-  - N_F_PAL_ON
-  - N_F_RELGI_ON
-  - N_F_SS_ON
-  m_InvalidKeywords:
   - _DISABLE_SSR_TRANSPARENT
   - _DOUBLESIDED_ON
-  - _ENABLE_FOG_ON_TRANSPARENT
   - _NORMALMAP_TANGENT_SPACE
+  m_InvalidKeywords:
+  - N_F_CS_ON
+  - N_F_DCS_ON
+  - N_F_ESSR_ON
+  - N_F_HDLS_ON
+  - N_F_HPSAS_ON
+  - N_F_NLASOBF_ON
+  - N_F_O_ON
+  - N_F_SS_ON
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 1
@@ -50,6 +49,7 @@ Material:
   - TransparentBackface
   - RayTracingPrepass
   - MOTIONVECTORS
+  - SHADOWCASTER
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
@@ -216,7 +216,7 @@ Material:
     - _AlphaCutoffPostpass: 0.5
     - _AlphaCutoffPrepass: 0.5
     - _AlphaCutoffShadow: 0.5
-    - _AlphaDstBlend: 10
+    - _AlphaDstBlend: 0
     - _AlphaSrcBlend: 1
     - _AlphaToMask: 0
     - _AlphaToMaskInspectorValue: 0
@@ -228,7 +228,7 @@ Material:
     - _CoatMask: 0
     - _CullMode: 0
     - _CullModeForward: 0
-    - _Culling: 2
+    - _Culling: 0
     - _CustomLightDirectionFollowObjectRotation: 0
     - _CustomLightDirectionIntensity: 0
     - _Cutoff: 0.5
@@ -249,7 +249,7 @@ Material:
     - _DoubleSidedGIMode: 0
     - _DoubleSidedNormalMode: 1
     - _DoubleSidedOutline: 1
-    - _DstBlend: 10
+    - _DstBlend: 0
     - _DynamicNoisyOutline: 0
     - _EmissiveColorMode: 1
     - _EmissiveExposureWeight: 1
@@ -285,7 +285,7 @@ Material:
     - _HeightPoMAmplitude: 2
     - _HeightTessAmplitude: 2
     - _HeightTessCenter: 0.5
-    - _HighlightColorPower: 1
+    - _HighlightColorPower: 0.5
     - _InvTilingScale: 1
     - _Ior: 1.5
     - _IridescenceMask: 1
@@ -316,23 +316,23 @@ Material:
     - _N_F_CO: 0
     - _N_F_COEDGL: 0
     - _N_F_CS: 1
-    - _N_F_DCS: 0
+    - _N_F_DCS: 1
     - _N_F_ESSAO: 0
-    - _N_F_ESSGI: 1
+    - _N_F_ESSGI: 0
     - _N_F_ESSR: 1
-    - _N_F_ESSS: 1
+    - _N_F_ESSS: 0
     - _N_F_FR: 0
     - _N_F_GLO: 0
     - _N_F_GLOT: 0
-    - _N_F_HDLS: 0
-    - _N_F_HPSAS: 0
+    - _N_F_HDLS: 1
+    - _N_F_HPSAS: 1
     - _N_F_MC: 0
     - _N_F_MSSOLTFO: 0
-    - _N_F_NLASOBF: 0
+    - _N_F_NLASOBF: 1
     - _N_F_NM: 0
     - _N_F_O: 1
     - _N_F_O_NM: 0
-    - _N_F_PAL: 1
+    - _N_F_PAL: 0
     - _N_F_PT: 0
     - _N_F_R: 0
     - _N_F_RL: 0
@@ -367,13 +367,13 @@ Material:
     - _PTexturePower: 1
     - _Parallax: 0.02
     - _PointSpotlightIntensity: 0
-    - _RELG: 1
+    - _RELG: 0
     - _RTGIShaFallo: 0
     - _RayTracing: 0
     - _ReceivesSSR: 1
     - _ReceivesSSRTransparent: 0
     - _RecurRen: 0
-    - _ReduSha: 0
+    - _ReduSha: 1
     - _RefMetallic: 0
     - _ReflectionIntensity: 0
     - _RefractionModel: 0
@@ -384,9 +384,9 @@ Material:
     - _RimLightUnfill: 1.5
     - _SPECIN: 1
     - _SPECMODE: 0
-    - _SSRefDeOn: 8
-    - _SSRefGBu: 10
-    - _SSRefMoVe: 40
+    - _SSRefDeOn: 0
+    - _SSRefGBu: 2
+    - _SSRefMoVe: 32
     - _STIL: 0
     - _Saturation: 1
     - _SelfLitHighContrast: 1
@@ -394,8 +394,8 @@ Material:
     - _SelfLitPower: 50
     - _SelfShadowAffectedByLightShadowStrength: 0
     - _SelfShadowHardness: 1
-    - _SelfShadowRealTimeShadowColorPower: 1
-    - _SelfShadowRealtimeShadowIntensity: 0.8
+    - _SelfShadowRealTimeShadowColorPower: -2.22
+    - _SelfShadowRealtimeShadowIntensity: 1
     - _SelfShadowShadowTAtViewDirection: 0
     - _SelfShadowThreshold: 0.93
     - _ShadowColorTexturePower: 0
@@ -419,16 +419,16 @@ Material:
     - _SpecularOcclusionMode: 1
     - _SrcBlend: 1
     - _StencilRef: 0
-    - _StencilRefDepth: 0
-    - _StencilRefGBuffer: 2
-    - _StencilRefMV: 32
+    - _StencilRefDepth: 8
+    - _StencilRefGBuffer: 10
+    - _StencilRefMV: 40
     - _StencilWriteMask: 6
     - _StencilWriteMaskDepth: 8
     - _StencilWriteMaskGBuffer: 14
     - _StencilWriteMaskMV: 40
     - _SubsurfaceMask: 1
     - _SupportDecals: 1
-    - _SurfaceType: 1
+    - _SurfaceType: 0
     - _TEXMCOLINT: 0
     - _TOAO: 1
     - _TRANSMODE: 0
@@ -457,7 +457,7 @@ Material:
     - _VertexColorGreenControlSelfShadowThreshold: 0
     - _VertexColorRedControlSmoothObjectNormal: 0
     - _ZTeForLiOpa: 3
-    - _ZTestDepthEqualForOpaque: 4
+    - _ZTestDepthEqualForOpaque: 3
     - _ZTestGBuffer: 4
     - _ZTestTransparent: 4
     - _ZWrite: 1
