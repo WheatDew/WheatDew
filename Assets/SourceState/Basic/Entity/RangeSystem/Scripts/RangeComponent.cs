@@ -6,6 +6,8 @@ using UnityEngine.Events;
 namespace Origin
 {
     public enum RangeType { Player,Item}
+
+    [RequireComponent(typeof(EntityComponent))]
     public class RangeComponent : MonoBehaviour
     {
         [HideInInspector] public Transform target;
@@ -31,6 +33,12 @@ namespace Origin
                 RangeSystem.s.components.Add(key, this);
             }
 
+            if (GetComponent<Collider>() == null)
+            {
+                var collider = gameObject.AddComponent<SphereCollider>();
+                collider.isTrigger = true;
+                collider.radius = 0.5f;
+            }
         }
 
         private void OnTriggerEnter(Collider other)
