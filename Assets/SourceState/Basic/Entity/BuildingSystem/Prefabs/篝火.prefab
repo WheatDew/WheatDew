@@ -408,6 +408,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   key: 
+  recipes: "\u6D4B\u8BD5\u914D\u65B9"
   info: {fileID: 5525077525961976153}
   building: {fileID: 0}
 --- !u!65 &5703047536115605605

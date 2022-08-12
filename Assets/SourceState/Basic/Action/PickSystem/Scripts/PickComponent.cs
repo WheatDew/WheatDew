@@ -17,21 +17,6 @@ namespace Origin
             key = transform.GetInstanceID().ToString();
             PickSystem.s.components.Add(key, this);
         }
-
-
-        private void Update()
-        {
-            if(Input.GetKeyDown(KeyCode.E))
-                PickClosedItemJob();
-        }
-
-
-        public InfoData PickClosedItemJob()
-        {
-            TaskSystem.s.Execute(string.Format("PickItem {0}", key));
-
-            return null;
-        }
     }
 }
 

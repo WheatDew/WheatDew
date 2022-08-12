@@ -8,7 +8,7 @@ namespace Origin
     {
         public string key;
         public Dictionary<string, Item> pack = new Dictionary<string, Item>();
-
+        public string recipes;
 
         private void Start()
         {

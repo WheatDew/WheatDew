@@ -4,9 +4,10 @@ using UnityEngine;
 
 namespace Origin
 {
-    public class CharacterPack : PackComponent
+    public class RecipePage : MonoBehaviour
     {
-        private new string recipes;
+        [HideInInspector] public PackComponent host,guest;
+
     }
 }
 
