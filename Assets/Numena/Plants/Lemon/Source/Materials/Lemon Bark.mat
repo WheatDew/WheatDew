@@ -172,11 +172,11 @@ Material:
     - _TransparentSortPriority: 0
     - _TransparentWritingMotionVec: 0
     - _TransparentZWrite: 0
-    - _TrunkAORemapMax: 1
+    - _TrunkAORemapMax: 0.605
     - _TrunkAORemapMin: 0
     - _TrunkMetallic: 1
     - _TrunkNormalScale: 1
-    - _TrunkSmoothnessRemapMax: 1
+    - _TrunkSmoothnessRemapMax: 0
     - _TrunkSmoothnessRemapMin: 0
     - _UVSec: 0
     - _UseShadowThreshold: 0

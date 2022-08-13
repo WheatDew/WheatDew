@@ -26,12 +26,16 @@ Material:
   m_Name: Mat_Xiaoxi_Eyelight
   m_Shader: {fileID: 4800000, guid: 6459b2db96a08ca41b0f9b39dc7ad59e, type: 3}
   m_ValidKeywords:
-  - N_F_CS_ON
+  - N_F_AL_ON
+  - N_F_ESSAO_ON
+  - N_F_ESSGI_ON
   - N_F_ESSR_ON
   - N_F_ESSS_ON
+  - N_F_NM_ON
   - N_F_O_ON
   - N_F_PAL_ON
   - N_F_RELGI_ON
+  - N_F_RL_ON
   - N_F_SS_ON
   - N_F_TRANS_ON
   m_InvalidKeywords:
@@ -228,7 +232,7 @@ Material:
     - _CoatMask: 0
     - _CullMode: 2
     - _CullModeForward: 2
-    - _Culling: 2
+    - _Culling: 0
     - _CustomLightDirectionFollowObjectRotation: 0
     - _CustomLightDirectionIntensity: 0
     - _Cutoff: 0.182
@@ -304,21 +308,21 @@ Material:
     - _MVWriMas: 40
     - _MaiColPo: 0.15
     - _MaterialID: 1
-    - _Metallic: 0.5
+    - _Metallic: 0
     - _MetallicRemapMax: 1
     - _MetallicRemapMin: 0
     - _MixMainTexToOutline: 0
     - _Mode: 0
-    - _N_F_AL: 0
+    - _N_F_AL: 1
     - _N_F_ALSL: 0
     - _N_F_CA: 0
     - _N_F_CLD: 0
     - _N_F_CO: 0
     - _N_F_COEDGL: 0
-    - _N_F_CS: 1
+    - _N_F_CS: 0
     - _N_F_DCS: 0
-    - _N_F_ESSAO: 0
-    - _N_F_ESSGI: 0
+    - _N_F_ESSAO: 1
+    - _N_F_ESSGI: 1
     - _N_F_ESSR: 1
     - _N_F_ESSS: 1
     - _N_F_FR: 0
@@ -329,13 +333,13 @@ Material:
     - _N_F_MC: 0
     - _N_F_MSSOLTFO: 0
     - _N_F_NLASOBF: 0
-    - _N_F_NM: 0
+    - _N_F_NM: 1
     - _N_F_O: 1
     - _N_F_O_NM: 0
     - _N_F_PAL: 1
     - _N_F_PT: 0
     - _N_F_R: 0
-    - _N_F_RL: 0
+    - _N_F_RL: 1
     - _N_F_SCT: 0
     - _N_F_SL: 0
     - _N_F_SON: 0
@@ -354,7 +358,7 @@ Material:
     - _Opacity: 1
     - _OpaqueCullMode: 2
     - _OutlineExtrudeMethod: 0
-    - _OutlineWidth: 0
+    - _OutlineWidth: 0.1
     - _OutlineWidthAffectedByViewDistance: 0
     - _OutlineZPostionInCamera: 0
     - _OverallShadowColorPower: 1
@@ -377,11 +381,11 @@ Material:
     - _RefMetallic: 0
     - _ReflectionIntensity: 0
     - _RefractionModel: 0
-    - _RimLigInt: 1
+    - _RimLigInt: 0.06
     - _RimLightColorPower: 1
     - _RimLightInLight: 1
-    - _RimLightSoftness: 1
-    - _RimLightUnfill: 1.5
+    - _RimLightSoftness: 0
+    - _RimLightUnfill: 2.05
     - _SPECIN: 1
     - _SPECMODE: 0
     - _SSRefDeOn: 0
@@ -479,10 +483,10 @@ Material:
     - _MainColor: {r: 1, g: 1, b: 1, a: 1}
     - _OutlineColor: {r: 0, g: 0, b: 0, a: 1}
     - _OutlineOffset: {r: 0, g: 0, b: 0, a: 1}
-    - _OverallShadowColor: {r: 0, g: 0, b: 0, a: 1}
+    - _OverallShadowColor: {r: 0.5660378, g: 0.32116157, b: 0.2803489, a: 1}
     - _PTCol: {r: 0, g: 0, b: 0, a: 1}
     - _RimLightColor: {r: 1, g: 1, b: 1, a: 1}
-    - _SSAOColor: {r: 0, g: 0, b: 0, a: 0}
+    - _SSAOColor: {r: 0.5377358, g: 0.11377968, b: 0.043120332, a: 1}
     - _SelfLitColor: {r: 1, g: 1, b: 1, a: 1}
     - _SelfShadowRealTimeShadowColor: {r: 1, g: 1, b: 1, a: 1}
     - _ShadowTColor: {r: 1, g: 1, b: 1, a: 1}
