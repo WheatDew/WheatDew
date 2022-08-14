@@ -19,15 +19,6 @@ namespace Origin
 
             
         }
-
-        private void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.F))
-            {
-                TaskSystem.s.Execute(string.Format("PickClosestItem {0}", key));
-            }
-
-        }
     }
 }
 

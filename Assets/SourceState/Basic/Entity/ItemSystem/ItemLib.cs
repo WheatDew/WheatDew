@@ -15,7 +15,8 @@ namespace Origin
 
     public class ItemData
     {
-
+        string name;
+        string count;
     }
 }
 

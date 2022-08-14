@@ -19,6 +19,7 @@ namespace Origin
         //组件列表
         public Dictionary<string, PackComponent> components = new Dictionary<string, PackComponent>();
 
+
         //效果列表
         public Dictionary<string, ItemEffectData> itemEffectList = new Dictionary<string, ItemEffectData>();
 

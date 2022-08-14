@@ -17,7 +17,6 @@ namespace Origin
 
         public virtual void Init()
         {
-
             key = transform.GetInstanceID().ToString();
             PackSystem.S.components.Add(key, this);
             print(key);

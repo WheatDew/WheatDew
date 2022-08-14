@@ -11,6 +11,7 @@ public class Character : MonoBehaviour
     private void Start()
     {
         key = transform.GetInstanceID().ToString();
+        range = GetComponent<RangeComponent>();
     }
 
     private void Update()
@@ -22,7 +23,7 @@ public class Character : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.F))
         {
-            
+            OpenRecipePage();
         }
 
     }
@@ -43,6 +44,7 @@ public class Character : MonoBehaviour
             if (PackSystem.S.components.ContainsKey(item) && PackSystem.S.components[item].recipes!="")
                 subject = item;
         }
-        TaskSystem.s.Execute(string.Format("OpenRecipePage {0} {1}", subject, key));
+        if(subject!="")
+            TaskSystem.s.Execute(string.Format("OpenRecipePage {0} {1}", subject, key));
     }
 }
