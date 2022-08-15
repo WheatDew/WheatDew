@@ -29,6 +29,7 @@ Material:
   - N_F_ESSAO_ON
   - N_F_ESSR_ON
   - N_F_ESSS_ON
+  - N_F_NM_ON
   - N_F_O_ON
   - N_F_PAL_ON
   - N_F_RELGI_ON
@@ -328,7 +329,7 @@ Material:
     - _N_F_MC: 0
     - _N_F_MSSOLTFO: 0
     - _N_F_NLASOBF: 0
-    - _N_F_NM: 0
+    - _N_F_NM: 1
     - _N_F_O: 1
     - _N_F_O_NM: 0
     - _N_F_PAL: 1
@@ -394,7 +395,7 @@ Material:
     - _SelfShadowAffectedByLightShadowStrength: 0
     - _SelfShadowHardness: 1
     - _SelfShadowRealTimeShadowColorPower: -2.22
-    - _SelfShadowRealtimeShadowIntensity: 0.95
+    - _SelfShadowRealtimeShadowIntensity: 0.8
     - _SelfShadowShadowTAtViewDirection: 1
     - _SelfShadowThreshold: 0.93
     - _ShadowColorTexturePower: 0

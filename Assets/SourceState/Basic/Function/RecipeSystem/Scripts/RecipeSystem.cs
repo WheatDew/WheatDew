@@ -25,7 +25,7 @@ namespace Origin
         {
             if(recipePage == null)
             {
-                return Instantiate(RecipePagePrefab,FindObjectOfType<Canvas>().transform);
+                return recipePage = Instantiate(RecipePagePrefab,FindObjectOfType<Canvas>().transform);
             }
             else
             {

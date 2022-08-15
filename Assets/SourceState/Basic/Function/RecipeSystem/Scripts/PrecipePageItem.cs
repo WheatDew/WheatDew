@@ -17,7 +17,7 @@ namespace Origin
 
         public void OnPointerClick(PointerEventData eventData)
         {
-            string command = "FabricateItem " + recipePage.guest.key;
+            string command = "ProduceItem " + recipePage.guest.key;
             for (int i = 0; i < recipe.Length; i++)
             {
                 command += " " + recipe[i];

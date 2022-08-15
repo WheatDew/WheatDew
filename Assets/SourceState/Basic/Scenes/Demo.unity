@@ -454,6 +454,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -7189929346926885510, guid: 6e237e9dd5d12ae4cadeb61f8e8db31d,
         type: 3}
+      propertyPath: itemCount
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -7189929346926885510, guid: 6e237e9dd5d12ae4cadeb61f8e8db31d,
+        type: 3}
       propertyPath: displayName
       value: "\u6811\u679D"
       objectReference: {fileID: 0}
@@ -6291,7 +6296,7 @@ MonoBehaviour:
   m_InnerSpotPercent: 0
   m_SpotIESCutoffPercent: 100
   m_LightDimmer: 1
-  m_VolumetricDimmer: 1
+  m_VolumetricDimmer: 2
   m_LightUnit: 2
   m_FadeDistance: 10000
   m_VolumetricFadeDistance: 10000
@@ -6472,7 +6477,7 @@ PrefabInstance:
     - target: {fileID: -3120955762941757787, guid: 729ff2512eb566f40998b05b1846e367,
         type: 3}
       propertyPath: itemCount
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -3120955762941757787, guid: 729ff2512eb566f40998b05b1846e367,
         type: 3}
@@ -11561,7 +11566,7 @@ PrefabInstance:
     - target: {fileID: 1671091651918045487, guid: 696a6f8753a5fdd40af870172faf166a,
         type: 3}
       propertyPath: itemCount
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1671091651918045487, guid: 696a6f8753a5fdd40af870172faf166a,
         type: 3}
@@ -12498,7 +12503,7 @@ PrefabInstance:
     - target: {fileID: -5753654239156391472, guid: 39e0dd447d2e4924ba986a5591a3ff02,
         type: 3}
       propertyPath: itemCount
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -5753654239156391472, guid: 39e0dd447d2e4924ba986a5591a3ff02,
         type: 3}
@@ -14032,7 +14037,7 @@ PrefabInstance:
     - target: {fileID: 8170459361062730005, guid: 00f430e3d105e184581ac7a467c08bc4,
         type: 3}
       propertyPath: itemCount
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8170459361062730005, guid: 00f430e3d105e184581ac7a467c08bc4,
         type: 3}
@@ -27068,7 +27073,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6847049584695356269}
   m_LocalRotation: {x: 0, y: 0, z: -0.062842794, w: 0.99802345}
-  m_LocalPosition: {x: 265.35678, y: 14.317782, z: 153.44397}
+  m_LocalPosition: {x: 265.323, y: 14.053, z: 153.44397}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
