@@ -10,11 +10,12 @@ namespace Origin
         public Transform content;
         public PrecipePageItem itemPrefab;
 
-        public void CreateItem(string title,string recipe)
+        public void CreateItem(string title,string[] recipe)
         {
             PrecipePageItem obj = Instantiate(itemPrefab, content);
             obj.title.text = title;
             obj.recipe = recipe;
+            obj.recipePage = this;
         }
 
         public void ClosedCurrentPage()
