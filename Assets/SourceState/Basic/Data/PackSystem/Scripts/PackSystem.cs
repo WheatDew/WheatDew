@@ -37,8 +37,11 @@ namespace Origin
             CommandSystem.s.Declare("SwitchPackPage", SwitchPackPageCommand);
 
             //≥ı ºªØ≤‚ ‘ ˝æ›
-            itemEffectList.Add("Grass", new ItemEffectData(10));
-            itemEffectList.Add("Patota", new ItemEffectData(30));
+            itemEffectList.Add("≤›", new ItemEffectData(2));
+            itemEffectList.Add("Õ¡∂π", new ItemEffectData(10));
+            itemEffectList.Add("øæÕ¡∂π", new ItemEffectData(30));
+            itemEffectList.Add("ƒ˚√ ", new ItemEffectData(5));
+            itemEffectList.Add("øæƒ˚√ ", new ItemEffectData(10));
         }
 
 
@@ -50,16 +53,7 @@ namespace Origin
         //    return null;
         //}
 
-        //public InfoData PackItemUseCommand(string[] values)
-        //{
-        //    if (itemEffectList.ContainsKey(values[2]))
-        //    {
-        //        components[values[1]].PackItemGain(values[2], -1);
-        //        StatusSystem.S.statusList[values[1]].FoodGain(itemEffectList[values[2]].foodValue);
-        //    }
 
-        //    return null;    
-        //}
 
         public InfoData SwitchPackPageCommand(string[] values)
         {

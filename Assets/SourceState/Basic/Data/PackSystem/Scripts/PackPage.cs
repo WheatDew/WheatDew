@@ -46,6 +46,11 @@ namespace Origin
                     Destroy(item.Value.gameObject);
                     removeList.Add(item.Key);
                 }
+                else if (targetList[item.Key].count == 0)
+                {
+                    Destroy(item.Value.gameObject);
+                    removeList.Add(item.Key);
+                }
             }
 
             foreach(var item in removeList)
@@ -59,6 +64,7 @@ namespace Origin
                 {
                     recordList[item.Key].itemName.text = item.Value.name;
                     recordList[item.Key].itemCount.text = item.Value.count.ToString();
+                    
                 }
                 else
                 {
