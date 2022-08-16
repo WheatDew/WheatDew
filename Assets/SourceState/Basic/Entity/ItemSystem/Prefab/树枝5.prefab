@@ -177,7 +177,7 @@ MonoBehaviour:
   target: {fileID: 0}
   key: 
   inbound: 0
-  rangeType: 0
+  rangeType: 1
 --- !u!1 &8750456260444092620
 GameObject:
   m_ObjectHideFlags: 0
