@@ -46,6 +46,9 @@ namespace Origin
                             }
                         }
                         buildingPack.CheckRequirement();
+                        HashSet<string> items = RangeSystem.s.components[values[1]].currentRange;
+                        items.Clear();
+                        InfoInSceneSystem.s.HiddenItemInfoInScene();
                     }
                 }
                 

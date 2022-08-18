@@ -15,20 +15,27 @@ namespace Origin
 
         public void PickItem(string[] value,TaskData taskData)
         {
+            bool flag = false;
             HashSet<string> items = RangeSystem.s.components[value[1]].currentRange;
             foreach (string item in items)
             {
-                if (EntitySystem.s.components[item].itemName != "")
+                if (EntitySystem.s.components[item].itemName != ""&& RangeSystem.s.components[item].rangeType==RangeType.Item)
                 {
                     EntitySystem.s.DestroyEntity(item);
                     PackSystem.S.PackItemGain(value[1], EntitySystem.s.components[item].itemName, EntitySystem.s.components[item].itemCount);
+
+                    flag = true;
                 }
             }
 
-            items.Clear();
-            InfoInSceneSystem.s.HiddenItemInfoInScene();
+            if (flag)
+            {
+                items.Clear();
+                InfoInSceneSystem.s.HiddenItemInfoInScene();
+            }
 
-            
+
+
         }
     }
 

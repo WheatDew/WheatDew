@@ -5,6 +5,7 @@ using UnityEngine;
 public class MapSystem : MonoBehaviour
 {
     public List<GameObject> mapItems = new List<GameObject>();
+    public List<int> mapItemCounts = new List<int>();
     public Terrain terrain;
 
     private void Start()
@@ -14,7 +15,7 @@ public class MapSystem : MonoBehaviour
         Debug.Log(terrain.terrainData.size);
         for (int i = 0; i < mapItems.Count; i++)
         {
-            for(int n = 0; n < 500; n++)
+            for(int n = 0; n < mapItemCounts[i]; n++)
             {
                 int x = Random.Range(0, length);
                 int z = Random.Range(0, width);

@@ -97,7 +97,7 @@ namespace Origin
                 Destroy(bluePrintPage.gameObject);
         }
 
-        //创建浮动蓝图
+        //创建浮动蓝图图标
         public void CreateFloatPicture(string buildingName,Sprite sprite)
         {
             if (floatPicture == null)
@@ -134,6 +134,16 @@ namespace Origin
                 BuildingComponent obj = Instantiate(BuildingDataList[buildingName].building);
                 obj.transform.position = origin.position;
                 obj.transform.rotation = origin.rotation;
+                
+                
+                for(int i = 0; i < obj.transform.childCount; i++)
+                {
+                    MeshCollider target = obj.transform.GetChild(i).GetComponent<MeshCollider>();
+                    if (target != null)
+                    {
+                        target.isTrigger = false;
+                    }
+                }
             }
 
         }
@@ -187,6 +197,12 @@ namespace Origin
 
                 meshRenderer.materials = newTmMatArray;//将透明数组赋给模型材质
             }
+        }
+
+        public void DestroyBuilding(string key)
+        {
+            Destroy(buildings[key].gameObject);
+            buildings.Remove(key);
         }
 
         #endregion

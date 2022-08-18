@@ -77,11 +77,11 @@ public class CharacterMovement : MonoBehaviour
         }
 
         //Attack
-        if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
-        {
-            anim.SetTrigger("Attack");
+        //if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
+        //{
+        //    anim.SetTrigger("Attack");
             
-        }
+        //}
 
     }
 

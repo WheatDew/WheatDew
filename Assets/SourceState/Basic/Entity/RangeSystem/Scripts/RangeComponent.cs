@@ -5,7 +5,7 @@ using UnityEngine.Events;
 
 namespace Origin
 {
-    public enum RangeType { Player,Item}
+    public enum RangeType { Player,Item,Building}
 
     [RequireComponent(typeof(EntityComponent))]
     public class RangeComponent : MonoBehaviour
@@ -50,6 +50,9 @@ namespace Origin
                 case RangeType.Item:
                     ItemActionEnter(other);
                     break;
+                case RangeType.Building:
+                    ItemActionEnter(other);
+                    break;
             }
 
         }
@@ -61,6 +64,9 @@ namespace Origin
                 case RangeType.Player:
                     break;
                 case RangeType.Item:
+                    ItemActionExit(other);
+                    break;
+                case RangeType.Building:
                     ItemActionExit(other);
                     break;
             }
