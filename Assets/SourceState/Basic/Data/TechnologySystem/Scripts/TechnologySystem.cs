@@ -80,9 +80,10 @@ public class TechnologySystem : MonoBehaviour
                 hightCount = item.Value.postechnology.Count;
         }
 
+        List<TechnologyItem> pageItemList = new List<TechnologyItem>();
         for(int i = 0; i < levelCount * hightCount; i++)
         {
-            technologyPage.Create("¿Õ°×");
+            pageItemList.Add(technologyPage.Create("¿Õ°×"));
         }
 
 
@@ -91,6 +92,16 @@ public class TechnologySystem : MonoBehaviour
             Debug.Log(string.Format("{0} {1}", item.Value.technologyName, item.Value.level));
         }
 
+        for(int i = 0; i < levelCount; i++)
+        {
+            for(int j = 0; j < hightCount; j++)
+            {
+                if (displayList[i].Count>j)
+                {
+                    pageItemList[i * hightCount + j].nameText.text = displayList[i][j];
+                }
+            }
+        }
     }
 
 
