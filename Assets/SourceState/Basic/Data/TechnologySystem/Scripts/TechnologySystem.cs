@@ -22,6 +22,12 @@ public class TechnologySystem : MonoBehaviour
         technologyDatas.Add("石质工具", new TechnologyData("石质工具", "石片加工"));
         technologyDatas.Add("石片加工", new TechnologyData("石片加工"));
         technologyDatas.Add("石质武器", new TechnologyData("石质武器","石片加工"));
+        technologyDatas.Add("植物纤维加工", new TechnologyData("植物纤维加工", "石质工具"));
+        technologyDatas.Add("长矛", new TechnologyData("长矛", "石质武器"));
+
+        List<TechnologyData> roots = new List<TechnologyData>();
+
+
         List<List<string>> displayList = new List<List<string>>();
 
         displayList.Add(new List<string>());
@@ -36,7 +42,7 @@ public class TechnologySystem : MonoBehaviour
 
         int levelCount = 0;
 
-        for(int n = 1; n < 5; n++)
+        for (int n = 1; n < 5; n++)
         {
             Debug.Log(n.ToString());
             displayList.Add(new List<string>());
@@ -45,7 +51,7 @@ public class TechnologySystem : MonoBehaviour
             {
                 for (int i = 0; i < item.Value.pretechnology.Count; i++)
                 {
-                    if (displayList[n-1].Contains(item.Value.pretechnology[i]))
+                    if (displayList[n - 1].Contains(item.Value.pretechnology[i]))
                     {
                         item.Value.level = n;
                         if (!displayList[n].Contains(item.Value.technologyName))
@@ -54,7 +60,7 @@ public class TechnologySystem : MonoBehaviour
                         {
                             technologyDatas[item.Value.pretechnology[i]].postechnology.Add(item.Value.technologyName);
 
-                            
+
                         }
                         flag = true;
                     }
@@ -62,50 +68,54 @@ public class TechnologySystem : MonoBehaviour
             }
             if (!false)
             {
-                levelCount = n+1;
+                levelCount = n + 1;
                 break;
             }
-            
+
         }
 
-        technologyPage = Instantiate(technologyPagePrefab,FindObjectOfType<Canvas>().transform);
+        technologyPage = Instantiate(technologyPagePrefab, FindObjectOfType<Canvas>().transform);
 
         technologyPage.gridLayoutGroup.constraintCount = levelCount;
 
         int hightCount = 0;
 
-        foreach(var item in technologyDatas)
+        foreach (var item in technologyDatas)
         {
             if (item.Value.postechnology.Count > hightCount)
                 hightCount = item.Value.postechnology.Count;
         }
 
         List<TechnologyItem> pageItemList = new List<TechnologyItem>();
-        for(int i = 0; i < levelCount * hightCount; i++)
+        for (int i = 0; i < levelCount * hightCount; i++)
         {
-            pageItemList.Add(technologyPage.Create("空白"));
+            pageItemList.Add(technologyPage.Create(i.ToString()));
         }
 
+        List<List<string>> temp = new List<List<string>>();
+        for (int i = 0; i < levelCount; i++)
+        {
+            temp.Add(new List<string>());
+        }
 
-        foreach(var item in technologyDatas)
+        foreach (var item in technologyDatas)
         {
             Debug.Log(string.Format("{0} {1}", item.Value.technologyName, item.Value.level));
+            temp[item.Value.level].Add(item.Value.technologyName);
+            
         }
 
-        for(int i = 0; i < levelCount; i++)
+        for(int i = 0; i < temp.Count; i++)
         {
-            for(int j = 0; j < hightCount; j++)
+            for(int j = 0; j < temp[i].Count; j++)
             {
-                if (displayList[i].Count>j)
-                {
-                    pageItemList[i * hightCount + j].nameText.text = displayList[i][j];
-                }
+                pageItemList[j * temp.Count + i].nameText.text = temp[i][j];
             }
         }
     }
 
-
 }
+
 
 public class TechnologyData
 {
@@ -113,6 +123,7 @@ public class TechnologyData
     public List<string> postechnology=new List<string>();
     public string technologyName;
     public int level = 0;
+    public Vector2 position;
 
     public TechnologyData(string technologyName,params string[] pretechnology)
     {
