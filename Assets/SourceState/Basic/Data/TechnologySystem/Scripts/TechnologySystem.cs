@@ -25,9 +25,11 @@ public class TechnologySystem : MonoBehaviour
         CreateTechnologyData("1a","0a");
         CreateTechnologyData("1b", "0a");
         CreateTechnologyData("2a", "1a");
-        CreateTechnologyData("2b", "1b");
+        CreateTechnologyData("2b", "1a");
+        CreateTechnologyData("2c", "1b");
 
-        foreach(var item in technologyDatas)
+
+        foreach (var item in technologyDatas)
         {
             for(int i = 0; i < item.Value.pretechnology.Count; i++)
             {
@@ -66,20 +68,27 @@ public class TechnologySystem : MonoBehaviour
             for (int j = 0; j < displayList[i].Count; j++)
             {
                 pageItemList[j * displayList.Count + i].nameText.text = displayList[i][j];
-                if (i == 0)
-                {
-                    pageItemList[j * displayList.Count + i].frontLine.SetActive(false);
-                    pageItemList[j * displayList.Count + i].frontPolyline.SetActive(false);
-                    if (displayList[i + 1][j]!=null)
-                    {
+                pageItemList[j * displayList.Count + i].background.gameObject.SetActive(true);
 
+                int startIndex = 0;
+                if(technologyDatas[displayList[i][j]].postechnology.Count!=0)
+                    startIndex = displayList[i + 1].IndexOf(technologyDatas[displayList[i][j]].postechnology[0]);
+
+                for (int n = 0; n < technologyDatas[displayList[i][j]].postechnology.Count; n++)
+                {
+                    if (n == 0&& startIndex==0)
+                    {
+                        pageItemList[j * displayList.Count + i].backLine.SetActive(true);
+                        pageItemList[j * displayList.Count + i+1].frontLine.SetActive(true);
+                    }
+                    else
+                    {
+                        Debug.Log(string.Format("{0} {1} {2}",j, n, startIndex));
+                        pageItemList[j * displayList.Count + i].backPolyline.SetActive(true);
+                        pageItemList[(n+startIndex) * displayList.Count + i+1].frontPolyline.SetActive(true);
                     }
                 }
-                else if (j == 0)
-                {
-                    pageItemList[j * displayList.Count + i].frontLine.SetActive(false);
-                    pageItemList[j * displayList.Count + i].frontPolyline.SetActive(false);
-                }
+
             }
         }
 
