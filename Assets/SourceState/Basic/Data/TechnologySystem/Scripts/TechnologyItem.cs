@@ -6,4 +6,5 @@ using TMPro;
 public class TechnologyItem : MonoBehaviour
 {
     public TMP_Text nameText;
+    public GameObject frontLine, backLine,frontPolyline,backPolyline;
 }

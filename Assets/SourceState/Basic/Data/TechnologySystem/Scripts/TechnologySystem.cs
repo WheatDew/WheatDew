@@ -17,103 +17,98 @@ public class TechnologySystem : MonoBehaviour
     [HideInInspector] public TechnologyPage technologyPage;
     public Dictionary<string, TechnologyData> technologyDatas = new Dictionary<string, TechnologyData>();
 
+    public List<List<string>> displayList=new List<List<string>>();
+
     private void Start()
     {
-        technologyDatas.Add("石质工具", new TechnologyData("石质工具", "石片加工"));
-        technologyDatas.Add("石片加工", new TechnologyData("石片加工"));
-        technologyDatas.Add("石质武器", new TechnologyData("石质武器","石片加工"));
-        technologyDatas.Add("植物纤维加工", new TechnologyData("植物纤维加工", "石质工具"));
-        technologyDatas.Add("长矛", new TechnologyData("长矛", "石质武器"));
+        CreateTechnologyData("0a");
+        CreateTechnologyData("1a","0a");
+        CreateTechnologyData("1b", "0a");
+        CreateTechnologyData("2a", "1a");
+        CreateTechnologyData("2b", "1b");
 
-        List<TechnologyData> roots = new List<TechnologyData>();
-
-
-        List<List<string>> displayList = new List<List<string>>();
-
-        displayList.Add(new List<string>());
-        foreach (var item in technologyDatas)
+        foreach(var item in technologyDatas)
         {
-            if (item.Value.pretechnology.Count == 0)
+            for(int i = 0; i < item.Value.pretechnology.Count; i++)
             {
-                displayList[0].Add(item.Value.technologyName);
-                item.Value.level = 0;
+                technologyDatas[item.Value.pretechnology[i]].postechnology.Add(item.Value.technologyName);
             }
         }
 
-        int levelCount = 0;
+        GetNodeData("0a", 0);
 
-        for (int n = 1; n < 5; n++)
+        foreach(var item in technologyDatas)
         {
-            Debug.Log(n.ToString());
-            displayList.Add(new List<string>());
-            bool flag = false;
-            foreach (var item in technologyDatas)
+            Debug.Log(string.Format("{0} {1}", item.Value.technologyName,item.Value.level));
+        }
+
+        int max=0;
+        //获取列表中的最大长度
+        for(int i = 0; i < displayList.Count; i++)
+        {
+            if (displayList[i].Count > max)
             {
-                for (int i = 0; i < item.Value.pretechnology.Count; i++)
-                {
-                    if (displayList[n - 1].Contains(item.Value.pretechnology[i]))
-                    {
-                        item.Value.level = n;
-                        if (!displayList[n].Contains(item.Value.technologyName))
-                            displayList[n].Add(item.Value.technologyName);
-                        if (!technologyDatas[item.Value.pretechnology[i]].postechnology.Contains(item.Value.technologyName))
-                        {
-                            technologyDatas[item.Value.pretechnology[i]].postechnology.Add(item.Value.technologyName);
-
-
-                        }
-                        flag = true;
-                    }
-                }
+                max=displayList[i].Count;
             }
-            if (!false)
-            {
-                levelCount = n + 1;
-                break;
-            }
-
         }
 
         technologyPage = Instantiate(technologyPagePrefab, FindObjectOfType<Canvas>().transform);
-
-        technologyPage.gridLayoutGroup.constraintCount = levelCount;
-
-        int hightCount = 0;
-
-        foreach (var item in technologyDatas)
-        {
-            if (item.Value.postechnology.Count > hightCount)
-                hightCount = item.Value.postechnology.Count;
-        }
+        technologyPage.gridLayoutGroup.constraintCount=displayList.Count;
 
         List<TechnologyItem> pageItemList = new List<TechnologyItem>();
-        for (int i = 0; i < levelCount * hightCount; i++)
+        for (int i = 0; i < displayList.Count * max; i++)
         {
-            pageItemList.Add(technologyPage.Create(i.ToString()));
+            pageItemList.Add(technologyPage.Create(""));
         }
 
-        List<List<string>> temp = new List<List<string>>();
-        for (int i = 0; i < levelCount; i++)
+        for (int i = 0; i < displayList.Count; i++)
         {
-            temp.Add(new List<string>());
-        }
-
-        foreach (var item in technologyDatas)
-        {
-            Debug.Log(string.Format("{0} {1}", item.Value.technologyName, item.Value.level));
-            temp[item.Value.level].Add(item.Value.technologyName);
-            
-        }
-
-        for(int i = 0; i < temp.Count; i++)
-        {
-            for(int j = 0; j < temp[i].Count; j++)
+            for (int j = 0; j < displayList[i].Count; j++)
             {
-                pageItemList[j * temp.Count + i].nameText.text = temp[i][j];
+                pageItemList[j * displayList.Count + i].nameText.text = displayList[i][j];
+                if (i == 0)
+                {
+                    pageItemList[j * displayList.Count + i].frontLine.SetActive(false);
+                    pageItemList[j * displayList.Count + i].frontPolyline.SetActive(false);
+                    if (displayList[i + 1][j]!=null)
+                    {
+
+                    }
+                }
+                else if (j == 0)
+                {
+                    pageItemList[j * displayList.Count + i].frontLine.SetActive(false);
+                    pageItemList[j * displayList.Count + i].frontPolyline.SetActive(false);
+                }
             }
+        }
+
+    }
+
+    //遍历树节点
+    public void GetNodeData(string name,int level)
+    {
+        technologyDatas[name].level = level;
+        if (displayList.Count>level)
+        {
+            displayList[level].Add(name);
+        }
+        else
+        {
+            displayList.Add(new List<string>());
+            displayList[level].Add(name);
+        }
+        for(int i = 0; i < technologyDatas[name].postechnology.Count; i++)
+        {
+            GetNodeData(technologyDatas[name].postechnology[i], level+1);
         }
     }
 
+    //添加条目
+    public void CreateTechnologyData(string name,params string[] pretechnology)
+    {
+        technologyDatas.Add(name, new TechnologyData(name, pretechnology));
+    }
 }
 
 
@@ -122,7 +117,7 @@ public class TechnologyData
     public List<string> pretechnology=new List<string>();
     public List<string> postechnology=new List<string>();
     public string technologyName;
-    public int level = 0;
+    public int level = -1;
     public Vector2 position;
 
     public TechnologyData(string technologyName,params string[] pretechnology)
