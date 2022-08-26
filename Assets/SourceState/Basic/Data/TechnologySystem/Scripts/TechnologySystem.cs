@@ -26,7 +26,8 @@ public class TechnologySystem : MonoBehaviour
         CreateTechnologyData("1b", "0a");
         CreateTechnologyData("2a", "1a");
         CreateTechnologyData("2b", "1a");
-        CreateTechnologyData("2c", "1b");
+        CreateTechnologyData("2c", "1a");
+        CreateTechnologyData("2d", "1b");
 
 
         foreach (var item in technologyDatas)
@@ -69,10 +70,16 @@ public class TechnologySystem : MonoBehaviour
             {
                 pageItemList[j * displayList.Count + i].nameText.text = displayList[i][j];
                 pageItemList[j * displayList.Count + i].background.gameObject.SetActive(true);
+                technologyDatas[displayList[i][j]].item = pageItemList[j * displayList.Count + i];
 
                 int startIndex = 0;
                 if(technologyDatas[displayList[i][j]].postechnology.Count!=0)
                     startIndex = displayList[i + 1].IndexOf(technologyDatas[displayList[i][j]].postechnology[0]);
+
+                for (int index=j+1; index < startIndex; index++)
+                {
+                    pageItemList[index * displayList.Count + i + 1].bridgeLine.SetActive(true);
+                }
 
                 for (int n = 0; n < technologyDatas[displayList[i][j]].postechnology.Count; n++)
                 {
@@ -83,6 +90,11 @@ public class TechnologySystem : MonoBehaviour
                     }
                     else
                     {
+                        if(n>=1&& technologyDatas[displayList[i][j]].postechnology.Count > 2)
+                        {
+                            pageItemList[(n+startIndex) * displayList.Count + i + 1].bridgeLine.SetActive(true);
+                        }
+
                         Debug.Log(string.Format("{0} {1} {2}",j, n, startIndex));
                         pageItemList[j * displayList.Count + i].backPolyline.SetActive(true);
                         pageItemList[(n+startIndex) * displayList.Count + i+1].frontPolyline.SetActive(true);
@@ -127,7 +139,7 @@ public class TechnologyData
     public List<string> postechnology=new List<string>();
     public string technologyName;
     public int level = -1;
-    public Vector2 position;
+    public TechnologyItem item;
 
     public TechnologyData(string technologyName,params string[] pretechnology)
     {
