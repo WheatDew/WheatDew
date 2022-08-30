@@ -25,7 +25,7 @@ namespace Origin
         public void CreateItem(Sprite icon,string buildingName)
         {
             BuildingBulePrintPageItem item = Instantiate(itemPrefab, contentTransform);
-            item.sprite = icon;
+            item.image.sprite = icon;
             item.buildingName = buildingName;
         }
     }

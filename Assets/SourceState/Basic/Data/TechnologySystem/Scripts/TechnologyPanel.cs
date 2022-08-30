@@ -22,7 +22,7 @@ public class TechnologyPanel : MonoBehaviour, IPointerEnterHandler, IPointerExit
     {
         if (isOver && Input.GetMouseButton(2))
         {
-            target.position += new Vector3(Input.GetAxisRaw("Mouse X")*100, Input.GetAxisRaw("Mouse Y")*100, 0);
+            target.position += new Vector3(Input.GetAxisRaw("Mouse X")*40, Input.GetAxisRaw("Mouse Y")*40, 0);
         }
     }
 }

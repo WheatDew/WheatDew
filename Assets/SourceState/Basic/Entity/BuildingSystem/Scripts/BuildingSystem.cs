@@ -22,13 +22,19 @@ namespace Origin
 
         public Material baseMaterial;
 
-        private void Start()
+        private void Awake()
         {
             if (!_s) _s = this;
 
+            
+        }
+
+        public void Start()
+        {
             BasicInit();
 
             CommandInit();
+
         }
 
         //场景中的引用
@@ -85,12 +91,15 @@ namespace Origin
         //打开关闭蓝图界面
         public void SwitchBluePrintPage()
         {
+
             if (bluePrintPage == null)
             {
                 bluePrintPage = Instantiate(bluePrintPagePrefab, FindObjectOfType<Canvas>().transform);
                 foreach(var item in BuildingDataList)
                 {
+
                     bluePrintPage.CreateItem(item.Value.icon,item.Key);
+                    //bluePrintPage.CreateItem(testSprite, item.Key);
                 }
             }
             else

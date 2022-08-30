@@ -19,10 +19,11 @@ public class TechnologySystem : MonoBehaviour
 
     public List<List<string>> displayList=new List<List<string>>();
 
-    private void Start()
+
+    public void InitTechnologyDatas()
     {
         CreateTechnologyData("0a");
-        CreateTechnologyData("1a","0a");
+        CreateTechnologyData("1a", "0a");
         CreateTechnologyData("1b", "0a");
         CreateTechnologyData("2a", "1a");
         CreateTechnologyData("2b", "1a");
@@ -32,7 +33,7 @@ public class TechnologySystem : MonoBehaviour
 
         foreach (var item in technologyDatas)
         {
-            for(int i = 0; i < item.Value.pretechnology.Count; i++)
+            for (int i = 0; i < item.Value.pretechnology.Count; i++)
             {
                 technologyDatas[item.Value.pretechnology[i]].postechnology.Add(item.Value.technologyName);
             }
@@ -40,23 +41,23 @@ public class TechnologySystem : MonoBehaviour
 
         GetNodeData("0a", 0);
 
-        foreach(var item in technologyDatas)
+        foreach (var item in technologyDatas)
         {
-            Debug.Log(string.Format("{0} {1}", item.Value.technologyName,item.Value.level));
+            Debug.Log(string.Format("{0} {1}", item.Value.technologyName, item.Value.level));
         }
 
-        int max=0;
+        int max = 0;
         //获取列表中的最大长度
-        for(int i = 0; i < displayList.Count; i++)
+        for (int i = 0; i < displayList.Count; i++)
         {
             if (displayList[i].Count > max)
             {
-                max=displayList[i].Count;
+                max = displayList[i].Count;
             }
         }
 
         technologyPage = Instantiate(technologyPagePrefab, FindObjectOfType<Canvas>().transform);
-        technologyPage.gridLayoutGroup.constraintCount=displayList.Count;
+        technologyPage.gridLayoutGroup.constraintCount = displayList.Count;
 
         List<TechnologyItem> pageItemList = new List<TechnologyItem>();
         for (int i = 0; i < displayList.Count * max; i++)
@@ -73,38 +74,38 @@ public class TechnologySystem : MonoBehaviour
                 technologyDatas[displayList[i][j]].item = pageItemList[j * displayList.Count + i];
 
                 int startIndex = 0;
-                if(technologyDatas[displayList[i][j]].postechnology.Count!=0)
+                if (technologyDatas[displayList[i][j]].postechnology.Count != 0)
                     startIndex = displayList[i + 1].IndexOf(technologyDatas[displayList[i][j]].postechnology[0]);
 
-                for (int index=j+1; index < startIndex; index++)
+                for (int index = j + 1; index < startIndex; index++)
                 {
                     pageItemList[index * displayList.Count + i + 1].bridgeLine.SetActive(true);
                 }
 
                 for (int n = 0; n < technologyDatas[displayList[i][j]].postechnology.Count; n++)
                 {
-                    if (n == 0&& startIndex==0)
+                    if (n == 0 && startIndex == 0)
                     {
                         pageItemList[j * displayList.Count + i].backLine.SetActive(true);
-                        pageItemList[j * displayList.Count + i+1].frontLine.SetActive(true);
+                        pageItemList[j * displayList.Count + i + 1].frontLine.SetActive(true);
                     }
                     else
                     {
-                        if(n>=1&& technologyDatas[displayList[i][j]].postechnology.Count > 2)
+                        if (n >= 1 && technologyDatas[displayList[i][j]].postechnology.Count > 2)
                         {
-                            pageItemList[(n+startIndex) * displayList.Count + i + 1].bridgeLine.SetActive(true);
+                            pageItemList[(n + startIndex) * displayList.Count + i + 1].bridgeLine.SetActive(true);
                         }
 
-                        Debug.Log(string.Format("{0} {1} {2}",j, n, startIndex));
+                        Debug.Log(string.Format("{0} {1} {2}", j, n, startIndex));
                         pageItemList[j * displayList.Count + i].backPolyline.SetActive(true);
-                        pageItemList[(n+startIndex) * displayList.Count + i+1].frontPolyline.SetActive(true);
+                        pageItemList[(n + startIndex) * displayList.Count + i + 1].frontPolyline.SetActive(true);
                     }
                 }
 
             }
         }
-
     }
+
 
     //遍历树节点
     public void GetNodeData(string name,int level)

@@ -13,13 +13,19 @@ public class TechnologyItem : MonoBehaviour,IPointerDownHandler,IPointerEnterHan
     public Color press;
     public Color normal;
 
+
     public void OnPointerDown(PointerEventData eventData)
     {
-        foreach(var item in TechnologySystem.s.technologyDatas)
+        if(Input.GetMouseButton(0))
         {
-            item.Value.item.background.color = normal;
+            
+            foreach (var item in TechnologySystem.s.technologyDatas)
+            {
+                item.Value.item.background.color = normal;
+            }
+            background.color = press;
         }
-        background.color = press;
+
     }
 
     public void OnPointerExit(PointerEventData eventData)

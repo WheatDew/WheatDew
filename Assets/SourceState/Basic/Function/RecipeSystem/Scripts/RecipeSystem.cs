@@ -18,6 +18,7 @@ namespace Origin
         [SerializeField] private RecipePage RecipePagePrefab;
         [HideInInspector] public RecipePage recipePage;
 
+
         //组件列表
         public Dictionary<string, HashSet<string>> recipes = new Dictionary<string, HashSet<string>>();
 

@@ -8,12 +8,12 @@ namespace Origin
 {
     public class BuildingBulePrintPageItem : MonoBehaviour, IPointerDownHandler
     {
-        public Sprite sprite;
+        public Image image;
         public string buildingName;
 
         public void OnPointerDown(PointerEventData eventData)
         {
-            BuildingSystem.S.CreateFloatPicture(buildingName,sprite);
+            BuildingSystem.S.CreateFloatPicture(buildingName,image.sprite);
         }
     }
 }
