@@ -5,7 +5,6 @@ using UnityEngine;
 public class MapSystem : MonoBehaviour
 {
     public List<GameObject> mapItems = new List<GameObject>();
-    public List<int> mapItemCounts = new List<int>();
     public Terrain terrain;
 
     public Dictionary<string,MapItemData> mapDatas = new Dictionary<string,MapItemData>();
@@ -34,7 +33,13 @@ public class MapSystem : MonoBehaviour
         SetItem("树枝5").SetCount(200).SetRotation(0, 360).SetSize(0.8f, 1.2f);
         SetItem("石头").SetCount(1000).SetRotation(0, 360).SetSize(0.8f, 1.2f);
         SetItem("杨树1").SetCount(1000).SetRotation(0, 360).SetSize(0.8f, 1.2f);
+        SetItem("成长的柠檬树").SetCount(10).SetRotation(0, 360).SetSize(0.8f, 1.2f);
+        SetItem("成熟的柠檬树").SetCount(5).SetRotation(0, 360).SetSize(0.8f, 1.2f);
+        SetItem("结果的柠檬树").SetCount(10).SetRotation(0, 360).SetSize(0.8f, 1.2f);
+        SetItem("柠檬树树苗").SetCount(5).SetRotation(0, 360).SetSize(0.8f, 1.2f);
+        SetItem("水晶").SetCount(5).SetRotation(0, 360).SetSize(0.8f, 1.2f).SetOffset(Vector3.up*1.4f);
     }
+
 
     public void CreateMapItem()
     {
@@ -49,9 +54,10 @@ public class MapSystem : MonoBehaviour
                 int z = Random.Range(0, width);
                 float y = terrain.SampleHeight(new Vector3(x, 0, z));
                 GameObject obj = Instantiate(item.Value.prefab);
-                obj.transform.position = new Vector3(x, y, z);
+                obj.transform.position = new Vector3(x, y, z)+item.Value.offset;
                 obj.transform.eulerAngles=new Vector3(0,Random.Range(item.Value.minRotation,item.Value.MaxRotation),0);
                 obj.transform.localScale= Vector3.one * Random.Range(item.Value.minSize, item.Value.maxSize);
+
             }
         }
 
@@ -72,6 +78,7 @@ public class MapItemData
     public GameObject prefab;
     public int minCount=0,maxCount=0;
     public float minSize=1,maxSize=1,minRotation=0,MaxRotation=0;
+    public Vector3 offset=Vector3.zero;
 
     public MapItemData(GameObject prefab)
     {
@@ -124,4 +131,10 @@ public class MapItemData
         MaxRotation = value;
         return this;
     }
+    public MapItemData SetOffset(Vector3 offset)
+    {
+        this.offset = offset;
+        return this;
+    }
 }
+
