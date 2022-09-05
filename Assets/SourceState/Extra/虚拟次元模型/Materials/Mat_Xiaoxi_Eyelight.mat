@@ -264,11 +264,11 @@ Material:
     - _EnableGeometricSpecularAA: 0
     - _EnableTextureTransparent: 0
     - _EnergyConservingSpecularColor: 1
-    - _EnvironmentalLightingIntensity: 1
+    - _EnvironmentalLightingIntensity: 30
     - _FarDistanceMaxWidth: 10
     - _GBuWriMas: 14
-    - _GIFlatShade: 0
-    - _GIShadeThreshold: 0
+    - _GIFlatShade: 1
+    - _GIShadeThreshold: 1
     - _GlossColorPower: 1
     - _GlossIntensity: 1
     - _GlossMapScale: 1
@@ -300,7 +300,7 @@ Material:
     - _LightAffectShadow: 0
     - _LightFalloffAffectShadowT: 0
     - _LightFalloffSoftness: 1
-    - _LightIntensity: 1
+    - _LightIntensity: 26.2
     - _LinkDetailsWithBase: 1
     - _MCIALO: 0
     - _MCapIntensity: 1
@@ -361,7 +361,7 @@ Material:
     - _OutlineWidth: 0.1
     - _OutlineWidthAffectedByViewDistance: 0
     - _OutlineZPostionInCamera: 0
-    - _OverallShadowColorPower: 1
+    - _OverallShadowColorPower: 0
     - _PPDLodThreshold: 5
     - _PPDMaxSamples: 15
     - _PPDMinSamples: 5
@@ -396,10 +396,10 @@ Material:
     - _SelfLitHighContrast: 1
     - _SelfLitIntensity: 0
     - _SelfLitPower: 50
-    - _SelfShadowAffectedByLightShadowStrength: 0
-    - _SelfShadowHardness: 1
-    - _SelfShadowRealTimeShadowColorPower: 1
-    - _SelfShadowRealtimeShadowIntensity: 1
+    - _SelfShadowAffectedByLightShadowStrength: 1
+    - _SelfShadowHardness: 0
+    - _SelfShadowRealTimeShadowColorPower: 0
+    - _SelfShadowRealtimeShadowIntensity: 0
     - _SelfShadowShadowTAtViewDirection: 0
     - _SelfShadowThreshold: 0.93
     - _ShadowColorTexturePower: 0

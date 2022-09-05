@@ -11,6 +11,7 @@ Material:
   m_Shader: {fileID: 4800000, guid: 6459b2db96a08ca41b0f9b39dc7ad59e, type: 3}
   m_ValidKeywords:
   - N_F_ESSAO_ON
+  - N_F_ESSGI_ON
   - N_F_ESSR_ON
   - N_F_ESSS_ON
   - N_F_O_ON
@@ -224,7 +225,7 @@ Material:
     - _DetailSmoothnessScale: 1
     - _DiffusionProfile: 0
     - _DiffusionProfileHash: 0
-    - _DirectionalLightIntensity: 1
+    - _DirectionalLightIntensity: 0
     - _DisplacementLockObjectScale: 1
     - _DisplacementLockTilingScale: 1
     - _DisplacementMode: 0
@@ -243,11 +244,11 @@ Material:
     - _EnableGeometricSpecularAA: 0
     - _EnableTextureTransparent: 0
     - _EnergyConservingSpecularColor: 1
-    - _EnvironmentalLightingIntensity: 1
+    - _EnvironmentalLightingIntensity: 30
     - _FarDistanceMaxWidth: 10
     - _GBuWriMas: 14
-    - _GIFlatShade: 0
-    - _GIShadeThreshold: 0
+    - _GIFlatShade: 1
+    - _GIShadeThreshold: 1
     - _GlossColorPower: 1
     - _GlossIntensity: 1
     - _GlossMapScale: 1
@@ -273,13 +274,13 @@ Material:
     - _Ior: 1.5
     - _IridescenceMask: 1
     - _IridescenceThickness: 1
-    - _LigIgnoYNorDir: 1
+    - _LigIgnoYNorDir: 0
     - _LightAffectOutlineColor: 0
     - _LightAffectRimLightColor: 0
-    - _LightAffectShadow: 1
+    - _LightAffectShadow: 0
     - _LightFalloffAffectShadowT: 0
     - _LightFalloffSoftness: 1
-    - _LightIntensity: 1
+    - _LightIntensity: 26.2
     - _LinkDetailsWithBase: 1
     - _MCIALO: 0
     - _MCapIntensity: 1
@@ -301,7 +302,7 @@ Material:
     - _N_F_CS: 0
     - _N_F_DCS: 0
     - _N_F_ESSAO: 1
-    - _N_F_ESSGI: 0
+    - _N_F_ESSGI: 1
     - _N_F_ESSR: 1
     - _N_F_ESSS: 1
     - _N_F_FR: 0
@@ -340,7 +341,7 @@ Material:
     - _OutlineWidth: 0.1
     - _OutlineWidthAffectedByViewDistance: 0
     - _OutlineZPostionInCamera: 0
-    - _OverallShadowColorPower: 1
+    - _OverallShadowColorPower: 0
     - _PPDLodThreshold: 5
     - _PPDMaxSamples: 15
     - _PPDMinSamples: 5
@@ -367,19 +368,19 @@ Material:
     - _RimLightUnfill: 1.5
     - _SPECIN: 1
     - _SPECMODE: 0
-    - _SSRefDeOn: 0
-    - _SSRefGBu: 2
-    - _SSRefMoVe: 32
+    - _SSRefDeOn: 8
+    - _SSRefGBu: 10
+    - _SSRefMoVe: 40
     - _STIL: 0
     - _Saturation: 1
     - _SelfLitHighContrast: 1
     - _SelfLitIntensity: 0
     - _SelfLitPower: 50
-    - _SelfShadowAffectedByLightShadowStrength: 0
-    - _SelfShadowHardness: 1
-    - _SelfShadowRealTimeShadowColorPower: -2.22
-    - _SelfShadowRealtimeShadowIntensity: 0.95
-    - _SelfShadowShadowTAtViewDirection: 1
+    - _SelfShadowAffectedByLightShadowStrength: 1
+    - _SelfShadowHardness: 0
+    - _SelfShadowRealTimeShadowColorPower: 0
+    - _SelfShadowRealtimeShadowIntensity: 0
+    - _SelfShadowShadowTAtViewDirection: 0
     - _SelfShadowThreshold: 0.93
     - _ShadowColorTexturePower: 0
     - _ShadowHardness: 0
