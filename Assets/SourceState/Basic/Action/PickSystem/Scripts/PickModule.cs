@@ -31,7 +31,7 @@ namespace Origin
             if (flag)
             {
                 items.Clear();
-                InfoInSceneSystem.s.HiddenItemInfoInScene();
+                //InfoInSceneSystem.s.HiddenItemInfoInScene();
             }
 
 

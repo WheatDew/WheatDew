@@ -80,7 +80,7 @@ namespace Origin
             {
                 inbound = true;
                 RangeSystem.s.components[other.transform.GetInstanceID().ToString()].currentRange.Add(key);
-                InfoInSceneSystem.s.DisplayItemInfoInScene(EntitySystem.s.components[key].displayName);
+                //InfoInSceneSystem.s.DisplayItemInfoInScene(EntitySystem.s.components[key].displayName);
             }
         }
 
@@ -90,7 +90,7 @@ namespace Origin
             {
                 inbound = true;
                 RangeSystem.s.components[other.transform.GetInstanceID().ToString()].currentRange.Remove(key);
-                InfoInSceneSystem.s.HiddenItemInfoInScene();
+                //InfoInSceneSystem.s.HiddenItemInfoInScene();
             }
         }
     }
