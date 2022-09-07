@@ -7,19 +7,22 @@ public delegate void task(string[] values, CommandData taskData);
 public delegate float floatTask(string[] values, CommandData taskData);
 public delegate int intTask(string[] values, CommandData taskData);
 
+public delegate void command(string command, CommandData commandData);
+
 public class SCommand
 {
 
     public static SCommand taskData;
 
-    private static Dictionary<string, task> commands = new Dictionary<string, task>();
+    private static Dictionary<string, task> tasks = new Dictionary<string, task>();
     private static Dictionary<string, floatTask> floatCommands = new Dictionary<string, floatTask>();
 
+    private static Dictionary<string, command> commands = new Dictionary<string, command>();
 
     //注册行为
     public static void Declare(string name, task behaviour)
     {
-        commands.Add(name, behaviour);
+        tasks.Add(name, behaviour);
     }
     public static void Declare(string name,floatTask command)
     {
@@ -29,9 +32,9 @@ public class SCommand
 
     public static void Execute(string[] values)
     {
-        if (values != null && values.Length > 0 && commands.ContainsKey(values[0]))
+        if (values != null && values.Length > 0 && tasks.ContainsKey(values[0]))
         {
-            commands[values[0]](values, new CommandData());
+            tasks[values[0]](values, new CommandData());
         }
     }
 
@@ -53,6 +56,17 @@ public class SCommand
         }
     }
 
+
+    //简易版本
+    public static void Declare(string name,command command)
+    {
+        commands.Add(name, command);
+    }
+
+    public static void Execute(string command)
+    {
+        
+    }
 }
 
 public class CommandData

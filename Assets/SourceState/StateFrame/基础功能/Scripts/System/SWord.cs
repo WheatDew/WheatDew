@@ -42,12 +42,17 @@ public static class SWord
 
     }
 
-    public static void MatchModule(string command)
+    public static CommandModule MatchModule(string command)
     {
-        foreach(var item in command)
+        foreach(var item in regexs)
         {
-
+            if (item.Key.IsMatch(command))
+            {
+                return item.Value;
+            }
         }
+
+        return null;
     }
 
 
@@ -55,5 +60,10 @@ public static class SWord
 
 public class CommandModule
 {
+    public string command;
 
+    public CommandModule(string command)
+    {
+        this.command = command;
+    }
 }
