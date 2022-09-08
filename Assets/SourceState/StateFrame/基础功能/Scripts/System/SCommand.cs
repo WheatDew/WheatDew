@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using UnityEngine;
 
 
@@ -61,17 +62,48 @@ public class SCommand
     public static void Declare(string name,command command)
     {
         commands.Add(name, command);
+        SWord.regexs.Add(new Regex(name), new CommandModule(name));
+        string[] slices = name.Split(' ');
+        for(int i = 0; i < slices.Length; i++)
+        {
+            if (!slices[i].Contains('?'))
+            {
+                SWord.words.Add(slices[i]);
+            }
+        }
     }
 
-    public static void Execute(string command)
+    public static void Execute(string command,CommandData commandData)
     {
-        
+        string[] slices = command.Split('\n');
+
+        for (int i = 0; i < slices.Length; i++)
+        {
+            string result = SWord.GetSentence(slices[i]);
+            CommandModule commandModule = SWord.MatchModule(result);
+            commands[commandModule.command](result,null);
+        }
+
+
     }
 }
 
+public delegate string replace(string key);
 public class CommandData
 {
+    public string key;
+    public Dictionary<string, replace> replaceDatas;
 
+    public CommandData()
+    {
+
+    }
+
+    public CommandData(string key, Dictionary<string, replace> replaceDatas)
+    {
+        this.key = key;
+        this.replaceDatas = replaceDatas;
+    }
 }
 
 

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 68.56549, g: 61.90442, b: 84.421875, a: 1}
+  m_IndirectSpecularColor: {r: 68.56619, g: 61.905945, b: 84.42444, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -5959,6 +5959,52 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: db4097b20021a3642952143d934e1c92, type: 3}
+--- !u!1 &732251023
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 732251024}
+  - component: {fileID: 732251025}
+  m_Layer: 0
+  m_Name: "\u8303\u56F4\u89C4\u5219"
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &732251024
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 732251023}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1629294930}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &732251025
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 732251023}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14778387e4983c349a207b7a2014df61, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  infoInScene: {fileID: 4281466945783958424, guid: 75a9ab6d556e4f346b831cb27be09124,
+    type: 3}
 --- !u!1 &773366206
 GameObject:
   m_ObjectHideFlags: 0
@@ -6018,7 +6064,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 823692990}
-  - component: {fileID: 823692991}
   m_Layer: 0
   m_Name: "\u8303\u56F4\u5224\u65AD\u7CFB\u7EDF"
   m_TagString: Untagged
@@ -6042,20 +6087,6 @@ Transform:
   m_Father: {fileID: 537069654}
   m_RootOrder: 19
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &823692991
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 823692989}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6da9299e381b2d74695447149b67fb2a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sceneInfo: {fileID: 0}
-  infoInSceneParent: {fileID: 2145055868}
 --- !u!1 &825607728
 GameObject:
   m_ObjectHideFlags: 0
@@ -12673,6 +12704,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 365477389}
+  - {fileID: 732251024}
   m_Father: {fileID: 0}
   m_RootOrder: 24
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -13232,7 +13264,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5de104c66bd9233418f327230dfa3f53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefab: {fileID: 8837955360009802290, guid: 8db53c2380027a84e887756d30ea8cf7, type: 3}
 --- !u!114 &1811005484
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19574,6 +19605,7 @@ GameObject:
   - component: {fileID: 4804353993457968151}
   - component: {fileID: 4804353993457968153}
   - component: {fileID: 4804353993457968152}
+  - component: {fileID: 4804353993457968154}
   m_Layer: 9
   m_Name: xiaoxi
   m_TagString: Player
@@ -25706,12 +25738,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   key: 
-  closedTarget: 
-  enterCommand: "\u663E\u793A\u4FE1\u606F \u8303\u56F4\u5185\u6700\u8FD1\u7269\u4F53\u7684\u540D\u5B57"
-  exitCommand: "\u5173\u95ED\u663E\u793A\u4FE1\u606F"
-  enterCommands: []
-  exitCommands: []
-  displayName: "\u5C0F\u5E0C"
+  enterCommand: "\u663E\u793A\u8303\u56F4\u5185\u7269\u4F53\u540D\u79F0\u4FE1\u606F"
+  exitCommand: "\u9690\u85CF\u4FE1\u606F"
+  displayInfo: 
 --- !u!114 &4804353993457968152
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25740,6 +25769,20 @@ MonoBehaviour:
   key: 
   tags:
   - character
+--- !u!114 &4804353993457968154
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2235899744839214283}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57e9ff147cbe56e47bf8d5ba9a7a2b52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PressKeyG: "\u544A\u8BC9\u6211\u4F60\u7684\u540D\u5B57\u5427\n\u544A\u8BC9\u6211\u4F60\u7684\u540D\u5B57\u5427"
+  isname: 0
 --- !u!1 &4806732839676624175
 GameObject:
   m_ObjectHideFlags: 0
@@ -33259,12 +33302,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   key: 
-  closedTarget: 
   enterCommand: 
   exitCommand: 
-  enterCommands: []
-  exitCommands: []
-  displayName: "\u571F\u8C46\u82D7"
+  displayInfo: 
 --- !u!1 &7755081701342634394
 GameObject:
   m_ObjectHideFlags: 0
