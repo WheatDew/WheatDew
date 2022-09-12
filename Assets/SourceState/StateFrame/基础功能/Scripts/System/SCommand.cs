@@ -75,14 +75,18 @@ public class SCommand
 
     public static void Execute(string command,CommandData commandData)
     {
-        string[] slices = command.Split('\n');
-
-        for (int i = 0; i < slices.Length; i++)
+        if (command != null && command != "")
         {
-            string result = SWord.GetSentence(slices[i]);
-            CommandModule commandModule = SWord.MatchModule(result);
-            commands[commandModule.command](result,null);
+            string[] slices = command.Split('\n');
+
+            for (int i = 0; i < slices.Length; i++)
+            {
+                string result = SWord.GetSentence(slices[i]);
+                CommandModule commandModule = SWord.MatchModule(result);
+                commands[commandModule.command](result, commandData);
+            }
         }
+
 
 
     }
