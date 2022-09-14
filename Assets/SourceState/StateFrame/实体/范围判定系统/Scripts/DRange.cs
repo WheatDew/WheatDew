@@ -6,7 +6,7 @@ public static class DRange
 {
     public static Dictionary<string, RangeData> datas = new Dictionary<string, RangeData>();
 
-    public static Dictionary<string,replace> repalceDatas=new Dictionary<string, replace>();
+    public static Dictionary<string,replace> repalceDatas=InitDatas();
 
     public static Dictionary<string,replace> InitDatas()
     {

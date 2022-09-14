@@ -7,11 +7,12 @@ using UnityEngine.Events;
 
 public class CRange : MonoBehaviour
 {
-    public string key;
+    [HideInInspector] public string key;
     RangeData rangeData;
+    CommandData commandData;
 
     //触发指令相关
-    [TextArea(1, 5)] public string enterCommand, exitCommand;
+    [TextArea(0, 5)] public string enterCommand, exitCommand;
 
     //外部输入
     public string displayInfo;
@@ -22,13 +23,14 @@ public class CRange : MonoBehaviour
         SRange.Add(key, this);
         rangeData=new RangeData(key);
         rangeData.displayInfo = displayInfo;
+        commandData = new CommandData(key,DRange.repalceDatas);
     }
 
     private void OnTriggerEnter(Collider other)
     {
         rangeData.closedTarget = other.transform.GetInstanceID().ToString();
         rangeData.enterTargets.Add(rangeData.closedTarget);
-        SCommand.Execute(enterCommand,null);
+        SCommand.Execute(enterCommand, commandData);
     }
 
     private void OnTriggerExit(Collider other)
@@ -38,7 +40,7 @@ public class CRange : MonoBehaviour
             rangeData.closedTarget = null;
         }
         rangeData.enterTargets.Remove(other.transform.GetInstanceID().ToString());
-        SCommand.Execute(exitCommand,null);
+        SCommand.Execute(exitCommand,commandData);
     }
 }
 
