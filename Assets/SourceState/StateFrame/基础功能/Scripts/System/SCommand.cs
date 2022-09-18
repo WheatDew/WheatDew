@@ -86,10 +86,8 @@ public class SCommand
                 commands[commandModule.command](result, commandData);
             }
         }
-
-
-
     }
+
 }
 
 public delegate string replace(string key);

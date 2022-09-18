@@ -12,6 +12,7 @@ public class RRange : MonoBehaviour
 
     private void Start()
     {
+        //添加命令部分
         SCommand.Declare(@"显示 \S+? 的信息",DisplayInfo);
         SCommand.Declare(@"隐藏 信息", HideInfo);
     }
