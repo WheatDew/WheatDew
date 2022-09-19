@@ -766,7 +766,7 @@ MonoBehaviour:
     m_Value: 1
   earthCurvature:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: 1
   cloudTiling:
     m_OverrideState: 0
     m_Value: {x: 1, y: 1}
@@ -805,7 +805,7 @@ MonoBehaviour:
     m_Value: 0
   cloudPreset:
     m_OverrideState: 1
-    m_Value: 2
+    m_Value: 1
   cumulusMap:
     m_OverrideState: 0
     m_Value: {fileID: 0}
