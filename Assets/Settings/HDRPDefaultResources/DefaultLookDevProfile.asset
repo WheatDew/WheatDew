@@ -89,8 +89,8 @@ MonoBehaviour:
     m_OverrideState: 0
     m_Value: 3
   groundTint:
-    m_OverrideState: 0
-    m_Value: {r: 0.4, g: 0.25, b: 0.15, a: 1}
+    m_OverrideState: 1
+    m_Value: {r: 0, g: 0.16325189, b: 0.5377358, a: 1}
   groundColorTexture:
     m_OverrideState: 0
     m_Value: {fileID: 8900000, guid: 4dedd2d9402e8d94181a3faf379fd4ae, type: 3}
@@ -805,7 +805,7 @@ MonoBehaviour:
     m_Value: 0
   cloudPreset:
     m_OverrideState: 1
-    m_Value: 2
+    m_Value: 1
   cumulusMap:
     m_OverrideState: 0
     m_Value: {fileID: 0}

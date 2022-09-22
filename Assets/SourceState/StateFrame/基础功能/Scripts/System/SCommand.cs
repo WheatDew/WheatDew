@@ -4,73 +4,77 @@ using System.Text.RegularExpressions;
 using UnityEngine;
 
 
-public delegate void task(string[] values, CommandData taskData);
-public delegate float floatTask(string[] values, CommandData taskData);
-public delegate int intTask(string[] values, CommandData taskData);
+//public delegate void task(string[] values, CommandData taskData);
+//public delegate float floatTask(string[] values, CommandData taskData);
+//public delegate int intTask(string[] values, CommandData taskData);
 
 public delegate void command(string command, CommandData commandData);
 
 public class SCommand
 {
 
-    public static SCommand taskData;
+    //public static SCommand taskData;
 
-    private static Dictionary<string, task> tasks = new Dictionary<string, task>();
-    private static Dictionary<string, floatTask> floatCommands = new Dictionary<string, floatTask>();
+    //private static Dictionary<string, task> tasks = new Dictionary<string, task>();
+    //private static Dictionary<string, floatTask> floatCommands = new Dictionary<string, floatTask>();
 
-    private static Dictionary<string, command> commands = new Dictionary<string, command>();
+    //√¸¡Ó¡–±Ì
+    private static Dictionary<Regex, command> commands = new Dictionary<Regex, command>();
 
-    //◊¢≤·––Œ™
-    public static void Declare(string name, task behaviour)
-    {
-        tasks.Add(name, behaviour);
-    }
-    public static void Declare(string name,floatTask command)
-    {
-        floatCommands.Add(name, command);
-    }
+    ////◊¢≤·––Œ™
+    //public static void Declare(string name, task behaviour)
+    //{
+    //    tasks.Add(name, behaviour);
+    //}
+    //public static void Declare(string name,floatTask command)
+    //{
+    //    floatCommands.Add(name, command);
+    //}
 
 
-    public static void Execute(string[] values)
-    {
-        if (values != null && values.Length > 0 && tasks.ContainsKey(values[0]))
-        {
-            tasks[values[0]](values, new CommandData());
-        }
-    }
+    //public static void Execute(string[] values)
+    //{
+    //    if (values != null && values.Length > 0 && tasks.ContainsKey(values[0]))
+    //    {
+    //        tasks[values[0]](values, new CommandData());
+    //    }
+    //}
 
-    public static float GetFloatData(string[] values)
-    {
-        if (values != null && values.Length > 0 && floatCommands.ContainsKey(values[0]))
-        {
-            return floatCommands[values[0]](values, new CommandData());
-        }
-        else
-        {
-            string command = "";
-            for(int i = 0; i < values.Length; i++)
-            {
-                command+=values[i];
-            }
-            Debug.LogError("√¸¡Ó¥ÌŒÛ:" + command);
-            return 0f;
-        }
-    }
+    //public static float GetFloatData(string[] values)
+    //{
+    //    if (values != null && values.Length > 0 && floatCommands.ContainsKey(values[0]))
+    //    {
+    //        return floatCommands[values[0]](values, new CommandData());
+    //    }
+    //    else
+    //    {
+    //        string command = "";
+    //        for(int i = 0; i < values.Length; i++)
+    //        {
+    //            command+=values[i];
+    //        }
+    //        Debug.LogError("√¸¡Ó¥ÌŒÛ:" + command);
+    //        return 0f;
+    //    }
+    //}
 
 
     //ºÚ“◊∞Ê±æ
     public static void Declare(string name,command command)
     {
-        commands.Add(name, command);
-        SWord.regexs.Add(new Regex(name), new CommandModule(name));
-        string[] slices = name.Split(' ');
-        for(int i = 0; i < slices.Length; i++)
-        {
-            if (!slices[i].Contains('?'))
-            {
-                SWord.words.Add(slices[i]);
-            }
-        }
+        commands.Add(new Regex(name), command);
+        //SWord.regexs.Add(new Regex(name), new CommandModule(name));
+        //regexs.Add(new Regex(name));
+        //string[] slices = name.Split(' ');
+
+
+        //for(int i = 0; i < slices.Length; i++)
+        //{
+        //    if (!slices[i].Contains('?'))
+        //    {
+        //        SWord.words.Add(slices[i]);
+        //    }
+        //}
     }
 
     public static void Execute(string command,CommandData commandData)
@@ -81,13 +85,25 @@ public class SCommand
 
             for (int i = 0; i < slices.Length; i++)
             {
-                string result = SWord.GetSentence(slices[i]);
-                CommandModule commandModule = SWord.MatchModule(result);
-                commands[commandModule.command](result, commandData);
+                RegexTest(slices[i])(command,commandData);
+                //string result = SWord.GetSentence(slices[i]);
+                //CommandModule commandModule = SWord.MatchModule(slices[i]);
+                //commands[commandModule.command](result, commandData);
+                //commands[command](slices[i]);
             }
         }
     }
 
+    //≈–∂œ «∑Ò∆•≈‰’˝‘Ú
+    public static command RegexTest(string command)
+    {
+        foreach(var item in commands)
+        {
+            item.Key.IsMatch(command);
+            return item.Value;
+        }
+        return null;
+    }
 }
 
 public delegate string replace(string key);
