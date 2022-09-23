@@ -8,7 +8,7 @@ public static class SWord
 {
     public static HashSet<string> words = new HashSet<string>();
 
-    public static Dictionary<Regex,CommandModule> regexs=new Dictionary<Regex, CommandModule>();
+    //public static Dictionary<Regex,CommandModule> regexs=new Dictionary<Regex, CommandModule>();
 
     //转换列表
     static Dictionary<string, int> convertList = new Dictionary<string, int> { { "{0}", 0 }, { "{1}", 1 }, { "{2}", 2 } };
@@ -53,18 +53,18 @@ public static class SWord
 
     }
 
-    public static CommandModule MatchModule(string command)
-    {
-        foreach(var item in regexs)
-        {
-            if (item.Key.IsMatch(command))
-            {
-                return item.Value;
-            }
-        }
+    //public static CommandModule MatchModule(string command)
+    //{
+    //    foreach(var item in regexs)
+    //    {
+    //        if (item.Key.IsMatch(command))
+    //        {
+    //            return item.Value;
+    //        }
+    //    }
 
-        return null;
-    }
+    //    return null;
+    //}
 
 
     //新分词器
@@ -93,16 +93,23 @@ public static class SWord
         Dictionary<string, List<WordData>> result = new Dictionary<string, List<WordData>>();
         Combination(words, result);
 
+        
+
+        Debug.Log(string.Format("结果数组的长度为：{0};原语句为：{1}", result.Count,sentence));
         //获取最大组合
         List<WordData> resultList = result[GetMaxResult(result)];
         List<int> indexs = new List<int>();
         for(int i = 0; i < resultList.Count; i++)
         {
             int index = sentence.IndexOf(resultList[i].word);
+            Debug.Log(index);
             if (!indexs.Contains(index))
             {
                 indexs.Add(index);
-                indexs.Add(index - resultList[i].word.Length+1);
+            }
+            if (!indexs.Contains(index + resultList[i].word.Length))
+            {
+                indexs.Add(index + resultList[i].word.Length);
             }
         }
         QuickSort(indexs, 0, indexs.Count - 1);
@@ -117,7 +124,7 @@ public static class SWord
             }
             else
             {
-                if (i == 0)
+                if (i == 0 && indexs[i]!=0)
                 {
                     final += ConvertMarkWords(sentence[..indexs[i]], replace) + " ";
                 }
@@ -125,15 +132,14 @@ public static class SWord
             }
             
         }
-        Debug.Log(final);
 
-        return "";
+        return final;
     }
 
     //将标记的词语转换
     public static string ConvertMarkWords(string input,List<string> replace)
     {
-        Debug.Log(string.Format("捕捉词：{0}", input));
+        //Debug.Log(string.Format("捕捉词：{0}", input));
         if (convertList.ContainsKey(input))
         {
             Debug.Log(replace[convertList[input]]);
@@ -203,7 +209,7 @@ public static class SWord
     {
         int index = 0;
         string[] slices = sentence.Split('{', '}');
-        Debug.Log(sentence);
+        //Debug.Log(sentence);
         if (sentence[0] != '{')
         {
             for (int i = 1; i < slices.Length; i += 2)

@@ -63,21 +63,17 @@ public class SCommand
     public static void Declare(string name,command command)
     {
         commands.Add(new Regex(name), command);
-        //SWord.regexs.Add(new Regex(name), new CommandModule(name));
-        //regexs.Add(new Regex(name));
-        //string[] slices = name.Split(' ');
-
-
-        //for(int i = 0; i < slices.Length; i++)
-        //{
-        //    if (!slices[i].Contains('?'))
-        //    {
-        //        SWord.words.Add(slices[i]);
-        //    }
-        //}
+        string[] slices = name.Split(' ');
+        for (int i = 0; i < slices.Length; i++)
+        {
+            if (!slices[i].Contains('?'))
+            {
+                SWord.keyWords.Add(slices[i]);
+            }
+        }
     }
 
-    public static void Execute(string command,CommandData commandData)
+    public static void Execute(string command,CommandData commandData=null)
     {
         if (command != null && command != "")
         {
@@ -99,8 +95,9 @@ public class SCommand
     {
         foreach(var item in commands)
         {
-            item.Key.IsMatch(command);
-            return item.Value;
+            //Debug.Log(string.Format("ÕýÔò£º{0},Æ¥ÅäÏî") item.Key);
+            if(item.Key.IsMatch(command))
+                return item.Value;
         }
         return null;
     }

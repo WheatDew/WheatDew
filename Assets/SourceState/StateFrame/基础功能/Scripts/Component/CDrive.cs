@@ -64,7 +64,7 @@ public class CDrive : MonoBehaviour
                     {
                         values[i] = driveRules[i]();
                     }
-                    SCommand.Execute(values);
+                    //SCommand.Execute(values);
                 };
             }
             else
@@ -76,7 +76,7 @@ public class CDrive : MonoBehaviour
                     {
                         values[i] = driveRules[i]();
                     }
-                    SCommand.Execute(values);
+                    //SCommand.Execute(values);
                 });
             }
 

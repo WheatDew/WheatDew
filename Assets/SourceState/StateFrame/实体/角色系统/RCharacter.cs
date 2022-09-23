@@ -20,7 +20,7 @@ public class RCharacter : MonoBehaviour
         }
 
         //命令规则初始化
-        SCommand.Declare("获取 {0} 属性值", GetHealthValue);
+        //SCommand.Declare("获取 {0} 属性值", GetHealthValue);
 
         InitWords("获取", "属性值");
     }
