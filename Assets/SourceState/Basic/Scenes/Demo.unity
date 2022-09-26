@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 10889.238, g: 9414.242, b: 8859.094, a: 1}
+  m_IndirectSpecularColor: {r: 11515.398, g: 9929.703, b: 9307.508, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -459,7 +459,9 @@ MonoBehaviour:
   dialoguePagePrefab: {fileID: 6398478643371839661, guid: 65293ae53ff281b4383c3e89126a827a,
     type: 3}
   dialoguePage: {fileID: 0}
+  currentCharacter: 
   currentIndex: 0
+  cinemachineFreeLook: {fileID: 4875551248946031290}
 --- !u!1 &120989819
 GameObject:
   m_ObjectHideFlags: 0
@@ -26254,7 +26256,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4875551247276499490}
-  m_LocalRotation: {x: 0.14930747, y: -0.56868494, z: 0.105880514, w: 0.80193144}
+  m_LocalRotation: {x: 0.1493075, y: -0.56868494, z: 0.10588052, w: 0.8019315}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
