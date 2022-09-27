@@ -11,8 +11,13 @@ public class CRange : MonoBehaviour
     RangeData rangeData;
     CommandData commandData;
 
+    delegate string conversion();
+
+    //规则相关
+    private Dictionary<string, conversion> rules = new Dictionary<string, conversion>();
+
     //触发指令相关
-    [TextArea(0, 5)] public string enterCommand, exitCommand;
+    [TextArea(0, 5)] public string enterCommand, exitCommand,clickCommand;
 
     //外部输入
     public string displayInfo;
@@ -24,6 +29,14 @@ public class CRange : MonoBehaviour
         rangeData=new RangeData(key);
         rangeData.displayInfo = displayInfo;
         commandData = new CommandData(key,DRange.repalceDatas);
+    }
+
+    public void Update()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            SCommand.Execute(clickCommand);
+        }
     }
 
     private void OnTriggerEnter(Collider other)

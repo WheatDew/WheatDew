@@ -26,7 +26,7 @@ public class RDialogue : MonoBehaviour
         GetFiles();
         SCommand.Declare(@"设置 事件 为 \S+?", SetCurrentEvent);
         SCommand.Declare(@"显示 下一句", SetNextContent);
-        SCommand.Execute("设置 事件 为 测试1");
+        SCommand.Execute("设置 事件 为 小希剧情1");
 
     }
 

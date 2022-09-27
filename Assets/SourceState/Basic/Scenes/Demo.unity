@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 11515.398, g: 9929.703, b: 9307.508, a: 1}
+  m_IndirectSpecularColor: {r: 11554.99, g: 9983.109, b: 9380.914, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -595,12 +595,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 141689118}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -386.49, y: -1.4640262, z: -151.07086}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 338180891}
-  m_RootOrder: 0
+  m_Father: {fileID: 0}
+  m_RootOrder: 21
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &174112701
 PrefabInstance:
@@ -5537,38 +5537,6 @@ MonoBehaviour:
   baseSkinningDataList: []
   baseSkinningBindPoseList: []
   initScale: {x: 1, y: 1, z: 1}
---- !u!1 &338180890
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 338180891}
-  m_Layer: 0
-  m_Name: Light
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &338180891
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 338180890}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 141689120}
-  m_Father: {fileID: 0}
-  m_RootOrder: 21
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &365477388
 GameObject:
   m_ObjectHideFlags: 0
@@ -25993,6 +25961,7 @@ MonoBehaviour:
   key: 
   enterCommand: "\u663E\u793A\u8303\u56F4\u5185\u7269\u4F53\u540D\u79F0\u7684\u4FE1\u606F"
   exitCommand: "\u9690\u85CF\u4FE1\u606F"
+  clickCommand: 
   displayInfo: "\u5C0F\u5E0C"
 --- !u!114 &4804353993457968152
 MonoBehaviour:
@@ -33557,6 +33526,7 @@ MonoBehaviour:
   key: 
   enterCommand: 
   exitCommand: 
+  clickCommand: 
   displayInfo: "\u571F\u8C46"
 --- !u!1 &7755081701342634394
 GameObject:
