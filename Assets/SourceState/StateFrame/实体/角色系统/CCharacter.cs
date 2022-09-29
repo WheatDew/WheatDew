@@ -7,6 +7,7 @@ using System;
 public class CCharacter : MonoBehaviour
 {
     private CEntity centity;
+    public Animator animator;
 
     public string commandTriggerPressK;
 
@@ -14,6 +15,7 @@ public class CCharacter : MonoBehaviour
     {
         centity = GetComponent<CEntity>();
     }
+
 
     public void Update()
     {
