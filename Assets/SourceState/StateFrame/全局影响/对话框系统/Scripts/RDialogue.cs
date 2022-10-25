@@ -12,6 +12,7 @@ public class RDialogue : MonoBehaviour
 
     private Dictionary<string,EventDialogue> events=new Dictionary<string, EventDialogue>();
     private Dictionary<string,Texture2D> pictures=new Dictionary<string, Texture2D>();
+    public Dictionary<string, string> convert = new Dictionary<string, string>();
 
     public EventDialogue currentEvent;
     public string currentCharacter="";
@@ -21,12 +22,15 @@ public class RDialogue : MonoBehaviour
 
     private void Start()
     {
-        cinemachineFreeLook.enabled = false;
+        if(cinemachineFreeLook != null)
+            cinemachineFreeLook.enabled = false;
+        //读取图片
         ReadPicture();
+        //读取事件文件
         GetFiles();
         SCommand.Declare(@"设置 事件 为 \S+?", SetCurrentEvent);
         SCommand.Declare(@"显示 下一句", SetNextContent);
-        SCommand.Execute("设置 事件 为 小希剧情1");
+        SCommand.Execute("设置 事件 为 byy1");
 
     }
 
@@ -50,12 +54,14 @@ public class RDialogue : MonoBehaviour
         currentIndex++;
         if (currentIndex < currentEvent.content.Count)
         {
-            cinemachineFreeLook.enabled = false;
+            if(cinemachineFreeLook!=null)
+                cinemachineFreeLook.enabled = false;
             SetDialogueText(currentEvent.content[currentIndex]);
         }
         else
         {
-            cinemachineFreeLook.enabled = true;
+            if (cinemachineFreeLook != null)
+                cinemachineFreeLook.enabled = true;
             Destroy(dialoguePage.gameObject);
         }
 
@@ -84,12 +90,35 @@ public class RDialogue : MonoBehaviour
         events.Add(fileName.Split('\\','/','.')[^2], eventDialogue);
     }
 
+    //读取转换字符串
+    public void ReadCovertStringFile(string fileName)
+    {
+        string convert_string = File.ReadAllText(fileName);
+        string[] convert_strings = convert_string.Split('\n');
+        for(int i=0;i< convert_strings.Length; i++)
+        {
+            string[] convert_strings_slices = convert_strings[i].Split(',', '，');
+            convert.Add(convert_strings_slices[0], convert_strings_slices[1]);
+        }
+    }
+
     //遍历文件夹
     public void GetFiles()
     {
         string path = Application.streamingAssetsPath+"/Events";
         DirectoryInfo folder = new DirectoryInfo(path);
         foreach (FileInfo file in folder.GetFiles(@"*.txt",SearchOption.AllDirectories))
+        {
+            Debug.Log(file.FullName);
+            ReadEventFile(file.FullName);
+        }
+    }
+
+    public void GetConvertString()
+    {
+        string path = Application.streamingAssetsPath + "/Convert";
+        DirectoryInfo folder = new DirectoryInfo(path);
+        foreach (FileInfo file in folder.GetFiles(@"*.txt", SearchOption.AllDirectories))
         {
             Debug.Log(file.FullName);
             ReadEventFile(file.FullName);
