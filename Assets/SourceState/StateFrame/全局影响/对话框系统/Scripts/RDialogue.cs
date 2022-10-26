@@ -4,6 +4,7 @@ using UnityEngine;
 using System.IO;
 using System;
 using Cinemachine;
+using UnityEngine.Events;
 
 public class RDialogue : MonoBehaviour
 {
@@ -12,6 +13,8 @@ public class RDialogue : MonoBehaviour
 
     private Dictionary<string,EventDialogue> events=new Dictionary<string, EventDialogue>();
     private Dictionary<string,Texture2D> pictures=new Dictionary<string, Texture2D>();
+    private Dictionary<string, Texture2D> icons = new Dictionary<string, Texture2D>();
+    private Dictionary<string, Texture2D> backgrounds = new Dictionary<string, Texture2D>();
     public Dictionary<string, string> convert = new Dictionary<string, string>();
 
     public EventDialogue currentEvent;
@@ -27,10 +30,16 @@ public class RDialogue : MonoBehaviour
         //读取图片
         ReadPicture();
         //读取事件文件
-        GetFiles();
+        ReadEventFiles();
+        //读取转换字符串
+        GetConvertString();
+        //读取图标文件
+        ReadIcons();
+        //读取场景
+        ReadBackgrounds();
         SCommand.Declare(@"设置 事件 为 \S+?", SetCurrentEvent);
         SCommand.Declare(@"显示 下一句", SetNextContent);
-        SCommand.Execute("设置 事件 为 byy1");
+        SCommand.Execute("设置 事件 为 test3");
 
     }
 
@@ -86,7 +95,7 @@ public class RDialogue : MonoBehaviour
     {
         string eventText= File.ReadAllText(fileName);
         EventDialogue eventDialogue = new EventDialogue(eventText);
-        Debug.Log(fileName.Split('\\', '/','.')[^2]);
+        //Debug.Log(fileName.Split('\\', '/','.')[^2]);
         events.Add(fileName.Split('\\','/','.')[^2], eventDialogue);
     }
 
@@ -97,19 +106,21 @@ public class RDialogue : MonoBehaviour
         string[] convert_strings = convert_string.Split('\n');
         for(int i=0;i< convert_strings.Length; i++)
         {
+            
             string[] convert_strings_slices = convert_strings[i].Split(',', '，');
             convert.Add(convert_strings_slices[0], convert_strings_slices[1]);
+            //Debug.LogFormat("加载转换字符串：{0}to{1}", convert_strings_slices[0], convert_strings_slices[1]);
         }
     }
 
     //遍历文件夹
-    public void GetFiles()
+    public void ReadEventFiles()
     {
         string path = Application.streamingAssetsPath+"/Events";
         DirectoryInfo folder = new DirectoryInfo(path);
         foreach (FileInfo file in folder.GetFiles(@"*.txt",SearchOption.AllDirectories))
         {
-            Debug.Log(file.FullName);
+            //Debug.LogFormat("读取故事文件路径：{0}",file.FullName);
             ReadEventFile(file.FullName);
         }
     }
@@ -120,8 +131,8 @@ public class RDialogue : MonoBehaviour
         DirectoryInfo folder = new DirectoryInfo(path);
         foreach (FileInfo file in folder.GetFiles(@"*.txt", SearchOption.AllDirectories))
         {
-            Debug.Log(file.FullName);
-            ReadEventFile(file.FullName);
+            //Debug.LogFormat("读取转换字符串文件路径：{0}",file.FullName);
+            ReadCovertStringFile(file.FullName);
         }
     }
 
@@ -129,9 +140,15 @@ public class RDialogue : MonoBehaviour
     {
         string[] slices = content.Split('：',':');
 
+        UnityAction next = delegate
+        {
+            currentIndex++;
+            SetDialogueText(currentEvent.content[currentIndex]);
+        };
+
         if (slices.Length == 1)
         {
-            Debug.Log("执行字符串" + slices[0]);
+            Debug.Log("执行字符串命令:" + slices[0]);
             if (slices[0][0] == '#')
             {
                 string[] command = slices[0].Split('#');
@@ -143,21 +160,42 @@ public class RDialogue : MonoBehaviour
                         break;
                     case "立绘震动":
                         SetShake(dialoguePage.picture.transform);
-                        currentIndex++;
-                        SetDialogueText(currentEvent.content[currentIndex]);
+                        next();
                         break;
                     case "选项":
                         SetSelection(command);
                         break;
+                    case "显示立绘":
+                        DisplayPicture(command[2]);
+                        next();
+                        break;
+                    case "隐藏立绘":
+                        HiddenPicture();
+                        next();
+                        break;
+                    case "隐藏图标":
+                        HiddenIcon();
+                        next();
+                        break;
+                    case "警觉":
+                        DisplayIcon("Perceive", "flicker");
+                        if (command.Length > 2 && command[2]=="连续")
+                            next();
+                        break;
+                    case "显示场景":
+                        DisplayBackground(command[2]);
+                        next();
+                        break;
+                    case "隐藏场景":
+                        HiddenBackground();
+                        next();
+                        break;
+
                 }
 
             }
             else
             {
-                if (!pictures.ContainsKey(currentCharacter))
-                {
-                    dialoguePage.picture.color = new Color(1, 1, 1, 0);
-                }
                 dialoguePage.character.text = currentCharacter;
                 dialoguePage.content.text = slices[0];
             }
@@ -166,13 +204,6 @@ public class RDialogue : MonoBehaviour
         else if(slices.Length==2)
         {
             currentCharacter = slices[0];
-            if (pictures.ContainsKey(currentCharacter))
-            {
-                dialoguePage.picture.color = new Color(1, 1, 1, 1);
-                dialoguePage.picture.sprite = Sprite.Create(pictures[currentCharacter], new Rect(0, 0, pictures[currentCharacter].width, pictures[currentCharacter].height), Vector2.zero);
-            }
-            else
-                dialoguePage.picture.color = new Color(1, 1, 1, 0);
 
             dialoguePage.character.text = slices[0];
             dialoguePage.content.text = slices[1];
@@ -201,7 +232,29 @@ public class RDialogue : MonoBehaviour
         foreach (FileInfo file in folder.GetFiles(@"*.png", SearchOption.AllDirectories))
         {
             pictures.Add(file.FullName.Split('\\', '/', '.')[^2], GetTexture2D(file.FullName));
-            Debug.Log(file.FullName.Split('\\', '/', '.')[^2]);
+            //Debug.Log(file.FullName.Split('\\', '/', '.')[^2]);
+        }
+    }
+
+    public void ReadIcons()
+    {
+        string path = Application.streamingAssetsPath + "/Icons";
+        DirectoryInfo folder = new DirectoryInfo(path);
+        foreach (FileInfo file in folder.GetFiles(@"*.png", SearchOption.AllDirectories))
+        {
+            icons.Add(file.FullName.Split('\\', '/', '.')[^2], GetTexture2D(file.FullName));
+            //Debug.Log(file.FullName.Split('\\', '/', '.')[^2]);
+        }
+    }
+
+    public void ReadBackgrounds()
+    {
+        string path = Application.streamingAssetsPath + "/Backgrounds";
+        DirectoryInfo folder = new DirectoryInfo(path);
+        foreach (FileInfo file in folder.GetFiles(@"*.png", SearchOption.AllDirectories))
+        {
+            backgrounds.Add(file.FullName.Split('\\', '/', '.')[^2], GetTexture2D(file.FullName));
+            //Debug.Log(file.FullName.Split('\\', '/', '.')[^2]);
         }
     }
 
@@ -232,11 +285,76 @@ public class RDialogue : MonoBehaviour
         }
     }
 
+    //选项
     public void SetSelection(string[] command)
     {
         dialoguePage.SetSelection(command);
         dialoguePage.enableClick = false;
     }
+
+    //显示立绘
+    public void DisplayPicture(string character)
+    {
+        if (convert.ContainsKey(character) && pictures.ContainsKey(convert[character]))
+        {
+            dialoguePage.picture.color = new Color(1, 1, 1, 1);
+            dialoguePage.picture.sprite = Sprite.Create(pictures[convert[character]], new Rect(0, 0, pictures[convert[character]].width, pictures[convert[character]].height), Vector2.zero);
+        }
+    }
+
+    //立绘移动
+    public void MovePicture()
+    {
+
+    }
+
+    //隐藏立绘
+    public void HiddenPicture()
+    {
+        dialoguePage.picture.color = new Color(1, 1, 1, 0);
+    }
+
+    //显示符号
+    public async void DisplayIcon(string iconName,string aniName)
+    {
+        dialoguePage.icon.sprite = Sprite.Create(icons[iconName], new Rect(0, 0, icons[iconName].width, icons[iconName].height), Vector2.zero);
+
+        if (aniName!=null)
+        {
+            dialoguePage.icon.color = new Color(1, 1, 1, 1);
+        }
+        if (aniName == "flicker")
+        {
+            dialoguePage.icon.color = new Color(1, 1, 1, 0);
+            await new WaitForSeconds(0.05f);
+            dialoguePage.icon.color = new Color(1, 1, 1, 1);
+            await new WaitForSeconds(0.05f);
+            dialoguePage.icon.color = new Color(1, 1, 1, 0);
+            await new WaitForSeconds(0.05f);
+            dialoguePage.icon.color = new Color(1, 1, 1, 1);
+            await new WaitForSeconds(0.05f);
+            dialoguePage.icon.color = new Color(1, 1, 1, 0);
+            await new WaitForSeconds(0.05f);
+            dialoguePage.icon.color = new Color(1, 1, 1, 1);
+        }
+    }
+
+    public void HiddenIcon()
+    {
+        dialoguePage.icon.color=new Color(1, 1, 1, 0);
+    }
+
+    public void DisplayBackground(string backgroundName)
+    {
+        dialoguePage.scene.sprite = Sprite.Create(backgrounds[backgroundName], new Rect(0, 0, backgrounds[backgroundName].width, backgrounds[backgroundName].height), Vector2.zero);
+        dialoguePage.scene.gameObject.SetActive(true);
+    }
+
+    public void HiddenBackground()
+    {
+        dialoguePage.scene.gameObject.SetActive(false);
+    }
+
 }
 
 public class EventDialogue

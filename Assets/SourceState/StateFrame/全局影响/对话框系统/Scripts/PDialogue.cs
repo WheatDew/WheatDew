@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class PDialogue : MonoBehaviour,IPointerClickHandler
 {
     public TMP_Text content,character;
-    public Image picture;
+    public Image picture,icon,scene;
     public PSelection selectionPrefab;
     public Transform selectionParent;
 
