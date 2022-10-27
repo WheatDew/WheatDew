@@ -166,7 +166,29 @@ public class RDialogue : MonoBehaviour
                         SetSelection(command);
                         break;
                     case "显示立绘":
-                        DisplayPicture(command[2]);
+                        if (command.Length == 4)
+                            DisplayPicture(command[2], "0", "0");
+                        else if (command.Length == 5)
+                        {
+                            DisplayPicture(command[2], command[3], "0");
+                        }
+                        else if (command.Length == 6)
+                            DisplayPicture(command[2], command[3], command[4]);
+                        next();
+                        break;
+                    case "设置位置":
+                        if (command.Length == 4)
+                            SetPicturePosition(new Vector3(float.Parse(command[2]), 0, 0));
+                        else if(command.Length == 5)
+                            SetPicturePosition(new Vector3(float.Parse(command[2]), float.Parse(command[3]), 0));
+                        break;
+                    case "移动立绘":
+                        if (command.Length == 4)
+                            MovePicture(command[2], "0", "0.5");
+                        else if (command.Length == 5)
+                            MovePicture(command[2], command[3], "0.5");
+                        else if (command.Length == 6)
+                            MovePicture(command[2], command[3], command[4]);
                         next();
                         break;
                     case "隐藏立绘":
@@ -179,7 +201,7 @@ public class RDialogue : MonoBehaviour
                         break;
                     case "警觉":
                         DisplayIcon("Perceive", "flicker");
-                        if (command.Length > 2 && command[2]=="连续")
+                        if (command.Length > 3 && command[2]=="连续")
                             next();
                         break;
                     case "显示场景":
@@ -293,19 +315,38 @@ public class RDialogue : MonoBehaviour
     }
 
     //显示立绘
-    public void DisplayPicture(string character)
+    public void DisplayPicture(string character,string pos_x,string pos_y)
     {
         if (convert.ContainsKey(character) && pictures.ContainsKey(convert[character]))
         {
             dialoguePage.picture.color = new Color(1, 1, 1, 1);
             dialoguePage.picture.sprite = Sprite.Create(pictures[convert[character]], new Rect(0, 0, pictures[convert[character]].width, pictures[convert[character]].height), Vector2.zero);
+            Debug.Log(pos_x);
+            dialoguePage.picture.rectTransform.localPosition = new Vector3(float.Parse(pos_x),float.Parse(pos_y),0);
         }
     }
 
-    //立绘移动
-    public void MovePicture()
+    //立绘移动(移动方向上的长度)
+    public async void MovePicture(string x,string y,string t)
     {
+        Debug.LogFormat("设置x轴位置:{0};设置值长度:{1}",x,x.Length);
+        Vector3 direction = new Vector3(float.Parse(x), float.Parse(y));
+        float totalTime =float.Parse(t);
+        Vector3 targetPosition = dialoguePage.picture.rectTransform.localPosition+direction;
+        Vector3 startPosition = dialoguePage.picture.rectTransform.localPosition;
+        float currentTime=0;
+        while (currentTime < totalTime)
+        {
+            dialoguePage.picture.rectTransform.localPosition = Vector3.Lerp(startPosition, targetPosition, currentTime / totalTime);
+            currentTime+=Time.deltaTime;
+            await new WaitForUpdate();
+        }
+    }
 
+    //设置立绘位置
+    public void SetPicturePosition(Vector3 pos)
+    {
+        dialoguePage.picture.rectTransform.localPosition = pos;
     }
 
     //隐藏立绘
