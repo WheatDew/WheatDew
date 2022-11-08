@@ -75,18 +75,25 @@ public class SCommand
 
     public static void Execute(string command,CommandData commandData=null)
     {
-        if (command != null && command != "")
+        try
         {
-            string[] slices = command.Split('\n');
-
-            for (int i = 0; i < slices.Length; i++)
+            if (command != null && command != "")
             {
-                RegexTest(slices[i])(command,commandData);
-                //string result = SWord.GetSentence(slices[i]);
-                //CommandModule commandModule = SWord.MatchModule(slices[i]);
-                //commands[commandModule.command](result, commandData);
-                //commands[command](slices[i]);
+                string[] slices = command.Split('\n');
+
+                for (int i = 0; i < slices.Length; i++)
+                {
+                    RegexTest(slices[i])(command, commandData);
+                    //string result = SWord.GetSentence(slices[i]);
+                    //CommandModule commandModule = SWord.MatchModule(slices[i]);
+                    //commands[commandModule.command](result, commandData);
+                    //commands[command](slices[i]);
+                }
             }
+        }
+        catch(System.Exception ex)
+        {
+            Debug.LogErrorFormat("执行命令为:{0}\n报错信息为:{1}", command,ex.ToString());
         }
     }
 

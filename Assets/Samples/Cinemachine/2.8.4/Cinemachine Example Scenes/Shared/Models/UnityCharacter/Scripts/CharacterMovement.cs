@@ -22,79 +22,126 @@ public class CharacterMovement : MonoBehaviour
     private float velocity;
     public static bool isMoving=true;
 
-    public GameObject weapon;
+
+    //额外的增量
+    public CWeapon weapon;
+    public bool fighting=false;
+    public bool isPlayer = false;
+    private Rigidbody rigidbody;
 
     // Use this for initialization
     void Start()
     {
+        //初始化数据
         anim = GetComponent<Animator>();
         mainCamera = Camera.main;
+
+        rigidbody = GetComponent<Rigidbody>();
+        
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (isMoving)
+        if (isPlayer)
         {
-            input.x = Input.GetAxis("Horizontal");
-            input.y = Input.GetAxis("Vertical");
-
-            // set speed to both vertical and horizontal inputs
-            if (useCharacterForward)
-                speed = Mathf.Abs(input.x) + input.y;
-            else
-                speed = Mathf.Abs(input.x) + Mathf.Abs(input.y);
-
-            speed = Mathf.Clamp(speed, 0f, 1f);
-            speed = Mathf.SmoothDamp(anim.GetFloat("Speed"), speed, ref velocity, 0.1f);
-            anim.SetFloat("Speed", speed);
-
-            if (input.y < 0f && useCharacterForward)
-                direction = input.y;
-            else
-                direction = 0f;
-
-            anim.SetFloat("Direction", direction);
-
-            // set sprinting
-            isSprinting = ((Input.GetKey(sprintJoystick) || Input.GetKey(sprintKeyboard)) && input != Vector2.zero && direction >= 0f);
-            anim.SetBool("isSprinting", isSprinting);
-
-            // Update target direction relative to the camera view (or not if the Keep Direction option is checked)
-            UpdateTargetDirection();
-            if (input != Vector2.zero && targetDirection.magnitude > 0.1f)
+            if (Input.GetKeyDown(KeyCode.Alpha1))
             {
-                Vector3 lookDirection = targetDirection.normalized;
-                freeRotation = Quaternion.LookRotation(lookDirection, transform.up);
-                var diferenceRotation = freeRotation.eulerAngles.y - transform.eulerAngles.y;
-                var eulerY = transform.eulerAngles.y;
+                isPlayer = true;
+            }
 
-                if (diferenceRotation < 0 || diferenceRotation > 0) eulerY = freeRotation.eulerAngles.y;
-                var euler = new Vector3(0, eulerY, 0);
+            if (isMoving)
+            {
+                input.x = Input.GetAxis("Horizontal");
+                input.y = Input.GetAxis("Vertical");
 
-                transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(euler), turnSpeed * turnSpeedMultiplier * Time.deltaTime);
+                
+
+                // set speed to both vertical and horizontal inputs
+                if (useCharacterForward)
+                    speed = Mathf.Abs(input.x) + input.y;
+                else
+                    speed = Mathf.Abs(input.x) + Mathf.Abs(input.y);
+
+                speed = Mathf.Clamp(speed, 0f, 1f);
+                speed = Mathf.SmoothDamp(anim.GetFloat("Speed"), speed, ref velocity, 0.1f);
+                anim.SetFloat("Speed", speed);
+
+                if (input.y < 0f && useCharacterForward)
+                    direction = input.y;
+                else
+                    direction = 0f;
+
+                anim.SetFloat("Direction", direction);
+
+                // set sprinting
+                isSprinting = ((Input.GetKey(sprintJoystick) || Input.GetKey(sprintKeyboard)) && input != Vector2.zero && direction >= 0f);
+                anim.SetBool("isSprinting", isSprinting);
+
+                // Update target direction relative to the camera view (or not if the Keep Direction option is checked)
+                UpdateTargetDirection();
+                if (input != Vector2.zero && targetDirection.magnitude > 0.1f)
+                {
+                    Vector3 lookDirection = targetDirection.normalized;
+                    freeRotation = Quaternion.LookRotation(lookDirection, transform.up);
+                    var diferenceRotation = freeRotation.eulerAngles.y - transform.eulerAngles.y;
+                    var eulerY = transform.eulerAngles.y;
+
+                    if (diferenceRotation < 0 || diferenceRotation > 0) eulerY = freeRotation.eulerAngles.y;
+                    var euler = new Vector3(0, eulerY, 0);
+
+                    transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(euler), turnSpeed * turnSpeedMultiplier * Time.deltaTime);
+                }
+            }
+
+            rigidbody.velocity = transform.TransformDirection(speed * Vector3.forward*3);
+
+            //Attack
+            if (fighting && Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
+            {
+                anim.SetTrigger("Attack");
+
             }
         }
-
-        //Attack
-        //if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
-        //{
-        //    anim.SetTrigger("Attack");
-            
-        //}
-
+        
     }
 
     public void DisplayWeapon()
     {
-        weapon.SetActive(true);
+        weapon.gameObject.SetActive(true);
+
+        WeaponBoxActive();
     }
 
     public void HiddenWeapon()
     {
         if (!anim.GetBool("Attack"))
-            weapon.SetActive(false);
+            weapon.gameObject.SetActive(false);
+
+        WeaponBoxFreeze();
     }
+
+    public void WeaponBoxActive()
+    {
+        weapon.box.enabled = true;
+    }
+
+    public void WeaponBoxFreeze()
+    {
+        weapon.box.enabled = false;
+    }
+
+    public void OnTriggerEnter(Collider other)
+    {
+
+        if (other.tag == "Weapon"&&other.gameObject!=weapon)
+        {
+            if(!anim.GetCurrentAnimatorStateInfo(0).IsName("Death"))
+            anim.SetTrigger("Death");
+
+        }
+    }
+
 
     public virtual void UpdateTargetDirection()
     {
