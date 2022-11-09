@@ -7,6 +7,8 @@ TagManager:
   - PickItem
   - NoTranslucent
   - Weapon
+  - Range
+  - Death
   layers:
   - Default
   - TransparentFX

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class CWeapon : MonoBehaviour
 {
-    public MeshCollider box; 
+    public BoxCollider box; 
 
+
+    
 }
