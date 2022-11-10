@@ -11,7 +11,7 @@ public class CharacterMovement : MonoBehaviour
     public bool lockToCameraForward = false;
     public float turnSpeed = 10f;
     public KeyCode sprintJoystick = KeyCode.JoystickButton2;
-    public KeyCode sprintKeyboard = KeyCode.Space;
+    public KeyCode sprintKeyboard = KeyCode.LeftShift;
 
     private float turnSpeedMultiplier;
     private float speed = 0f;
@@ -37,6 +37,11 @@ public class CharacterMovement : MonoBehaviour
     [HideInInspector] public NavMeshAgent agent;
     [HideInInspector] public bool isDeath=false;
     [HideInInspector] public bool isAIMove = true;
+
+    public CBloodBar bloodBar;
+    [HideInInspector] public float health = 1;
+
+    [HideInInspector] public bool isGuard=false;
     // Use this for initialization
     void Start()
     {
@@ -59,7 +64,8 @@ public class CharacterMovement : MonoBehaviour
     {
 
 
-        if (isPlayer&&!isDeath)
+
+        if (isPlayer && !isDeath)
         {
             if (Input.GetKeyDown(KeyCode.Alpha1))
             {
@@ -69,7 +75,7 @@ public class CharacterMovement : MonoBehaviour
                     //weapon.gameObject.SetActive(true);
                     anim.SetBool("Fighting", true);
                     speedCompensate = true;
-}
+                }
                 else
                 {
                     fighting = false;
@@ -96,6 +102,29 @@ public class CharacterMovement : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Alpha2))
             {
                 isDeath = false;
+            }
+
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                anim.SetTrigger("Dodge");
+            }
+
+            if (Input.GetMouseButton(1))
+            {
+                if (!isGuard)
+                {
+                    isGuard = true;
+                    anim.SetBool("Guard", true);
+                }
+
+            }
+            else
+            {
+                if (isGuard)
+                {
+                    isGuard = false;
+                    anim.SetBool("Guard", false);
+                }
             }
         }
 
@@ -134,9 +163,15 @@ public class CharacterMovement : MonoBehaviour
                 {
                     if (!noticed.CompareTag("Death"))
                     {
-                        agent.destination=noticed.transform.position;
+                        agent.destination = Vector3.Lerp(noticed.transform.position, transform.position, 0.5f);
                         anim.SetTrigger("Attack");
-                        Debug.Log(anim.GetCurrentAnimatorStateInfo(0).IsName("Locomotion"));
+                        if(Vector3.Distance(noticed.transform.position, transform.position) < 0.5f)
+                        {
+                            anim.ResetTrigger("Attack");
+                            anim.SetTrigger("Dodge");
+                            
+                        }
+                        //Debug.Log(anim.GetCurrentAnimatorStateInfo(0).IsName("Locomotion"));
                         //StartCoroutine(BackMove());
                     }
                     else if (fighting)
@@ -158,6 +193,16 @@ public class CharacterMovement : MonoBehaviour
                     anim.SetBool("Fighting", false);
                 }
             }
+
+        }
+
+
+        //限制y轴速度
+        if(body.velocity.y>0.1f)
+        {
+            Vector3 temp = body.velocity;
+            temp.y = 0.1f;
+            body.velocity = temp;
         }
     }
 
@@ -253,7 +298,13 @@ public class CharacterMovement : MonoBehaviour
         weapon.box.enabled = false;
     }
 
-    
+    public void SetGuard(int value)
+    {
+        if(value == 0)
+            isGuard= false;
+        else
+            isGuard= true;
+    }
 
     #endregion
 
