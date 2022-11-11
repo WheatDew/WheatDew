@@ -9,6 +9,7 @@ TagManager:
   - Weapon
   - Range
   - Death
+  - FreezeWeapon
   layers:
   - Default
   - TransparentFX

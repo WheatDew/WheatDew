@@ -23,10 +23,10 @@ public class Character : MonoBehaviour
             PickClosedItemJob();
         }
 
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            OpenRecipePage();
-        }
+        //if (Input.GetKeyDown(KeyCode.F))
+        //{
+        //    OpenRecipePage();
+        //}
 
 
     }

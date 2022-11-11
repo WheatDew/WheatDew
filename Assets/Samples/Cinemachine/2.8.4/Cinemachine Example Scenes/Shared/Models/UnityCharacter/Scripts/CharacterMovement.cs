@@ -10,8 +10,12 @@ public class CharacterMovement : MonoBehaviour
     public bool useCharacterForward = false;
     public bool lockToCameraForward = false;
     public float turnSpeed = 10f;
-    public KeyCode sprintJoystick = KeyCode.JoystickButton2;
-    public KeyCode sprintKeyboard = KeyCode.LeftShift;
+
+    private KeyCode sprintButton = KeyCode.LeftShift;
+    private KeyCode attackButton = KeyCode.Mouse0;
+    private KeyCode guardButton = KeyCode.Mouse1;
+    private KeyCode dodgeButton = KeyCode.Space;
+    private KeyCode fightingButton = KeyCode.Q;
 
     private float turnSpeedMultiplier;
     private float speed = 0f;
@@ -28,20 +32,28 @@ public class CharacterMovement : MonoBehaviour
 
     //额外的增量
     public CWeapon weapon;
-    public bool fighting=false;
+    [HideInInspector] public bool fighting=false;
     public bool isPlayer = false;
     public bool speedCompensate=false;
     public bool isAI = false;
-    public GameObject noticed;
+    [HideInInspector] public GameObject noticed;
     private Rigidbody body;
     [HideInInspector] public NavMeshAgent agent;
     [HideInInspector] public bool isDeath=false;
     [HideInInspector] public bool isAIMove = true;
 
-    public CBloodBar bloodBar;
+    [HideInInspector] public CBloodBar bloodBar;
     [HideInInspector] public float health = 1;
+    [HideInInspector] public float energy = 1;
 
     [HideInInspector] public bool isGuard=false;
+
+    public Transform startPoint;
+
+    public Transform weaponStart, weaponEnd;
+    public List<Vector3> points;
+    public bool  isWeaponDetecting=false;
+
     // Use this for initialization
     void Start()
     {
@@ -53,21 +65,129 @@ public class CharacterMovement : MonoBehaviour
         if (GetComponent<NavMeshAgent>() != null)
         {
             agent = GetComponent<NavMeshAgent>();
-            agent.destination = transform.position;
-            agent.isStopped = true;
+            //agent.destination = transform.position;
+            //agent.isStopped = true;
+            agent.destination=startPoint.position;
         }
 
+
+        if (isAI)
+            AIBehaviour();
+
+    }
+
+    //AI异步等待
+    public async void AIBehaviour()
+    {
+        float guardTime=0;
+        float dodgeTime = 0;
+        float strollTime = 0;
+
+        while(!isDeath)
+        {
+            guardTime += Time.deltaTime;
+            dodgeTime += Time.deltaTime;
+            strollTime += Time.deltaTime;
+
+            if (noticed != null)
+            {
+                if (Vector3.Distance(agent.destination,startPoint.position)<1)
+                {
+                    agent.destination=noticed.transform.position;
+                }
+
+                if (!noticed.CompareTag("Death"))
+                {
+                    if (!fighting)
+                    {
+                        fighting = true;
+                        anim.SetBool("Fighting", true);
+                    }
+
+                }
+
+                if (!noticed.CompareTag("Death") && (strollTime > Random.Range(1, 3) || Vector3.Distance(agent.destination, transform.position) < 0.2f))
+                {
+                    strollTime = 0;
+                    //agent.destination = noticed.transform.position;
+                    Vector2 target_v2 = SMath.GetRandomValueOnCircle(4);
+                    Vector3 target_v3 = new Vector3(target_v2.x, 0, target_v2.y);
+                    //Debug.Log(target_v3);
+                    agent.destination = noticed.transform.position + target_v3;
+                }
+
+
+                if (Vector3.Distance(noticed.transform.position, transform.position) <= 2f)
+                {
+                    agent.destination = noticed.transform.position;
+
+                    if (!noticed.CompareTag("Death"))
+                    {
+                        //Debug.LogFormat("目标位置:{0};自身位置{1};距离{2}", noticed.transform.position, transform.position, Vector3.Distance(noticed.transform.position, transform.position));
+                        if (Vector3.Distance(noticed.transform.position, transform.position) < 1f)
+                        {
+                            if (Random.value > 0.8f && dodgeTime > Random.Range(1, 3))
+                            {
+                                dodgeTime = 0;
+                                anim.ResetTrigger("Attack");
+                                anim.ResetTrigger("Dodge");
+                                if (Random.value > 0.9f)
+                                    anim.SetTrigger("Dodge");
+                            }
+                            else if (Random.value > 0.9f && guardTime > Random.Range(2, 5))
+                            {
+                                guardTime = 0;
+                                anim.SetBool("Guard", true);
+                                await new WaitForSeconds(Random.Range(0.5f, 2));
+                                anim.SetBool("Guard", false);
+                            }
+                            else
+                            {
+                                agent.destination = Vector3.Lerp(noticed.transform.position, transform.position, 0.2f);
+                                anim.SetTrigger("Attack");
+                            }
+
+                        }
+                        
+                    }
+                    else if (fighting)
+                    {
+                        fighting = false;
+                        anim.SetBool("Fighting", false);
+                        agent.destination = startPoint.position;
+                        noticed = null;
+                    }
+
+                }
+
+                if (isAIMove&&noticed!=null)
+                    AIMove(noticed.transform.position,1,0);
+            }
+            else
+            {
+                if (fighting)
+                {
+                    fighting = false;
+                    anim.SetBool("Fighting", false);
+                }
+                AIMove(agent.destination,0.2f,0);
+            }
+            
+            await new WaitForUpdate();
+        }
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
 
-
+        energy += 0.05f * Time.fixedDeltaTime;
+        if(energy > 1)
+            energy = 1;
 
         if (isPlayer && !isDeath)
         {
-            if (Input.GetKeyDown(KeyCode.Alpha1))
+            if (Input.GetKeyDown(fightingButton))
             {
                 if (!fighting)
                 {
@@ -93,23 +213,19 @@ public class CharacterMovement : MonoBehaviour
             //    body.velocity = transform.TransformDirection(speed * Vector3.forward * 3);
 
             //Attack
-            if (fighting && Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
+            if (fighting && Input.GetKeyDown(attackButton) && !EventSystem.current.IsPointerOverGameObject())
             {
                 anim.SetTrigger("Attack");
 
             }
 
-            if (Input.GetKeyDown(KeyCode.Alpha2))
-            {
-                isDeath = false;
-            }
 
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKeyDown(dodgeButton))
             {
                 anim.SetTrigger("Dodge");
             }
 
-            if (Input.GetMouseButton(1))
+            if (Input.GetKey(guardButton))
             {
                 if (!isGuard)
                 {
@@ -128,73 +244,7 @@ public class CharacterMovement : MonoBehaviour
             }
         }
 
-        if (isAI&&!isDeath)
-        {
-            if (noticed!=null)
-            {
-                if (!noticed.CompareTag("Death"))
-                {
-                    if (!fighting)
-                    {
-                        fighting = true;
-                        anim.SetBool("Fighting", true);
-                    }
-                    
-                }
-
-                if (Vector3.Distance(agent.destination, transform.position) < 0.1f)
-                {
-                    if (!noticed.CompareTag("Death"))
-                    {
-                        //agent.destination = noticed.transform.position;
-                        Vector2 target_v2 = SMath.GetRandomValueOnCircle(4);
-                        Vector3 target_v3 = new Vector3(target_v2.x, 0, target_v2.y);
-                        //Debug.Log(target_v3);
-                        agent.destination = noticed.transform.position + target_v3;
-                    }
-                    else
-                    {
-                        agent.isStopped=false;
-                        isAIMove = false;
-                    }
-                }
-
-                if (Vector3.Distance(noticed.transform.position, transform.position) < 2f)
-                {
-                    if (!noticed.CompareTag("Death"))
-                    {
-                        agent.destination = Vector3.Lerp(noticed.transform.position, transform.position, 0.5f);
-                        anim.SetTrigger("Attack");
-                        if(Vector3.Distance(noticed.transform.position, transform.position) < 0.5f)
-                        {
-                            anim.ResetTrigger("Attack");
-                            anim.SetTrigger("Dodge");
-                            
-                        }
-                        //Debug.Log(anim.GetCurrentAnimatorStateInfo(0).IsName("Locomotion"));
-                        //StartCoroutine(BackMove());
-                    }
-                    else if (fighting)
-                    {
-                        fighting = false;
-                        anim.SetBool("Fighting", false);
-                        agent.destination = transform.position + (transform.position-noticed.transform.position).normalized * 1;
-                    }
-                    
-                }
-                if(isAIMove)
-                    AIMove(noticed.transform.position);
-            }
-            else
-            {
-                if(fighting)
-                {
-                    fighting = false;
-                    anim.SetBool("Fighting", false);
-                }
-            }
-
-        }
+        
 
 
         //限制y轴速度
@@ -206,6 +256,20 @@ public class CharacterMovement : MonoBehaviour
         }
     }
 
+
+    //射线检测判定
+    public async void WeaponDetection()
+    {
+        points = new List<Vector3>();
+        while (isWeaponDetecting)
+        {
+            points.Add(weaponStart.position);
+            points.Add(weaponEnd.position);
+            await new WaitForFixedUpdate();
+        }
+
+    }
+
     IEnumerator BackMove()
     {
         //等待某个协程执行完毕后再执行后续代码
@@ -215,13 +279,18 @@ public class CharacterMovement : MonoBehaviour
 
     #region 移动
 
-    public void AIMove(Vector3 target)
+    public void AIMove(Vector3 target,float maxSpeed,float minSpeed)
     {
         speed = Vector3.Distance(target, transform.position)*0.1f;
         speed = Mathf.Clamp(speed, 0f, 1f);
         speed = Mathf.SmoothDamp(anim.GetFloat("Speed"), speed, ref velocity, 0.1f);
+        if (speed > maxSpeed)
+            speed = maxSpeed;
+        if (speed < minSpeed)
+            speed = 0;
+
         anim.SetFloat("Speed", speed);
-        transform.LookAt(agent.destination);
+        //transform.LookAt(agent.destination);
     }
 
     public void InputMove(float ix,float iy)
@@ -249,7 +318,7 @@ public class CharacterMovement : MonoBehaviour
             anim.SetFloat("Direction", direction);
 
             // set sprinting
-            isSprinting = ((Input.GetKey(sprintJoystick) || Input.GetKey(sprintKeyboard)) && input != Vector2.zero && direction >= 0f);
+            isSprinting = (Input.GetKey(sprintButton) && input != Vector2.zero && direction >= 0f);
             anim.SetBool("isSprinting", isSprinting);
 
             // Update target direction relative to the camera view (or not if the Keep Direction option is checked)
@@ -289,13 +358,17 @@ public class CharacterMovement : MonoBehaviour
 
     public void WeaponBoxActive()
     {
-        Debug.Log("打开碰撞体");
+        //weapon.tag = "Weapon";
         weapon.box.enabled = true;
+        isWeaponDetecting = true;
+        WeaponDetection();
     }
 
     public void WeaponBoxFreeze()
     {
+        //weapon.tag = "FreezeWeapon";
         weapon.box.enabled = false;
+        isWeaponDetecting = false;
     }
 
     public void SetGuard(int value)

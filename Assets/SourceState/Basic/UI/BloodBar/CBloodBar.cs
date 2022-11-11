@@ -6,17 +6,29 @@ public class CBloodBar : MonoBehaviour
 {
     [Range(0,1)]
     public float value;
-    public Transform mask;
+    public float energy;
+    public Transform essence,essence2;
     public CharacterMovement character;
 
     private void Update()
     {
         value = character.health;
+        energy = character.energy;
         if (value < 0)
         {
             value = 0;
         }
-        mask.localPosition = new Vector3(-value, 0);
+        essence.localScale = new Vector3(value, essence.localScale.y, essence.localScale.z);
+        essence.localPosition=new Vector3(0.5f- 0.5f * value, 0, 0);
+
+        if(energy<0)
+        {
+            energy = 0;
+        }
+
+        essence2.localScale = new Vector3(energy, essence2.localScale.y, essence2.localScale.z);
+        essence2.localPosition = new Vector3(0.5f - 0.5f * energy, -0.05f, 0);
+
         transform.LookAt(Camera.main.transform.position);
     }
 }
