@@ -1,3 +1,4 @@
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -33,7 +34,12 @@ public class SkyWhaleAI : MonoBehaviour
         }
         progress += Time.deltaTime;
         Vector3 nextPosition = Vector3.Lerp(startPoint, targetPoint, progress*speed);
-        Quaternion nextRotation = Quaternion.Lerp(startRotation, Quaternion.LookRotation(targetPoint-transform.position), progress * speed);
+        Quaternion nextRotation = transform.rotation;
+        if (targetPoint - transform.position != Vector3.zero)
+        {
+            nextRotation = Quaternion.Lerp(startRotation, Quaternion.LookRotation(targetPoint - transform.position), progress * speed);
+        }
+
 
         transform.position = nextPosition;
         transform.rotation = nextRotation;
@@ -41,19 +47,25 @@ public class SkyWhaleAI : MonoBehaviour
 
     public async void NewTargetPoint()
     {
-
-        Vector3 p = transform.position;
-        float rx = GetRandomValue(minDistance.x, maxDistance.x, p.x);
-        float ry = GetRandomValue(minDistance.y, maxDistance.y, p.y);
-        float rz = GetRandomValue(minDistance.z, maxDistance.z, p.z);
-
-        if (IsTargetPointInBound(new Vector3(rx, ry, rz)))
+        try
         {
-            targetPoint = new Vector3(rx, ry, rz);
-            return;
+            Vector3 p = transform.position;
+            float rx = GetRandomValue(minDistance.x, maxDistance.x, p.x);
+            float ry = GetRandomValue(minDistance.y, maxDistance.y, p.y);
+            float rz = GetRandomValue(minDistance.z, maxDistance.z, p.z);
+
+            if (IsTargetPointInBound(new Vector3(rx, ry, rz)))
+            {
+                targetPoint = new Vector3(rx, ry, rz);
+                return;
+            }
+            await new WaitForUpdate();
+            NewTargetPoint();
         }
-        await new WaitForUpdate();
-        NewTargetPoint();
+        catch(System.Exception ex)
+        {
+            Debug.Log(ex.ToString());
+        }
     }
 
     public bool IsTargetPointInBound(Vector3 targetPoint)

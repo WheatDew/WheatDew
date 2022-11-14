@@ -27,7 +27,7 @@ public class CBloodBar : MonoBehaviour
         }
 
         essence2.localScale = new Vector3(energy, essence2.localScale.y, essence2.localScale.z);
-        essence2.localPosition = new Vector3(0.5f - 0.5f * energy, -0.05f, 0);
+        essence2.localPosition = new Vector3(0.5f - 0.5f * energy, -0.02f, 0);
 
         transform.LookAt(Camera.main.transform.position);
     }
