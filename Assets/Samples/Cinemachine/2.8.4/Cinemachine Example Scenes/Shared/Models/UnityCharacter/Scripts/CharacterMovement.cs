@@ -136,10 +136,10 @@ public class CharacterMovement : MonoBehaviour
                     if (!noticed.CompareTag("Death"))
                     {
                         //Debug.LogFormat("目标位置:{0};自身位置{1};距离{2}", noticed.transform.position, transform.position, Vector3.Distance(noticed.transform.position, transform.position));
-                        if (Vector3.Distance(noticed.transform.position, transform.position) < 1f)
+                        if (Vector3.Distance(noticed.transform.position, transform.position) < 1f&&anim.GetCurrentAnimatorStateInfo(0).IsTag("Low"))
                         {
                             float rv = Random.value;
-                            if (rv > 2f && dodgeTime > Random.Range(1, 3))
+                            if (rv > 0.95f && dodgeTime > Random.Range(1, 3))
                             {
                                 dodgeTime = 0;
                                 anim.ResetTrigger("Attack");
@@ -147,17 +147,29 @@ public class CharacterMovement : MonoBehaviour
                                 anim.SetTrigger("Dodge");
                                     
                             }
-                            else if (rv > 0f && guardTime > Random.Range(0f, 0.01f))
+                            else if (rv > 0.8f && guardTime > Random.Range(0.5f, 0.3f))
                             {
                                 guardTime = 0;
                                 anim.SetBool("Guard", true);
-                                await new WaitForSeconds(Random.Range(10f, 20));
+                                await new WaitForSeconds(Random.Range(1f, 5f));
                                 anim.SetBool("Guard", false);
                             }
                             else
                             {
                                 agent.destination = Vector3.Lerp(noticed.transform.position, transform.position, 0.2f);
-                                anim.SetTrigger("Attack");
+                                if (executeObjects.Count != 0)
+                                {
+                                    isExecuting = true;
+                                    foreach (var item in executeObjects)
+                                    {
+                                        item.isExecuted = true;
+                                        transform.LookAt(item.transform);
+                                        item.transform.LookAt(transform);
+                                    }
+                                    executeObjects.Clear();
+                                }
+                                else
+                                    anim.SetTrigger("Attack");
                             }
 
                         }
@@ -202,6 +214,10 @@ public class CharacterMovement : MonoBehaviour
         if (isExecuted && !anim.GetCurrentAnimatorStateInfo(0).IsName("Executed"))
         {
             Debug.Log("Executed" + gameObject.name);
+            anim.ResetTrigger("Attack");
+            anim.ResetTrigger("Dodge");
+            anim.ResetTrigger("Hit");
+            WeaponBoxFreeze();
             anim.SetTrigger("Executed");
             return;
         }
@@ -209,6 +225,10 @@ public class CharacterMovement : MonoBehaviour
         if (isExecuting && !anim.GetCurrentAnimatorStateInfo(0).IsName("Executing"))
         {
             Debug.Log("Executing" + gameObject.name);
+            anim.ResetTrigger("Attack");
+            anim.ResetTrigger("Dodge");
+            anim.ResetTrigger("Hit");
+            WeaponBoxFreeze();
             anim.SetTrigger("Executing");
             return;
         }
@@ -365,6 +385,11 @@ public class CharacterMovement : MonoBehaviour
         Vector3[] last = new Vector3[length];
         Vector3[] current = new Vector3[length];
         RaycastHit result;
+        int lmask = 0;
+        if (isPlayer)
+            lmask = LayerMask.GetMask("Enemy");
+        if (isAI)
+            lmask = LayerMask.GetMask("Player");
         while (isWeaponDetecting)
         {
             for(int i = 0; i < length; i++)
@@ -374,7 +399,7 @@ public class CharacterMovement : MonoBehaviour
             
             for (int i = 0; i < length; i++)
             {
-                if (last[i] != Vector3.zero&&Physics.Raycast(last[i], current[i]-last[i], out result))
+                if (last[i] != Vector3.zero&&Physics.Raycast(last[i], current[i]-last[i], out result, Vector3.Distance(current[i], last[i]),lmask))
                 {
                     Debug.DrawLine(last[i], current[i],Color.red,4);
                     if (result.collider.tag=="Player"&&!hitObjects.Contains(result.collider.gameObject)&&result.collider.gameObject!=gameObject)
@@ -394,6 +419,8 @@ public class CharacterMovement : MonoBehaviour
         }
 
     }
+
+
 
     IEnumerator BackMove()
     {
