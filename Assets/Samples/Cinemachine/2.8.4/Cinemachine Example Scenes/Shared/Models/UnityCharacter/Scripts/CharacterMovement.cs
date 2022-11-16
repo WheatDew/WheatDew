@@ -47,7 +47,7 @@ public class CharacterMovement : MonoBehaviour
     [HideInInspector] public float health = 1;
     [HideInInspector] public float energy = 1;
 
-    public bool isGuard=false;
+    public bool isGuard=false,isParry=false,isCollide;
 
     public Transform startPoint;
 
@@ -59,7 +59,9 @@ public class CharacterMovement : MonoBehaviour
     HashSet<CharacterMovement> executeObjects = new HashSet<CharacterMovement>();
 
 
-    public float damage=0.21f;
+    [HideInInspector] public float damage=0.1f,energyDamage=0.1f;
+    [HideInInspector] public float executedDamage = 0.5f;
+    [HideInInspector] public float energyRecover = 0.01f;
     // Use this for initialization
     void Start()
     {
@@ -176,7 +178,19 @@ public class CharacterMovement : MonoBehaviour
                         else
                         {
                             agent.destination = Vector3.Lerp(noticed.transform.position, transform.position, 0.2f);
-                            anim.SetTrigger("Attack");
+                            if (executeObjects.Count != 0)
+                            {
+                                isExecuting = true;
+                                foreach (var item in executeObjects)
+                                {
+                                    item.isExecuted = true;
+                                    transform.LookAt(item.transform);
+                                    item.transform.LookAt(transform);
+                                }
+                                executeObjects.Clear();
+                            }
+                            else
+                                anim.SetTrigger("Attack");
                         }
                         
                     }
@@ -211,18 +225,23 @@ public class CharacterMovement : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (isExecuted && !anim.GetCurrentAnimatorStateInfo(0).IsName("Executed"))
+        var currentInfo = anim.GetCurrentAnimatorStateInfo(0);
+
+        if (isExecuted && !isDeath &&!currentInfo.IsName("Executed")&& !anim.GetCurrentAnimatorStateInfo(0).IsName("ExecutedDeath"))
         {
             Debug.Log("Executed" + gameObject.name);
             anim.ResetTrigger("Attack");
             anim.ResetTrigger("Dodge");
             anim.ResetTrigger("Hit");
             WeaponBoxFreeze();
-            anim.SetTrigger("Executed");
+            if (executedDamage < health)
+                anim.SetTrigger("Executed");
+            else
+                anim.SetTrigger("ExecutedDeath");
             return;
         }
 
-        if (isExecuting && !anim.GetCurrentAnimatorStateInfo(0).IsName("Executing"))
+        if (isExecuting && !currentInfo.IsName("Executing"))
         {
             Debug.Log("Executing" + gameObject.name);
             anim.ResetTrigger("Attack");
@@ -233,22 +252,37 @@ public class CharacterMovement : MonoBehaviour
             return;
         }
 
-        if (energy<0.2f&& isGuard)
+        if (!isDeath&&currentInfo.IsName("Collide"))
+        {
+            anim.ResetTrigger("Attack");
+            anim.ResetTrigger("Dodge");
+            anim.ResetTrigger("Hit");
+            energy = 0;
+            WeaponBoxFreeze();
+            anim.SetTrigger("Collide");
+            return;
+        }
+
+        if (energy<0.4f&& isGuard&&!isDeath)
         {
             isGuard = false;
             anim.SetTrigger("GuardBreak");
 
-        }    
+        }
 
-        energy += 0.05f * Time.fixedDeltaTime;
-        if(energy > 1)
-            energy = 1;
+        if (!isDeath&&!isGuard)
+        {
+            energy += 0.05f * Time.fixedDeltaTime;
+            if (energy > 1)
+                energy = 1;
+        }
+
 
         if (isPlayer && !isDeath)
         {
             if (Input.GetKeyDown(KeyCode.F1))
             {
-                SceneManager.LoadScene(0);
+                
             }
 
             if (Input.GetKeyDown(fightingButton))
@@ -304,7 +338,7 @@ public class CharacterMovement : MonoBehaviour
 
             if (Input.GetKey(guardButton))
             {
-                if (!isGuard&&energy>=0.2f)
+                if (!isGuard&&energy>=0.4f)
                 {
                     anim.SetBool("Guard", true);
                 }
@@ -314,6 +348,7 @@ public class CharacterMovement : MonoBehaviour
             {
                 if (isGuard)
                 {
+                    isGuard = false;
                     anim.SetBool("Guard", false);
                 }
             }
@@ -331,22 +366,76 @@ public class CharacterMovement : MonoBehaviour
         }
     }
 
+    public void SetParry(int value)
+    {
+        isParry = !(value==0);
+    }
+
+
+    //处刑伤害判定
+    public void ExecutedHitDetection()
+    {
+
+        health -= executedDamage;
+        if(health <= 0)
+        {
+            health = 0;
+            isDeath = true;
+            if (agent != null)
+                agent.isStopped = true;
+            tag = "Death";
+            GetComponent<CapsuleCollider>().isTrigger = true;
+            GetComponent<Rigidbody>().isKinematic = true;
+        }
+    }
+
+    public void SetDeath()
+    {
+        isDeath = false;
+    }
+
     //伤害判定
-    public async void HitDetection(float damage,CharacterMovement character)
+    public async void HitDetection(float damage, CharacterMovement character)
     {
         AnimatorStateInfo stateInfo = anim.GetCurrentAnimatorStateInfo(0);
 
-        if (isGuard)
+
+        if (isParry)
         {
+
+            isParry = false;
+            isGuard = false;
+            anim.ResetTrigger("Attack");
+            anim.ResetTrigger("Dodge");
+            anim.ResetTrigger("Hit");
+            anim.ResetTrigger("GuardBreak");
+            anim.SetTrigger("Parry");
+
+            character.anim.ResetTrigger("Attack");
+            character.anim.ResetTrigger("Dodge");
+            character.anim.ResetTrigger("Hit");
+            character.anim.ResetTrigger("GuardBreak");
+            character.anim.SetTrigger("Collide");
+            executeObjects.Add(character);
+
+            await new WaitForSeconds(3);
+            if (executeObjects.Contains(character))
+                executeObjects.Remove(character);
+
+        }
+        else if (isGuard)
+        {
+            
             anim.SetTrigger("GuardHit");
-            health -= damage*0.2f;
-            energy -= 0.8f;
+            health -= damage * 0.2f;
+            energy -= energyDamage;
         }
         else if (!stateInfo.IsName("Hit"))
         {
             anim.SetTrigger("Hit");
             health -= damage;
         }
+
 
         if (health <= 0)
         {
@@ -361,7 +450,7 @@ public class CharacterMovement : MonoBehaviour
             GetComponent<CapsuleCollider>().isTrigger = true;
             GetComponent<Rigidbody>().isKinematic = true;
         }
-        else if (energy <= 0)
+        else if (energy <= 0.4f)
         {
             isGuard = false;
             anim.ResetTrigger("Attack");
