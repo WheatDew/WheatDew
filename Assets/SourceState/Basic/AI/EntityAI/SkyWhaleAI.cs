@@ -47,25 +47,20 @@ public class SkyWhaleAI : MonoBehaviour
 
     public async void NewTargetPoint()
     {
-        try
-        {
-            Vector3 p = transform.position;
-            float rx = GetRandomValue(minDistance.x, maxDistance.x, p.x);
-            float ry = GetRandomValue(minDistance.y, maxDistance.y, p.y);
-            float rz = GetRandomValue(minDistance.z, maxDistance.z, p.z);
+        Debug.Log("ÐÂÎ»ÖÃ");
+        Vector3 p = transform.position;
+        float rx = GetRandomValue(minDistance.x, maxDistance.x, p.x);
+        float ry = GetRandomValue(minDistance.y, maxDistance.y, p.y);
+        float rz = GetRandomValue(minDistance.z, maxDistance.z, p.z);
 
-            if (IsTargetPointInBound(new Vector3(rx, ry, rz)))
-            {
-                targetPoint = new Vector3(rx, ry, rz);
-                return;
-            }
-            await new WaitForUpdate();
-            NewTargetPoint();
-        }
-        catch(System.Exception ex)
+        if (IsTargetPointInBound(new Vector3(rx, ry, rz)))
         {
-            Debug.Log(ex.ToString());
+            targetPoint = new Vector3(rx, ry, rz);
+            return;
         }
+        await new WaitForUpdate();
+        NewTargetPoint();
+
     }
 
     public bool IsTargetPointInBound(Vector3 targetPoint)

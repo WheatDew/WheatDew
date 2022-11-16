@@ -263,12 +263,12 @@ public class CharacterMovement : MonoBehaviour
             return;
         }
 
-        if (energy<0.4f&& isGuard&&!isDeath)
-        {
-            isGuard = false;
-            anim.SetTrigger("GuardBreak");
+        //if (energy<0.4f&& isGuard&&!isDeath)
+        //{
+        //    isGuard = false;
+        //    anim.SetTrigger("GuardBreak");
 
-        }
+        //}
 
         if (!isDeath&&!isGuard)
         {
@@ -429,6 +429,7 @@ public class CharacterMovement : MonoBehaviour
             anim.SetTrigger("GuardHit");
             health -= damage * 0.2f;
             energy -= energyDamage;
+
         }
         else if (!stateInfo.IsName("Hit"))
         {
@@ -460,7 +461,7 @@ public class CharacterMovement : MonoBehaviour
             character.executeObjects.Add(this);
 
             Debug.LogFormat("{0},{1}", character.name, this.name);
-            await new WaitForSeconds(3);
+            await new WaitForSeconds(1.2f);
             if (character.executeObjects.Contains(this))
                 character.executeObjects.Remove(this);
         }
