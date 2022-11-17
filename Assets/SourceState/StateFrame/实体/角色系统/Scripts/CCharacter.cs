@@ -1,71 +1,66 @@
-Ôªøusing UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.AI;
-using System.Collections.Generic;
 using System.Collections;
-using UnityEngine.SceneManagement;
+using System.Collections.Generic;
+using System.Text.RegularExpressions;
+using UnityEngine;
+using UnityEngine.AI;
+using UnityEngine.EventSystems;
 
-//[AddComponentMenu("")] // Don't display in add component menu
-public class CharacterMovement : MonoBehaviour
+public class CCharacter : MonoBehaviour
 {
     public bool useCharacterForward = false;
     public bool lockToCameraForward = false;
     public float turnSpeed = 10f;
 
-    private KeyCode sprintButton = KeyCode.LeftShift;
-    private KeyCode attackButton = KeyCode.Mouse0;
-    private KeyCode guardButton = KeyCode.Mouse1;
-    private KeyCode dodgeButton = KeyCode.Space;
-    private KeyCode fightingButton = KeyCode.Q;
 
-    private float turnSpeedMultiplier;
-    private float speed = 0f;
-    private float direction = 0f;
-    private bool isSprinting = false;
+
+    protected float turnSpeedMultiplier;
+    protected float speed = 0f;
+    protected float direction = 0f;
+    protected bool isSprinting = false;
     [HideInInspector] public Animator anim;
-    private Vector3 targetDirection;
-    private Vector2 input;
-    private Quaternion freeRotation;
-    private Camera mainCamera;
-    private float velocity;
-    public static bool isMoving=true;
+    protected Vector3 targetDirection;
+
+    protected Quaternion freeRotation;
+    protected Camera mainCamera;
+    protected float velocity;
+    public static bool isMoving = true;
 
 
-    //È¢ùÂ§ñÁöÑÂ¢ûÈáè
+    //∂ÓÕ‚µƒ‘ˆ¡ø
+    public int lmask = 0;
     public CWeapon weapon;
-    [HideInInspector] public bool fighting=false;
-    public bool isPlayer = false;
-    public bool speedCompensate=false;
+    [HideInInspector] public bool fighting = false;
+    public bool speedCompensate = false;
     public bool isAI = false;
     [HideInInspector] public GameObject noticed;
     private Rigidbody body;
     [HideInInspector] public NavMeshAgent agent;
-    [HideInInspector] public bool isDeath=false;
+    [HideInInspector] public bool isDeath = false;
     [HideInInspector] public bool isAIMove = true;
 
     [HideInInspector] public CBloodBar bloodBar;
     [HideInInspector] public float health = 1;
     [HideInInspector] public float energy = 1;
 
-    public bool isGuard=false,isParry=false,isCollide;
+    public bool isGuard = false, isParry = false, isCollide;
 
     public Transform startPoint;
 
     public Transform weaponStart, weaponEnd;
-    public List<Vector3> points=new List<Vector3>();
-    public bool  isWeaponDetecting=false;
+    public List<Vector3> points = new List<Vector3>();
+    public bool isWeaponDetecting = false;
     [HideInInspector] public bool isExecuting = false;
     [HideInInspector] public bool isExecuted = false;
-    HashSet<CharacterMovement> executeObjects = new HashSet<CharacterMovement>();
+    protected HashSet<CCharacter> executeObjects = new HashSet<CCharacter>();
 
 
-    [HideInInspector] public float damage=0.1f,energyDamage=0.1f;
+    [HideInInspector] public float damage = 0.1f, energyDamage = 0.1f;
     [HideInInspector] public float executedDamage = 0.5f;
     [HideInInspector] public float energyRecover = 0.01f;
     // Use this for initialization
     void Start()
     {
-        //ÂàùÂßãÂåñÊï∞ÊçÆ
+        //≥ı ºªØ ˝æ›
         anim = GetComponent<Animator>();
         mainCamera = Camera.main;
 
@@ -75,23 +70,34 @@ public class CharacterMovement : MonoBehaviour
             agent = GetComponent<NavMeshAgent>();
             //agent.destination = transform.position;
             //agent.isStopped = true;
-            agent.destination=startPoint.position;
+            agent.destination = startPoint.position;
         }
 
 
         if (isAI)
             AIBehaviour();
 
+
+        Init();
     }
 
-    //AIÂºÇÊ≠•Á≠âÂæÖ
+    virtual protected void Init()
+    {
+        
+    }
+
+    virtual protected void FUpdate()
+    {
+
+    }
+    //AI“Ï≤Ωµ»¥˝
     public async void AIBehaviour()
     {
-        float guardTime=0;
+        float guardTime = 0;
         float dodgeTime = 0;
         float strollTime = 0;
 
-        while(!isDeath)
+        while (!isDeath)
         {
             guardTime += Time.deltaTime;
             dodgeTime += Time.deltaTime;
@@ -105,9 +111,9 @@ public class CharacterMovement : MonoBehaviour
 
             if (noticed != null)
             {
-                if (Vector3.Distance(agent.destination,startPoint.position)<1)
+                if (Vector3.Distance(agent.destination, startPoint.position) < 1)
                 {
-                    agent.destination=noticed.transform.position;
+                    agent.destination = noticed.transform.position;
                 }
 
                 if (!noticed.CompareTag("Death"))
@@ -137,8 +143,8 @@ public class CharacterMovement : MonoBehaviour
                     transform.LookAt(agent.destination);
                     if (!noticed.CompareTag("Death"))
                     {
-                        //Debug.LogFormat("ÁõÆÊ†á‰ΩçÁΩÆ:{0};Ëá™Ë∫´‰ΩçÁΩÆ{1};Ë∑ùÁ¶ª{2}", noticed.transform.position, transform.position, Vector3.Distance(noticed.transform.position, transform.position));
-                        if (Vector3.Distance(noticed.transform.position, transform.position) < 1f&&anim.GetCurrentAnimatorStateInfo(0).IsTag("Low"))
+                        //Debug.LogFormat("ƒø±ÍŒª÷√:{0};◊‘…ÌŒª÷√{1};æ‡¿Î{2}", noticed.transform.position, transform.position, Vector3.Distance(noticed.transform.position, transform.position));
+                        if (Vector3.Distance(noticed.transform.position, transform.position) < 1f && anim.GetCurrentAnimatorStateInfo(0).IsTag("Low"))
                         {
                             float rv = Random.value;
                             if (rv > 0.95f && dodgeTime > Random.Range(1, 3))
@@ -147,7 +153,7 @@ public class CharacterMovement : MonoBehaviour
                                 anim.ResetTrigger("Attack");
                                 anim.ResetTrigger("Dodge");
                                 anim.SetTrigger("Dodge");
-                                    
+
                             }
                             else if (rv > 0.8f && guardTime > Random.Range(0.5f, 0.3f))
                             {
@@ -192,7 +198,7 @@ public class CharacterMovement : MonoBehaviour
                             else
                                 anim.SetTrigger("Attack");
                         }
-                        
+
                     }
                     else if (fighting)
                     {
@@ -204,8 +210,8 @@ public class CharacterMovement : MonoBehaviour
 
                 }
 
-                if (isAIMove&&noticed!=null)
-                    AIMove(noticed.transform.position,1,0);
+                if (isAIMove && noticed != null)
+                    AIMove(noticed.transform.position, 1, 0);
             }
             else
             {
@@ -217,7 +223,7 @@ public class CharacterMovement : MonoBehaviour
                 if (agent != null)
                     AIMove(agent.destination, 0.2f, 0);
             }
-            
+
             await new WaitForUpdate();
         }
     }
@@ -227,7 +233,7 @@ public class CharacterMovement : MonoBehaviour
     {
         var currentInfo = anim.GetCurrentAnimatorStateInfo(0);
 
-        if (isExecuted && !isDeath &&!currentInfo.IsName("Executed")&& !anim.GetCurrentAnimatorStateInfo(0).IsName("ExecutedDeath"))
+        if (isExecuted && !isDeath && !currentInfo.IsName("Executed") && !anim.GetCurrentAnimatorStateInfo(0).IsName("ExecutedDeath"))
         {
             Debug.Log("Executed" + gameObject.name);
             anim.ResetTrigger("Attack");
@@ -252,7 +258,7 @@ public class CharacterMovement : MonoBehaviour
             return;
         }
 
-        if (!isDeath&&currentInfo.IsName("Collide"))
+        if (!isDeath && currentInfo.IsName("Collide"))
         {
             anim.ResetTrigger("Attack");
             anim.ResetTrigger("Dodge");
@@ -263,114 +269,39 @@ public class CharacterMovement : MonoBehaviour
             return;
         }
 
-        if (!isDeath&&!isGuard)
+        if (!isDeath && !isGuard)
         {
             energy += 0.05f * Time.fixedDeltaTime;
             if (energy > 1)
                 energy = 1;
         }
 
-
-        if (isPlayer && !isDeath)
-        {
-            if (Input.GetKeyDown(KeyCode.F1))
-            {
-                
-            }
-
-            if (Input.GetKeyDown(fightingButton))
-            {
-                if (!fighting)
-                {
-                    fighting = true;
-                    //weapon.gameObject.SetActive(true);
-                    anim.SetBool("Fighting", true);
-                    speedCompensate = true;
-                }
-                else
-                {
-                    fighting = false;
-                    //weapon.gameObject.SetActive(false);
-                    anim.SetBool("Fighting", false);
-                    speedCompensate = false;
-                }
-            }
-
-            InputMove(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+        FUpdate();
 
 
-            //ÈÄüÂ∫¶Ë°•ÂÅø
-            //if (speedCompensate)
-            //    body.velocity = transform.TransformDirection(speed * Vector3.forward * 3);
-
-            //Attack
-            if (fighting && Input.GetKeyDown(attackButton) && !EventSystem.current.IsPointerOverGameObject())
-            {
-                Debug.Log(executeObjects.Count);
-                if (executeObjects.Count != 0)
-                {
-                    isExecuting = true;
-                    foreach(var item in executeObjects)
-                    {
-                        item.isExecuted = true;
-                        transform.LookAt(item.transform);
-                        item.transform.LookAt(transform);
-                    }
-                    executeObjects.Clear();
-                }
-                else
-                    anim.SetTrigger("Attack");
-
-            }
-
-
-            if (Input.GetKeyDown(dodgeButton))
-            {
-                anim.SetTrigger("Dodge");
-            }
-
-            if (Input.GetKey(guardButton))
-            {
-                if (!isGuard&&energy>=0.4f)
-                {
-                    anim.SetBool("Guard", true);
-                }
-
-            }
-            else
-            {
-                if (isGuard)
-                {
-                    isGuard = false;
-                    anim.SetBool("Guard", false);
-                }
-            }
-        }
-
-        
-
-
-        //ÈôêÂà∂yËΩ¥ÈÄüÂ∫¶
-        if(body.velocity.y>0.1f)
+        //œﬁ÷∆y÷·ÀŸ∂»
+        if (body.velocity.y > 0.1f)
         {
             Vector3 temp = body.velocity;
             temp.y = 0.1f;
             body.velocity = temp;
         }
+
+        
     }
 
     public void SetParry(int value)
     {
-        isParry = !(value==0);
+        isParry = !(value == 0);
     }
 
 
-    //Â§ÑÂàë‰º§ÂÆ≥Âà§ÂÆö
+    //¥¶–Ã…À∫¶≈–∂®
     public void ExecutedHitDetection()
     {
 
         health -= executedDamage;
-        if(health <= 0)
+        if (health <= 0)
         {
             health = 0;
             isDeath = true;
@@ -387,8 +318,8 @@ public class CharacterMovement : MonoBehaviour
         isDeath = false;
     }
 
-    //‰º§ÂÆ≥Âà§ÂÆö
-    public async void HitDetection(float damage, CharacterMovement character)
+    //…À∫¶≈–∂®
+    public async void HitDetection(float damage, CCharacter character)
     {
         AnimatorStateInfo stateInfo = anim.GetCurrentAnimatorStateInfo(0);
 
@@ -418,7 +349,7 @@ public class CharacterMovement : MonoBehaviour
         }
         else if (isGuard)
         {
-            
+
             anim.SetTrigger("GuardHit");
             health -= damage * 0.2f;
             energy -= energyDamage;
@@ -460,34 +391,30 @@ public class CharacterMovement : MonoBehaviour
         }
     }
 
-    //Â∞ÑÁ∫øÊ£ÄÊµãÂà§ÂÆö
+    //…‰œﬂºÏ≤‚≈–∂®
     public async void WeaponDetection()
     {
         int length = 5;
-        HashSet<GameObject> hitObjects=new HashSet<GameObject>();
+        HashSet<GameObject> hitObjects = new HashSet<GameObject>();
         Vector3[] last = new Vector3[length];
         Vector3[] current = new Vector3[length];
         RaycastHit result;
-        int lmask = 0;
-        if (isPlayer)
-            lmask = LayerMask.GetMask("Enemy");
-        if (isAI)
-            lmask = LayerMask.GetMask("Player");
+        
         while (isWeaponDetecting)
         {
-            for(int i = 0; i < length; i++)
-            {
-                current[i] = Vector3.Lerp(weaponStart.position, weaponEnd.position, (float)i / (length-1));
-            }
-            
             for (int i = 0; i < length; i++)
             {
-                if (last[i] != Vector3.zero&&Physics.Raycast(last[i], current[i]-last[i], out result, Vector3.Distance(current[i], last[i]),lmask))
+                current[i] = Vector3.Lerp(weaponStart.position, weaponEnd.position, (float)i / (length - 1));
+            }
+
+            for (int i = 0; i < length; i++)
+            {
+                if (last[i] != Vector3.zero && Physics.Raycast(last[i], current[i] - last[i], out result, Vector3.Distance(current[i], last[i]), lmask))
                 {
-                    Debug.DrawLine(last[i], current[i],Color.red,4);
-                    if (result.collider.tag=="Player"&&!hitObjects.Contains(result.collider.gameObject)&&result.collider.gameObject!=gameObject)
+                    Debug.DrawLine(last[i], current[i], Color.red, 4);
+                    if (result.collider.tag == "Player" && !hitObjects.Contains(result.collider.gameObject) && result.collider.gameObject != gameObject)
                     {
-                        result.collider.GetComponent<CharacterMovement>().HitDetection(damage,this);
+                        result.collider.GetComponent<CCharacter>().HitDetection(damage, this);
                         hitObjects.Add(result.collider.gameObject);
                     }
 
@@ -507,16 +434,16 @@ public class CharacterMovement : MonoBehaviour
 
     IEnumerator BackMove()
     {
-        //Á≠âÂæÖÊüê‰∏™ÂçèÁ®ãÊâßË°åÂÆåÊØïÂêéÂÜçÊâßË°åÂêéÁª≠‰ª£Á†Å
+        //µ»¥˝ƒ≥∏ˆ–≠≥Ã÷¥––ÕÍ±œ∫Û‘Ÿ÷¥––∫Û–¯¥˙¬Î
         yield return new WaitForSeconds(0.5f);
-        agent.destination=transform.position+(noticed.transform.position-transform.position).normalized*5;
+        agent.destination = transform.position + (noticed.transform.position - transform.position).normalized * 5;
     }
 
-    #region ÁßªÂä®
+    #region “∆∂Ø
 
-    public void AIMove(Vector3 target,float maxSpeed,float minSpeed)
+    public void AIMove(Vector3 target, float maxSpeed, float minSpeed)
     {
-        speed = Vector3.Distance(target, transform.position)*0.1f;
+        speed = Vector3.Distance(target, transform.position) * 0.1f;
         speed = Mathf.Clamp(speed, 0f, 1f);
         speed = Mathf.SmoothDamp(anim.GetFloat("Speed"), speed, ref velocity, 0.1f);
         if (speed > maxSpeed)
@@ -528,54 +455,9 @@ public class CharacterMovement : MonoBehaviour
         //transform.LookAt(agent.destination);
     }
 
-    public void InputMove(float ix,float iy)
-    {
-        if (isMoving)
-        {
-            input.x = ix;
-            input.y = iy;
-
-            // set speed to both vertical and horizontal inputs
-            if (useCharacterForward)
-                speed = Mathf.Abs(input.x) + input.y;
-            else
-                speed = Mathf.Abs(input.x) + Mathf.Abs(input.y);
-
-            speed = Mathf.Clamp(speed, 0f, 1f);
-            speed = Mathf.SmoothDamp(anim.GetFloat("Speed"), speed, ref velocity, 0.1f);
-            anim.SetFloat("Speed", speed);
-
-            if (input.y < 0f && useCharacterForward)
-                direction = input.y;
-            else
-                direction = 0f;
-
-            anim.SetFloat("Direction", direction);
-
-            // set sprinting
-            isSprinting = (Input.GetKey(sprintButton) && input != Vector2.zero && direction >= 0f);
-            anim.SetBool("isSprinting", isSprinting);
-
-            // Update target direction relative to the camera view (or not if the Keep Direction option is checked)
-            UpdateTargetDirection();
-            if (input != Vector2.zero && targetDirection.magnitude > 0.1f)
-            {
-                Vector3 lookDirection = targetDirection.normalized;
-                freeRotation = Quaternion.LookRotation(lookDirection, transform.up);
-                var diferenceRotation = freeRotation.eulerAngles.y - transform.eulerAngles.y;
-                var eulerY = transform.eulerAngles.y;
-
-                if (diferenceRotation < 0 || diferenceRotation > 0) eulerY = freeRotation.eulerAngles.y;
-                var euler = new Vector3(0, eulerY, 0);
-
-                transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(euler), turnSpeed * turnSpeedMultiplier * Time.deltaTime);
-            }
-        }
-    }
-
     #endregion
 
-    #region Â∑•ÂÖ∑ÁªÑ
+    #region π§æﬂ◊È
     public void DisplayWeapon()
     {
         weapon.gameObject.SetActive(true);
@@ -608,10 +490,10 @@ public class CharacterMovement : MonoBehaviour
 
     public void SetGuard(int value)
     {
-        if(value == 0)
-            isGuard= false;
+        if (value == 0)
+            isGuard = false;
         else
-            isGuard= true;
+            isGuard = true;
     }
 
     public void SetExecuting(int value)
@@ -632,29 +514,6 @@ public class CharacterMovement : MonoBehaviour
 
     #endregion
 
-    public virtual void UpdateTargetDirection()
-    {
-        if (!useCharacterForward)
-        {
-            turnSpeedMultiplier = 1f;
-            var forward = mainCamera.transform.TransformDirection(Vector3.forward);
-            forward.y = 0;
 
-            //get the right-facing direction of the referenceTransform
-            var right = mainCamera.transform.TransformDirection(Vector3.right);
 
-            // determine the direction the player will face based on input and the referenceTransform's right and forward directions
-            targetDirection = input.x * right + input.y * forward;
-        }
-        else
-        {
-            turnSpeedMultiplier = 0.2f;
-            var forward = transform.TransformDirection(Vector3.forward);
-            forward.y = 0;
-
-            //get the right-facing direction of the referenceTransform
-            var right = transform.TransformDirection(Vector3.right);
-            targetDirection = input.x * right + Mathf.Abs(input.y) * forward;
-        }
-    }
 }

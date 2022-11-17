@@ -8,7 +8,7 @@ public class CBloodBar : MonoBehaviour
     public float value;
     public float energy;
     public Transform essence,essence2;
-    public CharacterMovement character;
+    public CCharacter character;
 
     private void Update()
     {

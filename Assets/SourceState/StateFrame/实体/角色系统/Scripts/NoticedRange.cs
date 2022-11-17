@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TestRange : MonoBehaviour
+public class NoticedRange : MonoBehaviour
 {
-    public CharacterMovement character;
+    public CCharacter character;
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Player"&&!character.isDeath)
