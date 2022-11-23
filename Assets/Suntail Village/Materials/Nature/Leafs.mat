@@ -265,7 +265,7 @@ Material:
     - _Keyword0: 1
     - _LinkDetailsWithBase: 1
     - _MaterialID: 1
-    - _Metallic: 0
+    - _Metallic: 0.194
     - _MetallicRemapMax: 0
     - _MetallicRemapMin: 0
     - _Mode: 0
@@ -288,7 +288,7 @@ Material:
     - _SecondColorOverlayType: 0
     - _ShadowCutoffOffset: -30
     - _Shininess: 0.1
-    - _Smoothness: 0.3
+    - _Smoothness: 0
     - _SmoothnessInt: 0
     - _SmoothnessRemapMax: 1
     - _SmoothnessRemapMin: 0

@@ -33,6 +33,7 @@ Material:
   - _DOUBLESIDED_ON
   - _MASKMAP
   - _MATERIAL_FEATURE_TRANSMISSION
+  - _NORMALMAP
   - _NORMALMAP_TANGENT_SPACE
   - _VERTEX_DISPLACEMENT
   - _VERTEX_DISPLACEMENT_LOCK_OBJECT_SCALE
@@ -66,7 +67,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseColorMap:
-        m_Texture: {fileID: 2800000, guid: 0e7df307654c11345a5eed62a4790187, type: 3}
+        m_Texture: {fileID: 2800000, guid: 18eead51218e72e409bd97864ebd164d, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BentNormalMap:
@@ -126,7 +127,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 18eead51218e72e409bd97864ebd164d, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MaskMap:
@@ -138,7 +139,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NormalMap:
-        m_Texture: {fileID: 2800000, guid: b425b40d62719b94da57a90180f9b133, type: 3}
+        m_Texture: {fileID: 2800000, guid: 996b9fc5732f3594f9e317cc878993ca, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NormalMapOS:
@@ -217,15 +218,15 @@ Material:
     m_Floats:
     - Diffusion_Profile: 0
     - EFFECT_EXTRA_TEX: 1
-    - _AORemapMax: 0.8684345
-    - _AORemapMin: 0
+    - _AORemapMax: 1
+    - _AORemapMin: 0.2806245
     - _ATDistance: 1
     - _AddPrecomputedVelocity: 0
     - _AlbedoAffectEmissive: 0
     - _AlphaClipThreshold: 0.1
     - _AlphaClipThresholdDepthPostpass: 0.6
     - _AlphaClipThresholdDepthPrepass: 0.9
-    - _AlphaCutoff: 0.599
+    - _AlphaCutoff: 0.68
     - _AlphaCutoffEnable: 1
     - _AlphaCutoffPostpass: 0.5
     - _AlphaCutoffPrepass: 0.5
@@ -244,7 +245,7 @@ Material:
     - _Color3Enable: 0
     - _CullMode: 0
     - _CullModeForward: 0
-    - _Cutoff: 0.599
+    - _Cutoff: 0.68
     - _Cutofff: 0.35
     - _DepthOffsetEnable: 0
     - _DetailAlbedoScale: 1
@@ -307,7 +308,7 @@ Material:
     - _Mode: 0
     - _NormalMapKwToggle: 1
     - _NormalMapSpace: 0
-    - _NormalScale: 2.12
+    - _NormalScale: 1
     - _OcclusionStrength: 1
     - _Offset: 0.03
     - _OpaqueCullMode: 2
@@ -334,8 +335,8 @@ Material:
     - _SmoothnessInt: 0
     - _SmoothnessMax: 0.7
     - _SmoothnessMin: 0.3
-    - _SmoothnessRemapMax: 0.5104538
-    - _SmoothnessRemapMin: 0
+    - _SmoothnessRemapMax: 0.90173393
+    - _SmoothnessRemapMin: 0.48071545
     - _SmoothnessTextureChannel: 0
     - _Specular: 1
     - _SpecularAAScreenSpaceVariance: 0.1

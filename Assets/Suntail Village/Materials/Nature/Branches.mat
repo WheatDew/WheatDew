@@ -58,7 +58,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseColorMap:
-        m_Texture: {fileID: 2800000, guid: 8e5f7711364e63d459128762c0ca365e, type: 3}
+        m_Texture: {fileID: 2800000, guid: 1a45fbf6c823e374e9e38b997054c1a7, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BentNormalMap:
@@ -126,7 +126,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 8e5f7711364e63d459128762c0ca365e, type: 3}
+        m_Texture: {fileID: 2800000, guid: 1a45fbf6c823e374e9e38b997054c1a7, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MaskMap:
@@ -403,9 +403,9 @@ Material:
     - _ZWrite: 1
     - __dirty: 1
     m_Colors:
-    - _BaseColor: {r: 0.4811321, g: 0.04841577, b: 0.44946995, a: 1}
+    - _BaseColor: {r: 0.30188674, g: 0.26998928, b: 0.25204697, a: 1}
     - _BaseColorMap_MipInfo: {r: 0, g: 0, b: 0, a: 0}
-    - _Color: {r: 0.4811321, g: 0.04841575, b: 0.44946986, a: 1}
+    - _Color: {r: 0.3018867, g: 0.26998925, b: 0.25204694, a: 1}
     - _Color0: {r: 0, g: 0, b: 0, a: 0}
     - _Color1: {r: 0.9622642, g: 0.7497543, b: 0.5492168, a: 0}
     - _Color2: {r: 0, g: 0, b: 0, a: 0}
