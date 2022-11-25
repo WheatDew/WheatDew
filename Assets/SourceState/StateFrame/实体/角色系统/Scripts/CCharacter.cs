@@ -5,6 +5,8 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.EventSystems;
 
+
+public enum Group { Player, Enemy };
 public class CCharacter : MonoBehaviour
 {
     public bool useCharacterForward = false;
@@ -56,16 +58,34 @@ public class CCharacter : MonoBehaviour
     [HideInInspector] public float damage = 0.1f, energyDamage = 0.1f;
     [HideInInspector] public float executedDamage = 0.5f;
     [HideInInspector] public float energyRecover = 0.01f;
+
+    public Group group;
+
     // Use this for initialization
-    void Start()
+    async void Start()
     {
+        if (group == Group.Player)
+            lmask = LayerMask.GetMask("Enemy");
+        else if (group == Group.Enemy)
+            lmask = LayerMask.GetMask("Player");
+
         //初始化数据
+
         anim = GetComponent<Animator>();
         mainCamera = Camera.main;
 
         body = GetComponent<Rigidbody>();
-        
+
+        //初始化数据
+        DBuilding.s.AddCharacterData(gameObject);
+
         Init();
+
+        await new WaitForUpdate();
+        await new WaitForUpdate();
+
+        DBuilding.s.GetCharacterData(gameObject.GetInstanceID()).buildingPrepare = true;
+
     }
 
     virtual protected void Init()

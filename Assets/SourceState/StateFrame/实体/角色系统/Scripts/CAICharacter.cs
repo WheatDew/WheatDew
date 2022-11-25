@@ -7,7 +7,6 @@ public class CAICharacter : CCharacter
 {
     [HideInInspector] public NavMeshAgent agent;
 
-    // Start is called before the first frame update
     protected override void Init()
     {
         if (GetComponent<NavMeshAgent>() != null)
@@ -18,7 +17,7 @@ public class CAICharacter : CCharacter
             agent.destination = startPoint.position;
         }
 
-        lmask = LayerMask.GetMask("Player");
+
         AIBehaviour();
     }
 
