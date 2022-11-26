@@ -276,7 +276,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Srv_HammeringNailHigh_Start
+  m_Name: "\u5EFA\u7B51\u5F00\u59CB"
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -647,7 +647,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Srv_HammeringNailHigh_End
+  m_Name: "\u5EFA\u7B51\u7ED3\u675F"
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -2152,7 +2152,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Srv_HammeringNailHigh_Loop
+  m_Name: "\u5EFA\u7B51\u4E2D"
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -2405,7 +2405,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Locomotion Normal
+  m_Name: "\u6B63\u5E38"
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:

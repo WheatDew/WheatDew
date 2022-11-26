@@ -21,15 +21,23 @@ public class DBuilding : MonoBehaviour
     public Dictionary<int,CBuilding> buildingList=new Dictionary<int, CBuilding>();
     public Dictionary<int, BuildingEnterCharacterData> buildingEnterCharacterDataList = new Dictionary<int, BuildingEnterCharacterData>();
 
+    //测试数组
+    public Dictionary<int, CCharacter> characterList = new Dictionary<int, CCharacter>();
+    
 
     private async void Start()
     {
+
+        Debug.Log(characterAddBuffer.Count);
         await new WaitForUpdate();
-        if(characterAddBuffer.Count > 0)
+        Debug.Log(characterAddBuffer.Count);
+        if (characterAddBuffer.Count > 0)
         {
             GameObject character = characterAddBuffer.Pop();
             buildingEnterCharacterDataList.Add(character.GetInstanceID(),new BuildingEnterCharacterData(character));
-            Debug.Log(character.GetInstanceID());
+            
+            //Debug.Log(character.GetInstanceID().ToString()+" "+character.transform.GetInstanceID().ToString());
+
         }
 
         if (buildingAddBuffer.Count > 0)
@@ -37,12 +45,14 @@ public class DBuilding : MonoBehaviour
             CBuilding building = buildingAddBuffer.Pop();
             buildingList.Add(building.gameObject.GetInstanceID(), building);
         }
+
+        
     }
 
     //添加对象相关信息
-    public void AddCharacterData(GameObject gameObject)
+    public void AddCharacterData(CCharacter character)
     {
-        characterAddBuffer.Push(gameObject);
+        characterList.Add(character.gameObject.GetInstanceID(), character);
     }
 
     public void AddBuildingData(CBuilding building)
@@ -50,17 +60,12 @@ public class DBuilding : MonoBehaviour
         buildingAddBuffer.Push(building);
     }
 
-    public BuildingEnterCharacterData GetCharacterData(int id)
+    public CCharacter GetCharacterData(int id)
     {
-        return buildingEnterCharacterDataList[id];
+
+        return characterList[id];
     }
 
-    public bool IsCharacterInList(int id)
-    {
-        if (buildingEnterCharacterDataList.ContainsKey(id))
-            return true;
-        return false;
-    }
 }
 
 public class BuildingEnterCharacterData
@@ -74,5 +79,19 @@ public class BuildingEnterCharacterData
     {
         this.gameObject = gameObject;
         
+    }
+}
+
+
+//测试类
+
+public class CharacterBuildingData
+{
+    public GameObject gameObject;
+    public bool buildingPrepare, isbuilding;
+
+    public CharacterBuildingData(GameObject gameObject)
+    {
+        this.gameObject = gameObject;
     }
 }

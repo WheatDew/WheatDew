@@ -12,6 +12,7 @@ TagManager:
   - FreezeWeapon
   - Item
   - Door
+  - Enemy
   layers:
   - Default
   - TransparentFX

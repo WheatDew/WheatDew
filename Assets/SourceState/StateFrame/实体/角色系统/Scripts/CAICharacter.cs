@@ -26,9 +26,12 @@ public class CAICharacter : CCharacter
         float guardTime = 0;
         float dodgeTime = 0;
         float strollTime = 0;
+        AnimatorStateInfo animInfo = anim.GetCurrentAnimatorStateInfo(0);
 
         while (!isDeath)
         {
+            animInfo = anim.GetCurrentAnimatorStateInfo(0);
+
             guardTime += Time.deltaTime;
             dodgeTime += Time.deltaTime;
             strollTime += Time.deltaTime;
@@ -39,6 +42,14 @@ public class CAICharacter : CCharacter
                 continue;
             }
 
+            //建筑
+            if (isbuilding && !animInfo.IsName("建筑中"))
+            {
+                anim.SetBool("Building", true);
+                agent.destination = transform.position;
+            }
+
+            //察觉到敌人时触发
             if (noticed != null)
             {
                 if (Vector3.Distance(agent.destination, startPoint.position) < 1)
@@ -55,6 +66,8 @@ public class CAICharacter : CCharacter
                     }
 
                 }
+
+                
 
                 if (!noticed.CompareTag("Death") && (strollTime > Random.Range(1, 3) || Vector3.Distance(agent.destination, transform.position) < 0.2f))
                 {

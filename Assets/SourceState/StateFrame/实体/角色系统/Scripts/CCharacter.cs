@@ -61,8 +61,13 @@ public class CCharacter : MonoBehaviour
 
     public Group group;
 
+    #region 建筑
+
+    [System.NonSerialized] public bool buildingPrepare,isbuilding;
+    #endregion
+
     // Use this for initialization
-    async void Start()
+    void Start()
     {
         if (group == Group.Player)
             lmask = LayerMask.GetMask("Enemy");
@@ -77,14 +82,11 @@ public class CCharacter : MonoBehaviour
         body = GetComponent<Rigidbody>();
 
         //初始化数据
-        DBuilding.s.AddCharacterData(gameObject);
+        DBuilding.s.AddCharacterData(this);
+        DBuilding.s.GetCharacterData(gameObject.GetInstanceID()).buildingPrepare = true;
 
         Init();
 
-        await new WaitForUpdate();
-        await new WaitForUpdate();
-
-        DBuilding.s.GetCharacterData(gameObject.GetInstanceID()).buildingPrepare = true;
 
     }
 
