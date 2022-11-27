@@ -10,8 +10,10 @@ public class CPlayerCharacter : CCharacter
     private KeyCode guardButton = KeyCode.Mouse1;
     private KeyCode dodgeButton = KeyCode.Space;
     private KeyCode fightingButton = KeyCode.Q;
+    private KeyCode heavyAttack = KeyCode.F;
 
     private Vector2 input;
+
 
     protected override void Init()
     {
@@ -63,6 +65,34 @@ public class CPlayerCharacter : CCharacter
 
             }
 
+            if (Input.GetKeyDown(heavyAttack))
+            {
+                heavyTime = 0;
+                anim.SetInteger("Heavy", 1);
+            }
+
+            if (Input.GetKey(heavyAttack))
+            {
+                heavyTime += Time.fixedDeltaTime;
+                Debug.Log(heavyTime);
+            }
+
+            if (Input.GetKeyUp(heavyAttack))
+            {
+                if (heavyTime >= 0 && heavyTime <= 1)
+                {
+                    anim.SetInteger("Heavy", 2);
+                }
+                else if (heavyTime > 1)
+                {
+                    anim.SetInteger("Heavy", 3);
+                }
+                else
+                {
+                    anim.SetInteger("Heavy", 0);
+                    heavyTime = 0;
+                }
+            }
 
             if (Input.GetKeyDown(dodgeButton))
             {

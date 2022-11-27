@@ -61,9 +61,11 @@ public class CCharacter : MonoBehaviour
 
     public Group group;
 
+    public float heavyTime=0;
+
     #region ½¨Öþ
 
-    [System.NonSerialized] public bool buildingPrepare,isbuilding;
+    [System.NonSerialized] public bool buildingPrepare,isbuilding,endbuilding;
     #endregion
 
     // Use this for initialization
@@ -338,6 +340,8 @@ public class CCharacter : MonoBehaviour
     {
         //weapon.tag = "Weapon";
         //weapon.box.enabled = true;
+        energy -= 0.1f;
+        Debug.Log(energy);
         isWeaponDetecting = true;
         WeaponDetection();
     }

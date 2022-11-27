@@ -8,13 +8,17 @@ public class CBuilding : MonoBehaviour
 
     public List<Material> allMaterials = new List<Material>();
     public Material targetMaterial;
+    private Material transparentMaterial;
     public List<MeshRenderer> allMeshRenderer = new List<MeshRenderer>();
+
+    public GameObject building;
 
     private async void Start()
     {
+        transparentMaterial = new Material(targetMaterial);
         DBuilding.s.AddBuildingData(this);
 
-        await new WaitForSeconds(5);
+        await new WaitForUpdate();
         SetAllMaterialList();
     }
     
@@ -26,7 +30,7 @@ public class CBuilding : MonoBehaviour
             allMeshRenderer.Add(meshRenderer);
             for (int i = 0; i < meshRenderer.materials.Length; i++)
             {
-                meshRenderer.materials[i] = targetMaterial;
+                meshRenderer.materials[i] = transparentMaterial;
             }
         }
 
@@ -45,7 +49,7 @@ public class CBuilding : MonoBehaviour
                 Material[] materials = new Material[meshRenderer.materials.Length];
                 for (int j = 0; j < meshRenderer.materials.Length; j++)
                 {
-                    materials[j]= targetMaterial;
+                    materials[j]= transparentMaterial;
                 }
 
                 meshRenderer.materials = materials;
@@ -72,7 +76,17 @@ public class CBuilding : MonoBehaviour
 
                 if (characterData.isbuilding)
                 {
-                    Debug.Log(characterData.gameObject.name);
+                    if (transparentMaterial.color.a < 1)
+                        transparentMaterial.color += new Color(0, 0, 0, 0.01f);
+                    else
+                    {
+                        characterData.endbuilding = true;
+                        var obj = Instantiate(building);
+                        obj.transform.position = transform.position;
+                        obj.transform.rotation = transform.rotation;
+                        DestroyImmediate(gameObject);
+                    }
+                    
                 }
             }
         }

@@ -49,6 +49,14 @@ public class CAICharacter : CCharacter
                 agent.destination = transform.position;
             }
 
+            if (endbuilding && animInfo.IsName("建筑中"))
+            {
+                endbuilding = false;
+                isbuilding = false;
+                anim.SetBool("Building", false);
+                
+            }
+
             //察觉到敌人时触发
             if (noticed != null)
             {
