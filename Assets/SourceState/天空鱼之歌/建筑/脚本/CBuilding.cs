@@ -77,7 +77,7 @@ public class CBuilding : MonoBehaviour
                 if (characterData.isbuilding)
                 {
                     if (transparentMaterial.color.a < 1)
-                        transparentMaterial.color += new Color(0, 0, 0, 0.01f);
+                        transparentMaterial.color += new Color(0, 0, 0, 0.01f*Time.fixedDeltaTime);
                     else
                     {
                         characterData.endbuilding = true;
