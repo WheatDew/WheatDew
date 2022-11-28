@@ -35,7 +35,7 @@ MonoBehaviour:
     customBufferFormat: 12
     supportedLitShaderMode: 2
     planarReflectionResolution:
-      m_Values: 000100000004000000080000
+      m_Values: 800000008000000080000000
       m_SchemaId:
         m_Id: With3Levels
     supportDecals: 1
@@ -53,11 +53,11 @@ MonoBehaviour:
     supportRayTracing: 0
     supportedRayTracingMode: 3
     lightLoopSettings:
-      cookieAtlasSize: 512
+      cookieAtlasSize: 64
       cookieFormat: 74
       cookieAtlasLastValidMip: 0
       cookieTexArraySize: 16
-      planarReflectionAtlasSize: 2048
+      planarReflectionAtlasSize: 128
       reflectionProbeCacheSize: 32
       reflectionCubemapSize: 256
       reflectionCacheCompressed: 1
