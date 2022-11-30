@@ -11,9 +11,9 @@ public class CPlayerCharacter : CCharacter
     private KeyCode dodgeButton = KeyCode.Space;
     private KeyCode fightingButton = KeyCode.Q;
     private KeyCode heavyAttack = KeyCode.F;
+    private KeyCode lookView = KeyCode.Mouse2;
 
     private Vector2 input;
-
 
     protected override void Init()
     {
@@ -24,6 +24,7 @@ public class CPlayerCharacter : CCharacter
     {
         if (!isDeath)
         {
+
 
             if (Input.GetKeyDown(fightingButton))
             {
@@ -63,6 +64,14 @@ public class CPlayerCharacter : CCharacter
                 else
                     anim.SetTrigger("Attack");
 
+            }
+
+            if (Input.GetKeyDown(lookView))
+            {
+                if (lookTarget == null)
+                    lookTarget = CharacterGroup.s.GetClosestCharacter(this).transform;
+                else
+                    lookTarget = null;
             }
 
             if (Input.GetKeyDown(heavyAttack))
@@ -114,6 +123,11 @@ public class CPlayerCharacter : CCharacter
                     isGuard = false;
                     anim.SetBool("Guard", false);
                 }
+            }
+
+            if(lookTarget!=null)
+            {
+                transform.LookAt(lookTarget);
             }
         }
     }

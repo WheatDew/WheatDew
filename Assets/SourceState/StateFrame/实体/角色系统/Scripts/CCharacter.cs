@@ -68,6 +68,9 @@ public class CCharacter : MonoBehaviour
     [System.NonSerialized] public bool buildingPrepare,isbuilding,endbuilding;
     #endregion
 
+    //锁定
+    [HideInInspector] public Transform lookTarget;
+
     // Use this for initialization
     void Start()
     {
@@ -86,6 +89,7 @@ public class CCharacter : MonoBehaviour
         //初始化数据
         DBuilding.s.AddCharacterData(this);
         DBuilding.s.GetCharacterData(gameObject.GetInstanceID()).buildingPrepare = true;
+        CharacterGroup.s.AddCharacter(this);
 
         Init();
 
