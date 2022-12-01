@@ -7,6 +7,8 @@ public class CAICharacter : CCharacter
 {
     [HideInInspector] public NavMeshAgent agent;
 
+    private string behaviour= "stroll";
+
     protected override void Init()
     {
         if (GetComponent<NavMeshAgent>() != null)
@@ -26,6 +28,7 @@ public class CAICharacter : CCharacter
         float guardTime = 0;
         float dodgeTime = 0;
         float strollTime = 0;
+
         AnimatorStateInfo animInfo = anim.GetCurrentAnimatorStateInfo(0);
 
         while (!isDeath)
@@ -56,6 +59,8 @@ public class CAICharacter : CCharacter
                 anim.SetBool("Building", false);
                 
             }
+
+            //await new wai Stroll()
 
             //察觉到敌人时触发
             if (noticed != null)
@@ -177,6 +182,23 @@ public class CAICharacter : CCharacter
 
             await new WaitForUpdate();
         }
+    }
+
+    public async void Stroll()
+    {
+        while (behaviour == "stroll")
+        {
+
+            Debug.Log("触发随机闲逛");
+            float rx = Random.Range(transform.position.x - 10, transform.position.x + 10);
+            float rz = Random.Range(transform.position.z - 10, transform.position.z + 10);
+            startPoint.position = new Vector3(rx, transform.position.y, rz);
+            agent.destination = startPoint.position;
+
+            await new WaitForSecondsRealtime(5);
+        }
+        //随机设置目标
+        
     }
 
     protected override void FUpdate()
