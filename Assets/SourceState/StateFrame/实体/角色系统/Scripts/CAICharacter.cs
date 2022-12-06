@@ -2,12 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using System.Threading.Tasks;
 
 public class CAICharacter : CCharacter
 {
     [HideInInspector] public NavMeshAgent agent;
 
-    private string behaviour= "stroll";
+    public string behaviour= "stroll";
+
+    private Vector3 targetPosition;
 
     protected override void Init()
     {
@@ -60,7 +63,8 @@ public class CAICharacter : CCharacter
                 
             }
 
-            //await new wai Stroll()
+            Stroll();
+            await new WaitUntil(()=>behaviour!="stroll");
 
             //察觉到敌人时触发
             if (noticed != null)
@@ -188,14 +192,12 @@ public class CAICharacter : CCharacter
     {
         while (behaviour == "stroll")
         {
-
-            Debug.Log("触发随机闲逛");
             float rx = Random.Range(transform.position.x - 10, transform.position.x + 10);
             float rz = Random.Range(transform.position.z - 10, transform.position.z + 10);
             startPoint.position = new Vector3(rx, transform.position.y, rz);
             agent.destination = startPoint.position;
 
-            await new WaitForSecondsRealtime(5);
+            await new WaitForSecondsRealtime(10);
         }
         //随机设置目标
         
@@ -205,5 +207,31 @@ public class CAICharacter : CCharacter
     {
         if (isDeath&&!agent.isStopped)
             agent.isStopped = true;
+
+
+        float targetDistance = Vector3.Distance(transform.position, startPoint.position);
+
+        if (targetDistance <= 1f)
+        {
+            anim.SetFloat("Speed", 0);
+            agent.isStopped = true;
+            body.velocity = Vector3.zero;
+        }
+        else if (targetDistance <= 4f)
+        {
+            anim.SetFloat("Speed", targetDistance / 8f + 0.2f);
+            agent.speed = 0.1f;
+        }
+        else
+        {
+            anim.SetFloat("Speed", 1);
+            agent.speed = 0.1f;
+        }
+    }
+
+    protected override void NUpdate()
+    {
+        
+
     }
 }

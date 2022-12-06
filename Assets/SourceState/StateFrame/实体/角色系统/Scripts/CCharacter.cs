@@ -27,14 +27,13 @@ public class CCharacter : MonoBehaviour
     protected float velocity;
     public static bool isMoving = true;
 
-
     //额外的增量
     public int lmask = 0;
     public CWeapon weapon;
     [HideInInspector] public bool fighting = false;
     public bool speedCompensate = false;
     [HideInInspector] public GameObject noticed;
-    private Rigidbody body;
+    protected Rigidbody body;
 
     [HideInInspector] public bool isDeath = false;
     [HideInInspector] public bool isAIMove = true;
@@ -101,6 +100,11 @@ public class CCharacter : MonoBehaviour
     {
 
     }
+
+    virtual protected void NUpdate()
+    {
+
+    }
     
 
     // Update is called once per frame
@@ -163,6 +167,11 @@ public class CCharacter : MonoBehaviour
         }
 
         
+    }
+
+    private void Update()
+    {
+        NUpdate();
     }
 
     public void SetParry(int value)
