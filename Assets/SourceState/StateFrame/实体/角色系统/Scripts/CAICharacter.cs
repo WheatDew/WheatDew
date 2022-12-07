@@ -23,7 +23,7 @@ public class CAICharacter : CCharacter
         }
 
 
-        AIBehaviour();
+        //AIBehaviour();
     }
 
     public async void AIBehaviour()
@@ -63,8 +63,13 @@ public class CAICharacter : CCharacter
                 
             }
 
-            Stroll();
-            await new WaitUntil(()=>behaviour!="stroll");
+            if (behaviour == "stroll")
+            {
+                agent.destination = startPoint.position;
+            }
+
+            //Stroll();
+            //await new WaitUntil(()=>behaviour!="stroll_end");
 
             //察觉到敌人时触发
             if (noticed != null)
@@ -208,25 +213,29 @@ public class CAICharacter : CCharacter
         if (isDeath&&!agent.isStopped)
             agent.isStopped = true;
 
+        agent.destination = startPoint.position;
+        //anim.SetFloat("Speed", body.velocity.magnitude);
+        //if (agent != null)
+        //    AIMove(agent.destination, 0.2f, 0);
 
-        float targetDistance = Vector3.Distance(transform.position, startPoint.position);
+        //float targetDistance = Vector3.Distance(transform.position, startPoint.position);
 
-        if (targetDistance <= 1f)
-        {
-            anim.SetFloat("Speed", 0);
-            agent.isStopped = true;
-            body.velocity = Vector3.zero;
-        }
-        else if (targetDistance <= 4f)
-        {
-            anim.SetFloat("Speed", targetDistance / 8f + 0.2f);
-            agent.speed = 0.1f;
-        }
-        else
-        {
-            anim.SetFloat("Speed", 1);
-            agent.speed = 0.1f;
-        }
+        //if (targetDistance <= 1f)
+        //{
+        //    anim.SetFloat("Speed", 0);
+        //    agent.isStopped = true;
+        //    body.velocity = Vector3.zero;
+        //}
+        //else if (targetDistance <= 4f)
+        //{
+        //    anim.SetFloat("Speed", targetDistance / 8f + 0.2f);
+        //    agent.speed = 0.1f;
+        //}
+        //else
+        //{
+        //    anim.SetFloat("Speed", 1);
+        //    agent.speed = 0.1f;
+        //}
     }
 
     protected override void NUpdate()
