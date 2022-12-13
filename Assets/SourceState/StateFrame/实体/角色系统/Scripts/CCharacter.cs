@@ -9,6 +9,8 @@ using UnityEngine.EventSystems;
 public enum Group { Player, Enemy };
 public class CCharacter : MonoBehaviour
 {
+    public AnimatorStateInfo currentAnimatorStateInfo;
+    public int[] status;
     public bool useCharacterForward = false;
     public bool lockToCameraForward = false;
     public float turnSpeed = 10f;
@@ -32,7 +34,7 @@ public class CCharacter : MonoBehaviour
     public CWeapon weapon;
     [HideInInspector] public bool fighting = false;
     public bool speedCompensate = false;
-    [HideInInspector] public GameObject noticed;
+    public GameObject noticed;
     protected Rigidbody body;
 
     [HideInInspector] public bool isDeath = false;
@@ -43,8 +45,6 @@ public class CCharacter : MonoBehaviour
     [HideInInspector] public float energy = 1;
 
     public bool isGuard = false, isParry = false, isCollide;
-
-    public Transform startPoint;
 
     public Transform weaponStart, weaponEnd;
     public List<Vector3> points = new List<Vector3>();
@@ -110,7 +110,8 @@ public class CCharacter : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        var currentInfo = anim.GetCurrentAnimatorStateInfo(0);
+        currentAnimatorStateInfo = anim.GetCurrentAnimatorStateInfo(0);
+        var currentInfo = currentAnimatorStateInfo;
 
         if (isExecuted && !isDeath && !currentInfo.IsName("Executed") && !anim.GetCurrentAnimatorStateInfo(0).IsName("ExecutedDeath"))
         {
@@ -389,5 +390,23 @@ public class CCharacter : MonoBehaviour
     #endregion
 
 
+    #region 工具函数
 
+    public void Setbit(int index, bool value)
+    {
+        if (index > 30 || index < 0)
+            Debug.LogError("超出数组范围");
+
+        status[0] = value ? status[0] | 1 << index : status[0] & ~(1 << index);
+    }
+
+    public bool Getbit(int index)
+    {
+        if (index > 30 || index < 0)
+            Debug.LogError("超出数组范围");
+
+        return (status[0] & 1 << index) == 1 << index;
+    }
+
+    #endregion
 }

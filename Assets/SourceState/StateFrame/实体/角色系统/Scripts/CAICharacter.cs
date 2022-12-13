@@ -9,11 +9,14 @@ public class CAICharacter : CCharacter
 {
     [HideInInspector] public NavMeshAgent agent;
 
-    public string behaviour= "stroll";
+    public string[] currentBehaviours;
+    
+    public Transform targetPoint;
+    //行为列表
+    public Dictionary<string,UnityAction> behaviours=new Dictionary<string,UnityAction>();
 
-    private Vector3 targetPosition;
-
-    public Dictionary<string,UnityAction> behaviourList=new Dictionary<string,UnityAction>();
+    private bool behaviourEnable = true;
+    private bool jumpEnable = false;
 
     protected override void Init()
     {
@@ -22,11 +25,14 @@ public class CAICharacter : CCharacter
             agent = GetComponent<NavMeshAgent>();
             //agent.destination = transform.position;
             //agent.isStopped = true;
-            agent.destination = startPoint.position;
+            agent.destination = targetPoint.position;
         }
 
-
-        //AIBehaviour();
+        behaviours.Add("到达目标点", MoveToTarget);
+        behaviours.Add("向敌人移动", MoveToEnemy);
+        behaviours.Add("近距离时攻击", AttackAtCloseRange);
+        behaviours.Add("近距离时后退", DodgeAtCloseRange);
+        behaviours.Add("近距离时观察", ObserveAtCloseRange);
     }
 
     public async void AIBehaviour()
@@ -66,18 +72,10 @@ public class CAICharacter : CCharacter
                 
             }
 
-            if (behaviour == "stroll")
-            {
-                agent.destination = startPoint.position;
-            }
-
-            //Stroll();
-            //await new WaitUntil(()=>behaviour!="stroll_end");
-
             //察觉到敌人时触发
             if (noticed != null)
             {
-                if (Vector3.Distance(agent.destination, startPoint.position) < 1)
+                if (Vector3.Distance(agent.destination, targetPoint.position) < 1)
                 {
                     agent.destination = noticed.transform.position;
                 }
@@ -91,19 +89,6 @@ public class CAICharacter : CCharacter
                     }
 
                 }
-
-                
-
-                if (!noticed.CompareTag("Death") && (strollTime > Random.Range(1, 3) || Vector3.Distance(agent.destination, transform.position) < 0.2f))
-                {
-                    strollTime = 0;
-                    //agent.destination = noticed.transform.position;
-                    Vector2 target_v2 = SMath.GetRandomValueOnCircle(3);
-                    Vector3 target_v3 = new Vector3(target_v2.x, 0, target_v2.y);
-                    //Debug.Log(target_v3);
-                    agent.destination = noticed.transform.position + target_v3;
-                }
-
 
                 if (Vector3.Distance(noticed.transform.position, transform.position) <= 2f)
                 {
@@ -172,7 +157,7 @@ public class CAICharacter : CCharacter
                     {
                         fighting = false;
                         anim.SetBool("Fighting", false);
-                        agent.destination = startPoint.position;
+                        agent.destination = targetPoint.position;
                         noticed = null;
                     }
 
@@ -196,33 +181,133 @@ public class CAICharacter : CCharacter
         }
     }
 
-    public async void Stroll()
-    {
-        while (behaviour == "stroll")
-        {
-            float rx = Random.Range(transform.position.x - 10, transform.position.x + 10);
-            float rz = Random.Range(transform.position.z - 10, transform.position.z + 10);
-            startPoint.position = new Vector3(rx, transform.position.y, rz);
-            agent.destination = startPoint.position;
+    //public async void Stroll()
 
-            await new WaitForSecondsRealtime(10);
+    //        float rx = Random.Range(transform.position.x - 10, transform.position.x + 10);
+    //        float rz = Random.Range(transform.position.z - 10, transform.position.z + 10);
+    //        startPoint.position = new Vector3(rx, transform.position.y, rz);
+    //        agent.destination = startPoint.position;
+
+    //        await new WaitForSecondsRealtime(10);
+
+    //    //随机设置目标
+        
+    //}
+
+    /// <summary>
+    /// 移动到目标点
+    /// </summary>
+    public void MoveToTarget()
+    {
+        if (!fighting)
+        {
+            agent.destination = targetPoint.position;
+
         }
-        //随机设置目标
+
+    }
+
+    /// <summary>
+    /// 向敌人移动
+    /// </summary>
+    public void MoveToEnemy()
+    {
+        if (noticed!=null && !isDeath&&Vector3.Distance(noticed.transform.position,transform.position)>5)
+        {
+            agent.destination = noticed.transform.position;
+            if (!fighting)
+            {
+                fighting = true;
+                anim.SetBool("Fighting", true);
+            }
+            if(agent.isStopped)
+            {
+                agent.isStopped= false;
+            }
+
+        }
+    }
+    /// <summary>
+    /// 近距离时攻击
+    /// </summary>
+    public void AttackAtCloseRange()
+    {
+
+        if (noticed != null&& Vector3.Distance(noticed.transform.position, transform.position) <= 2)
+        {
+            if (!agent.isStopped)
+                agent.isStopped = true;
+            if ((currentAnimatorStateInfo.IsTag("Attack") || currentAnimatorStateInfo.IsName("AttackStatus"))&&currentAnimatorStateInfo.normalizedTime>=0.8f)
+            {
+                transform.LookAt(noticed.transform);
+                anim.SetTrigger("Attack");
+            }
+
+        }
+    }
+
+    /// <summary>
+    /// 近距离时后退
+    /// </summary>
+    public void DodgeAtCloseRange()
+    {
+
+        if (noticed != null && Vector3.Distance(noticed.transform.position, transform.position) <= 2)
+        {
+            if (!agent.isStopped)
+                agent.isStopped = true;
+            if ((currentAnimatorStateInfo.IsTag("Attack") || currentAnimatorStateInfo.IsName("AttackStatus")) && currentAnimatorStateInfo.normalizedTime >= 0.8f)
+            {
+                transform.LookAt(noticed.transform);
+                anim.SetTrigger("Attack");
+            }
+
+        }
+    }
+
+    /// <summary>
+    /// 近距离时观察
+    /// </summary>
+    public void ObserveAtCloseRange()
+    {
+        if (noticed != null && Vector3.Distance(noticed.transform.position, transform.position) <= 5
+            &&(Vector3.Distance(agent.destination,transform.position)<0.1f))
+        {
+            Vector2 target_v2 = SMath.GetRandomValueOnCircle(4);
+            Vector3 target_v3 = new Vector3(target_v2.x, 0, target_v2.y);
+            agent.destination = noticed.transform.position + target_v3;
+
+        }
+    }
+
+
+    public void DodgeAction()
+    {
         
     }
 
     protected override void FUpdate()
     {
-        if (isDeath&&!agent.isStopped)
-            agent.isStopped = true;
-
-        agent.destination = startPoint.position;
-        anim.SetFloat("Speed", agent.velocity.magnitude/agent.speed);
+        anim.SetFloat("Speed", agent.velocity.magnitude / agent.speed);
     }
 
     protected override void NUpdate()
     {
-        
+        for (int i = 0; i < currentBehaviours.Length; i++)
+        {
+            if(jumpEnable)
+            {
+                jumpEnable = false;
+                break;
+            }
+
+            if (behaviourEnable)
+            {
+                behaviours[currentBehaviours[i]]();
+            }
+        }
 
     }
+
+    
 }
