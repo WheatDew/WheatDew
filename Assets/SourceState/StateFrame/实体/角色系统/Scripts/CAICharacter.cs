@@ -9,11 +9,12 @@ public class CAICharacter : CCharacter
 {
     [HideInInspector] public NavMeshAgent agent;
 
-    public string[] currentBehaviours;
+    public List<string> currentBehaviours;
     
     public Transform targetPoint;
     //行为列表
-    public Dictionary<string,UnityAction> behaviours=new Dictionary<string,UnityAction>();
+    public Dictionary<string,Behaviour> behaviours=new Dictionary<string,Behaviour>();
+
 
     private bool behaviourEnable = true;
     private bool jumpEnable = false;
@@ -28,11 +29,23 @@ public class CAICharacter : CCharacter
             agent.destination = targetPoint.position;
         }
 
-        behaviours.Add("到达目标点", MoveToTarget);
-        behaviours.Add("向敌人移动", MoveToEnemy);
-        behaviours.Add("近距离时攻击", AttackAtCloseRange);
-        behaviours.Add("近距离时后退", DodgeAtCloseRange);
-        behaviours.Add("近距离时观察", ObserveAtCloseRange);
+        AddBehaviour("到达目标点", MoveToTarget);
+        AddBehaviour("察觉敌人", NoticeEnemy);
+        AddBehaviour("向敌人移动", MoveToEnemy);
+        AddBehaviour("近距离时攻击", AttackAtCloseRange);
+        AddBehaviour("近距离时后退", DodgeAtCloseRange);
+        AddBehaviour("近距离时观察", ObserveAtCloseRange);
+    }
+
+    //添加行为到列表
+    public void AddBehaviour(string name,UnityAction behaviour)
+    {
+        behaviours.Add(name,new Behaviour(behaviour));
+    }
+
+    public void AddBehaviour(string name,float probability,UnityAction behaviour)
+    {
+        behaviours.Add(name,new Behaviour(probability,behaviour));
     }
 
     public async void AIBehaviour()
@@ -206,20 +219,28 @@ public class CAICharacter : CCharacter
         }
 
     }
+    /// <summary>
+    /// 察觉敌人
+    /// </summary>
+    public void NoticeEnemy()
+    {
+        if (!fighting && noticed != null)
+        {
+
+            fighting = true;
+            anim.SetBool("Fighting", true);
+        }
+    }
 
     /// <summary>
     /// 向敌人移动
     /// </summary>
     public void MoveToEnemy()
     {
-        if (noticed!=null && !isDeath&&Vector3.Distance(noticed.transform.position,transform.position)>5)
+        if (noticed!=null && fighting)
         {
             agent.destination = noticed.transform.position;
-            if (!fighting)
-            {
-                fighting = true;
-                anim.SetBool("Fighting", true);
-            }
+            
             if(agent.isStopped)
             {
                 agent.isStopped= false;
@@ -235,12 +256,14 @@ public class CAICharacter : CCharacter
 
         if (noticed != null&& Vector3.Distance(noticed.transform.position, transform.position) <= 2)
         {
-            if (!agent.isStopped)
-                agent.isStopped = true;
+
             if ((currentAnimatorStateInfo.IsTag("Attack") || currentAnimatorStateInfo.IsName("AttackStatus"))&&currentAnimatorStateInfo.normalizedTime>=0.8f)
             {
                 transform.LookAt(noticed.transform);
                 anim.SetTrigger("Attack");
+                if (!agent.isStopped)
+                    agent.isStopped = true;
+                jumpEnable = true;
             }
 
         }
@@ -286,24 +309,53 @@ public class CAICharacter : CCharacter
         
     }
 
+    /// <summary>
+    /// 设定速度
+    /// </summary>
+    public void SetSpeed()
+    {
+        if (agent.path.corners.Length > 1)
+        {
+            float distance = Vector3.Distance(agent.path.corners[1], transform.position);
+            transform.LookAt(agent.path.corners[1]);
+
+            if (distance > 3.5f)
+            {
+                anim.SetFloat("Speed", 1);
+            }
+            else if (distance > 0.5f)
+            {
+                anim.SetFloat("Speed", distance - 0.5f / 3);
+            }
+            else
+            {
+                anim.SetFloat("Speed", 0);
+            }
+        }
+
+    }
+
     protected override void FUpdate()
     {
-        anim.SetFloat("Speed", agent.velocity.magnitude / agent.speed);
+        SetSpeed();
+
+        
+
     }
 
     protected override void NUpdate()
     {
-        for (int i = 0; i < currentBehaviours.Length; i++)
+        for (int i = 0; i < currentBehaviours.Count; i++)
         {
             if(jumpEnable)
             {
                 jumpEnable = false;
                 break;
             }
-
-            if (behaviourEnable)
+            //Debug.Log(currentBehaviours[i]+" "+behaviours[currentBehaviours[i]].probability.ToString());
+            if (behaviourEnable && Random.value <= behaviours[currentBehaviours[i]].probability)
             {
-                behaviours[currentBehaviours[i]]();
+                behaviours[currentBehaviours[i]].behaviour();
             }
         }
 
