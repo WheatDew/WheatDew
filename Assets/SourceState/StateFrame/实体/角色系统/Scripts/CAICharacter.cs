@@ -18,6 +18,8 @@ public class CAICharacter : CCharacter
 
     private bool behaviourEnable = true;
     private bool jumpEnable = false;
+    private bool strollEnable=false;
+    private float maxSpeed = 1;
 
     protected override void Init()
     {
@@ -35,6 +37,7 @@ public class CAICharacter : CCharacter
         AddBehaviour("近距离时攻击", AttackAtCloseRange);
         AddBehaviour("近距离时后退", DodgeAtCloseRange);
         AddBehaviour("近距离时观察", ObserveAtCloseRange);
+        AddBehaviour("闲逛", Stroll);
     }
 
     //添加行为到列表
@@ -194,18 +197,30 @@ public class CAICharacter : CCharacter
         }
     }
 
-    //public async void Stroll()
+    /// <summary>
+    /// 闲逛
+    /// </summary>
+    public void Stroll()
+    {
 
-    //        float rx = Random.Range(transform.position.x - 10, transform.position.x + 10);
-    //        float rz = Random.Range(transform.position.z - 10, transform.position.z + 10);
-    //        startPoint.position = new Vector3(rx, transform.position.y, rz);
-    //        agent.destination = startPoint.position;
+        if (!strollEnable || Vector3.Distance(targetPoint.position, transform.position) < 0.7f)
+        {
+            Vector3 target = CharacterGroup.s.GetStrollPoint();
+            if (target != Vector3.zero)
+            {
+                targetPoint.position = target;
+                agent.destination = targetPoint.position;
+                if (!strollEnable)
+                {
+                    maxSpeed = 0.2f;
+                    strollEnable = true;
+                }
 
-    //        await new WaitForSecondsRealtime(10);
+                
+            }
+        }
 
-    //    //随机设置目标
-        
-    //}
+    }
 
     /// <summary>
     /// 移动到目标点
@@ -316,16 +331,24 @@ public class CAICharacter : CCharacter
     {
         if (agent.path.corners.Length > 1)
         {
-            float distance = Vector3.Distance(agent.path.corners[1], transform.position);
+            Debug.DrawLine(agent.path.corners[1], agent.path.corners[0], Color.red, 0.02f);
+
+            float distance = Vector3.Distance(agent.destination, transform.position);
             transform.LookAt(agent.path.corners[1]);
 
-            if (distance > 3.5f)
+            if (distance > 3.3f)
             {
-                anim.SetFloat("Speed", 1);
+                if (maxSpeed < 1)
+                    anim.SetFloat("Speed", maxSpeed);
+                else
+                    anim.SetFloat("Speed", 1);
             }
-            else if (distance > 0.5f)
+            else if (distance > 0.3f)
             {
-                anim.SetFloat("Speed", distance - 0.5f / 3);
+                if (maxSpeed < distance - 0.3f / 3)
+                    anim.SetFloat("Speed", maxSpeed);
+                else
+                    anim.SetFloat("Speed", distance - 0.3f / 3);
             }
             else
             {
