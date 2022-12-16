@@ -6,6 +6,7 @@ using UnityEngine.AI;
 public class PathFindingTest : MonoBehaviour
 {
     private NavMeshAgent agent;
+    public Transform target;
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -14,18 +15,20 @@ public class PathFindingTest : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            RaycastHit result;
-            if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out result))
-            {
-                agent.destination = result.point;
-            }
-        }
 
-        for(int i = 2; i < agent.path.corners.Length; i++)
-        {
-            Debug.DrawLine(agent.path.corners[i], agent.path.corners[i-1]);
-        }
+        agent.destination = target.position;
+        //if (Input.GetMouseButtonDown(0))
+        //{
+        //    RaycastHit result;
+        //    if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out result))
+        //    {
+        //        agent.destination = result.point;
+        //    }
+        //}
+
+        //for(int i = 2; i < agent.path.corners.Length; i++)
+        //{
+        //    Debug.DrawLine(agent.path.corners[i], agent.path.corners[i-1]);
+        //}
     }
 }

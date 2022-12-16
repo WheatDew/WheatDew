@@ -31,7 +31,7 @@ public class CAICharacter : CCharacter
             agent.destination = targetPoint.position;
         }
 
-        AddBehaviour("到达目标点", MoveToTarget);
+        AddBehaviour("移动到目标点", MoveToTarget);
         AddBehaviour("察觉敌人", NoticeEnemy);
         AddBehaviour("向敌人移动", MoveToEnemy);
         AddBehaviour("近距离时攻击", AttackAtCloseRange);
@@ -232,6 +232,7 @@ public class CAICharacter : CCharacter
             agent.destination = targetPoint.position;
 
         }
+        maxSpeed = 0.2f;
 
     }
     /// <summary>
@@ -329,9 +330,32 @@ public class CAICharacter : CCharacter
     /// </summary>
     public void SetSpeed()
     {
+
         if (agent.path.corners.Length > 1)
         {
-            Debug.DrawLine(agent.path.corners[1], agent.path.corners[0], Color.red, 0.02f);
+            if (agent.isOnOffMeshLink)
+            {
+                if (agent.speed == 0)
+                    agent.speed = 0.4f;
+            }
+            else if (agent.speed == 0.4f)
+            {
+                agent.speed = 0;
+            }
+
+            for(int i = 1; i < agent.path.corners.Length; i++)
+            {
+                if (i == 1)
+                {
+                    Debug.DrawLine(agent.path.corners[1], agent.path.corners[0], Color.red, 0.02f);
+                }
+                else
+                {
+                    Debug.DrawLine(agent.path.corners[i], agent.path.corners[i-1], Color.blue, 0.02f);
+                }
+            }
+
+
 
             float distance = Vector3.Distance(agent.destination, transform.position);
             transform.LookAt(agent.path.corners[1]);
@@ -343,12 +367,12 @@ public class CAICharacter : CCharacter
                 else
                     anim.SetFloat("Speed", 1);
             }
-            else if (distance > 0.3f)
+            else if(distance>0.3f)
             {
-                if (maxSpeed < distance - 0.3f / 3)
+                if (maxSpeed < distance-0.3f / 3)
                     anim.SetFloat("Speed", maxSpeed);
                 else
-                    anim.SetFloat("Speed", distance - 0.3f / 3);
+                    anim.SetFloat("Speed", distance-0.3f / 3);
             }
             else
             {
