@@ -20,6 +20,13 @@ public class CAICharacter : CCharacter
     private bool jumpEnable = false;
     private bool strollEnable=false;
     private float maxSpeed = 1;
+    public float linkSpeed = 0.4f;
+    public float stoppingDistence = 0.5f;
+
+    public float stopTime = 0;
+    public float attackProbability = 0.5f, attackTime = 0.5f;
+
+
 
     protected override void Init()
     {
@@ -38,6 +45,7 @@ public class CAICharacter : CCharacter
         AddBehaviour("近距离时后退", DodgeAtCloseRange);
         AddBehaviour("近距离时观察", ObserveAtCloseRange);
         AddBehaviour("闲逛", Stroll);
+        AddBehaviour("丢失敌人", MissEnemy);
     }
 
     //添加行为到列表
@@ -197,6 +205,8 @@ public class CAICharacter : CCharacter
         }
     }
 
+
+
     /// <summary>
     /// 闲逛
     /// </summary>
@@ -249,6 +259,19 @@ public class CAICharacter : CCharacter
     }
 
     /// <summary>
+    /// 丢失敌人
+    /// </summary>
+    public void MissEnemy()
+    {
+        if (fighting && (noticed == null||noticed.tag=="Death"))
+        {
+            fighting = false;
+            anim.SetBool("Fighting", false);
+            agent.destination = targetPoint.position;
+        }
+    }
+
+    /// <summary>
     /// 向敌人移动
     /// </summary>
     public void MoveToEnemy()
@@ -272,8 +295,10 @@ public class CAICharacter : CCharacter
 
         if (noticed != null&& Vector3.Distance(noticed.transform.position, transform.position) <= 2)
         {
-
-            if ((currentAnimatorStateInfo.IsTag("Attack") || currentAnimatorStateInfo.IsName("AttackStatus"))&&currentAnimatorStateInfo.normalizedTime>=0.8f)
+            if (currentAnimatorStateInfo.IsTag("Low")    
+                &&currentAnimatorStateInfo.normalizedTime>=0.8f  // 判断动画进度
+                &&Random.value<=0.5f    //判断概率
+                )
             {
                 transform.LookAt(noticed.transform);
                 anim.SetTrigger("Attack");
@@ -281,7 +306,6 @@ public class CAICharacter : CCharacter
                     agent.isStopped = true;
                 jumpEnable = true;
             }
-
         }
     }
 
@@ -293,12 +317,16 @@ public class CAICharacter : CCharacter
 
         if (noticed != null && Vector3.Distance(noticed.transform.position, transform.position) <= 2)
         {
-            if (!agent.isStopped)
-                agent.isStopped = true;
-            if ((currentAnimatorStateInfo.IsTag("Attack") || currentAnimatorStateInfo.IsName("AttackStatus")) && currentAnimatorStateInfo.normalizedTime >= 0.8f)
+            if (currentAnimatorStateInfo.IsTag("Low")
+                && currentAnimatorStateInfo.normalizedTime >= 0.8f  // 判断动画进度
+                && Random.value <= 1f    //判断概率
+                )
             {
                 transform.LookAt(noticed.transform);
-                anim.SetTrigger("Attack");
+                anim.SetTrigger("Dodge");
+                if (!agent.isStopped)
+                    agent.isStopped = true;
+                jumpEnable = true;
             }
 
         }
@@ -336,13 +364,14 @@ public class CAICharacter : CCharacter
             if (agent.isOnOffMeshLink)
             {
                 if (agent.speed == 0)
-                    agent.speed = 0.4f;
+                    agent.speed = linkSpeed;
             }
-            else if (agent.speed == 0.4f)
+            else if (agent.speed == linkSpeed)
             {
                 agent.speed = 0;
             }
 
+            //绘制路径
             for(int i = 1; i < agent.path.corners.Length; i++)
             {
                 if (i == 1)
@@ -360,19 +389,19 @@ public class CAICharacter : CCharacter
             float distance = Vector3.Distance(agent.destination, transform.position);
             transform.LookAt(agent.path.corners[1]);
 
-            if (distance > 3.3f)
+            if (distance > 3+stoppingDistence)
             {
                 if (maxSpeed < 1)
                     anim.SetFloat("Speed", maxSpeed);
                 else
                     anim.SetFloat("Speed", 1);
             }
-            else if(distance>0.3f)
+            else if(distance>stoppingDistence)
             {
-                if (maxSpeed < distance-0.3f / 3)
+                if (maxSpeed < distance-stoppingDistence / 3)
                     anim.SetFloat("Speed", maxSpeed);
                 else
-                    anim.SetFloat("Speed", distance-0.3f / 3);
+                    anim.SetFloat("Speed", distance-stoppingDistence / 3);
             }
             else
             {
@@ -385,8 +414,6 @@ public class CAICharacter : CCharacter
     protected override void FUpdate()
     {
         SetSpeed();
-
-        
 
     }
 
