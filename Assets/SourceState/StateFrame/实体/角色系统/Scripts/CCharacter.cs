@@ -351,7 +351,6 @@ public class CCharacter : MonoBehaviour
         //weapon.tag = "Weapon";
         //weapon.box.enabled = true;
         energy -= 0.1f;
-        Debug.Log(energy);
         isWeaponDetecting = true;
         WeaponDetection();
     }

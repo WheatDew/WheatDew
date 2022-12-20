@@ -14,17 +14,18 @@ public class CAICharacter : CCharacter
     public Transform targetPoint;
     //行为列表
     public Dictionary<string,Behaviour> behaviours=new Dictionary<string,Behaviour>();
-
+    //行为层列表
+    public Dictionary<string,List<string>> behavioursList=new Dictionary<string, List<string>>();
+    //浮点数据
+    public Dictionary<string, float> fdata = new Dictionary<string, float>();
 
     private bool behaviourEnable = true;
     private bool jumpEnable = false;
     private bool strollEnable=false;
+    private bool lookEnable = true;
     private float maxSpeed = 1;
     public float linkSpeed = 0.4f;
     public float stoppingDistence = 0.5f;
-
-    public float stopTime = 0;
-    public float attackProbability = 0.5f, attackTime = 0.5f;
 
 
 
@@ -38,6 +39,18 @@ public class CAICharacter : CCharacter
             agent.destination = targetPoint.position;
         }
 
+        fdata.Add("循环计时器", 0);
+        fdata.Add("循环周期", 0.5f);
+        fdata.Add("攻击概率", 0.8f);
+        fdata.Add("攻击计时器", 0);
+        fdata.Add("攻击冷却", 0.4f);
+        fdata.Add("观察概率", 1);
+        fdata.Add("观察计时器", 0);
+        fdata.Add("观察冷却", 2);
+        fdata.Add("后撤概率", 0.5f);
+        fdata.Add("后撤计时器", 0);
+        fdata.Add("后撤冷却", 1);
+
         AddBehaviour("移动到目标点", MoveToTarget);
         AddBehaviour("察觉敌人", NoticeEnemy);
         AddBehaviour("向敌人移动", MoveToEnemy);
@@ -46,6 +59,9 @@ public class CAICharacter : CCharacter
         AddBehaviour("近距离时观察", ObserveAtCloseRange);
         AddBehaviour("闲逛", Stroll);
         AddBehaviour("丢失敌人", MissEnemy);
+
+        behavioursList.Add("正常", new List<string> { "察觉敌人", "移动到目标点" });
+        behavioursList.Add("战斗", new List<string> { "丢失敌人","近距离时攻击","近距离时后退","近距离时观察" });
     }
 
     //添加行为到列表
@@ -250,11 +266,12 @@ public class CAICharacter : CCharacter
     /// </summary>
     public void NoticeEnemy()
     {
-        if (!fighting && noticed != null)
+        if (!fighting && noticed != null&&noticed.tag!="Death")
         {
 
             fighting = true;
             anim.SetBool("Fighting", true);
+            currentBehaviours = behavioursList["战斗"];
         }
     }
 
@@ -263,11 +280,13 @@ public class CAICharacter : CCharacter
     /// </summary>
     public void MissEnemy()
     {
-        if (fighting && (noticed == null||noticed.tag=="Death"))
+        if (fighting && (noticed == null||noticed.tag=="Death"
+            ||Vector3.Distance(transform.position,noticed.transform.position)>6))
         {
             fighting = false;
             anim.SetBool("Fighting", false);
-            agent.destination = targetPoint.position;
+            lookEnable = true;
+            currentBehaviours = behavioursList["正常"];
         }
     }
 
@@ -295,16 +314,16 @@ public class CAICharacter : CCharacter
 
         if (noticed != null&& Vector3.Distance(noticed.transform.position, transform.position) <= 2)
         {
-            if (currentAnimatorStateInfo.IsTag("Low")    
-                &&currentAnimatorStateInfo.normalizedTime>=0.8f  // 判断动画进度
-                &&Random.value<=0.5f    //判断概率
+            if (currentAnimatorStateInfo.IsTag("Low")
+                && fdata["攻击计时器"] >= fdata["攻击冷却"]
+                && Random.value <= fdata["攻击概率"]
                 )
             {
                 transform.LookAt(noticed.transform);
                 anim.SetTrigger("Attack");
-                if (!agent.isStopped)
-                    agent.isStopped = true;
+                lookEnable = false;
                 jumpEnable = true;
+                fdata["攻击计时器"] = 0;
             }
         }
     }
@@ -318,15 +337,15 @@ public class CAICharacter : CCharacter
         if (noticed != null && Vector3.Distance(noticed.transform.position, transform.position) <= 2)
         {
             if (currentAnimatorStateInfo.IsTag("Low")
-                && currentAnimatorStateInfo.normalizedTime >= 0.8f  // 判断动画进度
-                && Random.value <= 1f    //判断概率
+                && fdata["后撤计时器"] >= fdata["后撤冷却"]
+                && Random.value <= fdata["后撤概率"]
                 )
             {
                 transform.LookAt(noticed.transform);
                 anim.SetTrigger("Dodge");
-                if (!agent.isStopped)
-                    agent.isStopped = true;
+                lookEnable = false;
                 jumpEnable = true;
+                fdata["后撤计时器"] = 0;
             }
 
         }
@@ -337,13 +356,16 @@ public class CAICharacter : CCharacter
     /// </summary>
     public void ObserveAtCloseRange()
     {
-        if (noticed != null && Vector3.Distance(noticed.transform.position, transform.position) <= 5
-            &&(Vector3.Distance(agent.destination,transform.position)<0.1f))
+        if (noticed != null && noticed.tag!="Death"
+            && Random.value <= fdata["观察概率"]
+            && fdata["观察计时器"] > fdata["观察冷却"])
         {
             Vector2 target_v2 = SMath.GetRandomValueOnCircle(4);
             Vector3 target_v3 = new Vector3(target_v2.x, 0, target_v2.y);
             agent.destination = noticed.transform.position + target_v3;
-
+            jumpEnable = true;
+            fdata["观察计时器"] = 0;
+            fdata["观察冷却"] = 0.5f;
         }
     }
 
@@ -387,7 +409,8 @@ public class CAICharacter : CCharacter
 
 
             float distance = Vector3.Distance(agent.destination, transform.position);
-            transform.LookAt(agent.path.corners[1]);
+            if (lookEnable)
+                transform.LookAt(agent.path.corners[1]);
 
             if (distance > 3+stoppingDistence)
             {
@@ -419,19 +442,29 @@ public class CAICharacter : CCharacter
 
     protected override void NUpdate()
     {
-        for (int i = 0; i < currentBehaviours.Count; i++)
+        fdata["循环计时器"] += Time.deltaTime;
+        fdata["攻击计时器"] += Time.deltaTime;
+        fdata["观察计时器"] += Time.deltaTime;
+        fdata["后撤计时器"] += Time.deltaTime;
+        if (fdata["循环计时器"] > fdata["循环周期"])
         {
-            if(jumpEnable)
+            for (int i = 0; i < currentBehaviours.Count; i++)
             {
-                jumpEnable = false;
-                break;
+                if (jumpEnable)
+                {
+                    jumpEnable = false;
+                    break;
+                }
+                //Debug.Log(currentBehaviours[i]+" "+behaviours[currentBehaviours[i]].probability.ToString());
+                if (behaviourEnable && Random.value <= behaviours[currentBehaviours[i]].probability)
+                {
+                    behaviours[currentBehaviours[i]].behaviour();
+                }
             }
-            //Debug.Log(currentBehaviours[i]+" "+behaviours[currentBehaviours[i]].probability.ToString());
-            if (behaviourEnable && Random.value <= behaviours[currentBehaviours[i]].probability)
-            {
-                behaviours[currentBehaviours[i]].behaviour();
-            }
+            fdata["循环计时器"] = 0;
         }
+
+
 
     }
 
