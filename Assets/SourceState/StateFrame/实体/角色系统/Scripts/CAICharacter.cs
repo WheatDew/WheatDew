@@ -50,6 +50,9 @@ public class CAICharacter : CCharacter
         fdata.Add("后撤概率", 0.5f);
         fdata.Add("后撤计时器", 0);
         fdata.Add("后撤冷却", 1);
+        fdata.Add("格挡计时器", 0);
+        fdata.Add("格挡概率", 0.1f);
+        fdata.Add("格挡冷却", 0.5f);
 
         AddBehaviour("移动到目标点", MoveToTarget);
         AddBehaviour("察觉敌人", NoticeEnemy);
@@ -57,11 +60,13 @@ public class CAICharacter : CCharacter
         AddBehaviour("近距离时攻击", AttackAtCloseRange);
         AddBehaviour("近距离时后退", DodgeAtCloseRange);
         AddBehaviour("近距离时观察", ObserveAtCloseRange);
+        AddBehaviour("近距离时格挡", GuardAtCloseRange);
+        AddBehaviour("结束格挡", EndGuard);
         AddBehaviour("闲逛", Stroll);
         AddBehaviour("丢失敌人", MissEnemy);
 
         behavioursList.Add("正常", new List<string> { "察觉敌人", "移动到目标点" });
-        behavioursList.Add("战斗", new List<string> { "丢失敌人","近距离时攻击","近距离时后退","近距离时观察" });
+        behavioursList.Add("战斗", new List<string> { "丢失敌人","近距离时格挡","近距离时攻击","近距离时后退","近距离时观察" });
     }
 
     //添加行为到列表
@@ -352,6 +357,46 @@ public class CAICharacter : CCharacter
     }
 
     /// <summary>
+    /// 结束格挡
+    /// </summary>
+    public void EndGuard()
+    {
+        if (noticed != null && Vector3.Distance(noticed.transform.position, transform.position) <= 2)
+        {
+            if (noticed != null && noticed.tag != "Death"
+                && Random.value <= fdata["格挡概率"]
+                && fdata["格挡计时器"] > fdata["格挡冷却"])
+            {
+                transform.LookAt(noticed.transform);
+                anim.SetTrigger("Guard");
+                lookEnable = false;
+                jumpEnable = true;
+                fdata["格挡计时器"] = 0;
+            }
+        }
+    }
+
+    /// <summary>
+    /// 近距离时格挡
+    /// </summary>
+    public void GuardAtCloseRange()
+    {
+        if (noticed != null && Vector3.Distance(noticed.transform.position, transform.position) <= 2)
+        {
+            if (noticed != null && noticed.tag != "Death"
+                && Random.value <= fdata["格挡概率"]
+                && fdata["格挡计时器"] > fdata["格挡冷却"])
+            {
+                transform.LookAt(noticed.transform);
+                anim.SetTrigger("Guard");
+                lookEnable = false;
+                jumpEnable = true;
+                fdata["格挡计时器"] = 0;
+            }
+        }
+    }
+
+    /// <summary>
     /// 近距离时观察
     /// </summary>
     public void ObserveAtCloseRange()
@@ -446,6 +491,8 @@ public class CAICharacter : CCharacter
         fdata["攻击计时器"] += Time.deltaTime;
         fdata["观察计时器"] += Time.deltaTime;
         fdata["后撤计时器"] += Time.deltaTime;
+        fdata["格挡计时器"] += Time.deltaTime;
+        fdata["结束格挡计时器"] += Time.deltaTime;
         if (fdata["循环计时器"] > fdata["循环周期"])
         {
             for (int i = 0; i < currentBehaviours.Count; i++)
