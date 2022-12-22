@@ -53,6 +53,7 @@ public class CAICharacter : CCharacter
         fdata.Add("格挡计时器", 0);
         fdata.Add("格挡概率", 0.1f);
         fdata.Add("格挡冷却", 0.5f);
+        fdata.Add("结束格挡概率", 0.5f);
 
         AddBehaviour("移动到目标点", MoveToTarget);
         AddBehaviour("察觉敌人", NoticeEnemy);
@@ -67,6 +68,7 @@ public class CAICharacter : CCharacter
 
         behavioursList.Add("正常", new List<string> { "察觉敌人", "移动到目标点" });
         behavioursList.Add("战斗", new List<string> { "丢失敌人","近距离时格挡","近距离时攻击","近距离时后退","近距离时观察" });
+        behavioursList.Add("格挡", new List<string> { "结束格挡" });
     }
 
     //添加行为到列表
@@ -363,15 +365,13 @@ public class CAICharacter : CCharacter
     {
         if (noticed != null && Vector3.Distance(noticed.transform.position, transform.position) <= 2)
         {
-            if (noticed != null && noticed.tag != "Death"
-                && Random.value <= fdata["格挡概率"]
-                && fdata["格挡计时器"] > fdata["格挡冷却"])
+            if ( Random.value <= fdata["结束格挡概率"])
             {
                 transform.LookAt(noticed.transform);
-                anim.SetTrigger("Guard");
+                anim.SetBool("Guard",false);
                 lookEnable = false;
                 jumpEnable = true;
-                fdata["格挡计时器"] = 0;
+                currentBehaviours = behavioursList["战斗"];
             }
         }
     }
@@ -388,10 +388,11 @@ public class CAICharacter : CCharacter
                 && fdata["格挡计时器"] > fdata["格挡冷却"])
             {
                 transform.LookAt(noticed.transform);
-                anim.SetTrigger("Guard");
+                anim.SetBool("Guard",true);
                 lookEnable = false;
                 jumpEnable = true;
                 fdata["格挡计时器"] = 0;
+                currentBehaviours = behavioursList["格挡"];
             }
         }
     }
@@ -492,7 +493,6 @@ public class CAICharacter : CCharacter
         fdata["观察计时器"] += Time.deltaTime;
         fdata["后撤计时器"] += Time.deltaTime;
         fdata["格挡计时器"] += Time.deltaTime;
-        fdata["结束格挡计时器"] += Time.deltaTime;
         if (fdata["循环计时器"] > fdata["循环周期"])
         {
             for (int i = 0; i < currentBehaviours.Count; i++)
