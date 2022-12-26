@@ -15,5 +15,5 @@ public class NewMapSystem : MonoBehaviour
         }
     }
 
-    public NewMapTest[] memeber;
+    public MapElement[] memeber;
 }
