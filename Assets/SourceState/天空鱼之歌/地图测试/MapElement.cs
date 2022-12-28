@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class MapElement : MonoBehaviour
@@ -8,6 +6,8 @@ public class MapElement : MonoBehaviour
     public string currentTexture;
     private Bounds bounds;
     [System.NonSerialized] public Material material;
+    public enum CenterType { Point,Constant}
+    public CenterType centerType;
 
     private void Start()
     {
@@ -52,19 +52,44 @@ public class MapElement : MonoBehaviour
                     max_y = item.bounds.max.y;
                 }
             }
-            Vector3 center = new Vector3((max_x + min_x) / 2f, (min_y + max_y) / 2f, 0);
-            Vector2 length = new Vector2(max_x - min_x, max_y - min_y);
-            center = new Vector3(center.x - length.x / 2f, center.y - length.y / 2f, 0);
 
-            for (int i = 0; i < NewMapSystem.instance.memeber.Length; i++)
+            if (centerType == CenterType.Constant)
             {
-                var item = NewMapSystem.instance.memeber[i];
-                if (item.currentTexture != "xiaoxi")
-                    continue;
+                Vector3 center = new Vector3((max_x + min_x) / 2f, (min_y + max_y) / 2f, 0);
+                Vector2 length = new Vector2(max_x - min_x, max_y - min_y);
+                center = new Vector3(center.x - length.x / 2f, center.y - length.y / 2f, 0);
 
-                item.material.mainTextureOffset = new Vector2((item.transform.position.x-1f - center.x) / length.x, (item.transform.position.y-1f - center.y) / length.y);
-                item.material.mainTextureScale = new Vector2(2f / length.x, 2f / length.y);
+                for (int i = 0; i < NewMapSystem.instance.memeber.Length; i++)
+                {
+                    var item = NewMapSystem.instance.memeber[i];
+                    if (item.currentTexture != "xiaoxi")
+                        continue;
+
+                    item.material.mainTextureOffset = new Vector2((item.transform.position.x - 1f - center.x) / length.x, (item.transform.position.y - 1f - center.y) / length.y);
+                    item.material.mainTextureScale = new Vector2(2f / length.x, 2f / length.y);
+                }
             }
+            else if(centerType == CenterType.Point)
+            {
+                Debug.DrawLine(new Vector3(min_x, min_y, 0.1f), new Vector3(max_x, min_y, 0.1f), Color.red, 10);
+                Debug.DrawLine(new Vector3(max_x, min_y, 0.1f), new Vector3(max_x, max_y, 0.1f), Color.red, 10);
+                Debug.DrawLine(new Vector3(max_x, max_y, 0.1f), new Vector3(min_x, max_y, 0.1f), Color.red, 10);
+                Debug.DrawLine(new Vector3(min_x, max_y, 0.1f), new Vector3(min_x, min_y, 0.1f), Color.red, 10);
+                Vector3 center = new Vector3((max_x + min_x) / 1f, (min_y + max_y) / 1f, 0);
+                Vector2 length = new Vector2(max_x - min_x, max_y - min_y);
+                center = new Vector3(center.x - length.x / 1f, center.y - length.y / 1f, 0);
+
+                for (int i = 0; i < NewMapSystem.instance.memeber.Length; i++)
+                {
+                    var item = NewMapSystem.instance.memeber[i];
+                    if (item.currentTexture != "xiaoxi")
+                        continue;
+
+                    item.material.mainTextureOffset = new Vector2((item.transform.position.x - center.x) / length.x, (item.transform.position.y+0.5f - center.y) / length.y);
+                    item.material.mainTextureScale = new Vector2(1f / length.x, 1f / length.y);
+                }
+            }
+
         }
     }
 }
