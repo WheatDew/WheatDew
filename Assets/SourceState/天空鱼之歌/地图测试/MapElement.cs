@@ -22,11 +22,15 @@ public class MapElement : MonoBehaviour
 
     private void OnMouseOver()
     {
+        if (Input.GetMouseButtonDown(0))
+        {
+            NewMapSystem.instance.Flash(material);
+        }
         
 
         if (Input.GetMouseButtonDown(1))
         {
-            material.mainTexture = texture;
+            material.SetTexture("_BaseColorMap0", texture);
             currentTexture = "xiaoxi";
             float max_x = -999, max_y = -999, min_x = 999, min_y = 999;
             
@@ -75,18 +79,17 @@ public class MapElement : MonoBehaviour
                 Debug.DrawLine(new Vector3(max_x, min_y, 0.1f), new Vector3(max_x, max_y, 0.1f), Color.red, 10);
                 Debug.DrawLine(new Vector3(max_x, max_y, 0.1f), new Vector3(min_x, max_y, 0.1f), Color.red, 10);
                 Debug.DrawLine(new Vector3(min_x, max_y, 0.1f), new Vector3(min_x, min_y, 0.1f), Color.red, 10);
-                Vector3 center = new Vector3((max_x + min_x) / 1f, (min_y + max_y) / 1f, 0);
+                Vector3 center = new Vector3((max_x + min_x) / 2f, (min_y + max_y) / 2f, 0);
                 Vector2 length = new Vector2(max_x - min_x, max_y - min_y);
-                center = new Vector3(center.x - length.x / 1f, center.y - length.y / 1f, 0);
+                center = new Vector3(center.x - length.x / 2f, center.y - length.y / 2f, 0);
 
                 for (int i = 0; i < NewMapSystem.instance.memeber.Length; i++)
                 {
                     var item = NewMapSystem.instance.memeber[i];
                     if (item.currentTexture != "xiaoxi")
                         continue;
-
-                    item.material.mainTextureOffset = new Vector2((item.transform.position.x - center.x) / length.x, (item.transform.position.y+0.5f - center.y) / length.y);
-                    item.material.mainTextureScale = new Vector2(1f / length.x, 1f / length.y);
+                    item.material.SetTextureOffset("_BaseColorMap0", new Vector2((item.transform.position.x - 0.5f - center.x) / length.x, (item.transform.position.y - 0.5f - center.y) / length.y));
+                    item.material.SetTextureScale("_BaseColorMap0", new Vector2(1f / length.x, 1f / length.y));
                 }
             }
 
