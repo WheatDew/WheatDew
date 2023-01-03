@@ -170,8 +170,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0603e8544fc18334f97c67a0ce178b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: a8e128e0b999efd44b13f5a21fc98c84, type: 3}
-  currentTexture: 
+  faith: 
   centerType: 0
 --- !u!64 &556039
 MeshCollider:
@@ -284,8 +283,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0603e8544fc18334f97c67a0ce178b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: a8e128e0b999efd44b13f5a21fc98c84, type: 3}
-  currentTexture: 
+  faith: 
   centerType: 0
 --- !u!64 &2719774
 MeshCollider:
@@ -398,8 +396,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0603e8544fc18334f97c67a0ce178b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: a8e128e0b999efd44b13f5a21fc98c84, type: 3}
-  currentTexture: 
+  faith: 
   centerType: 0
 --- !u!64 &10075509
 MeshCollider:
@@ -512,8 +509,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0603e8544fc18334f97c67a0ce178b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: a8e128e0b999efd44b13f5a21fc98c84, type: 3}
-  currentTexture: 
+  faith: "\u5609\u7136"
   centerType: 0
 --- !u!64 &10800453
 MeshCollider:
@@ -626,8 +622,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0603e8544fc18334f97c67a0ce178b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: a8e128e0b999efd44b13f5a21fc98c84, type: 3}
-  currentTexture: 
+  faith: 
   centerType: 0
 --- !u!64 &19909346
 MeshCollider:
@@ -740,8 +735,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0603e8544fc18334f97c67a0ce178b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: a8e128e0b999efd44b13f5a21fc98c84, type: 3}
-  currentTexture: 
+  faith: 
   centerType: 0
 --- !u!64 &27094045
 MeshCollider:
@@ -854,8 +848,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0603e8544fc18334f97c67a0ce178b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: a8e128e0b999efd44b13f5a21fc98c84, type: 3}
-  currentTexture: 
+  faith: 
   centerType: 0
 --- !u!64 &34514403
 MeshCollider:
@@ -968,8 +961,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0603e8544fc18334f97c67a0ce178b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: a8e128e0b999efd44b13f5a21fc98c84, type: 3}
-  currentTexture: 
+  faith: 
   centerType: 0
 --- !u!64 &42359028
 MeshCollider:
@@ -1082,8 +1074,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0603e8544fc18334f97c67a0ce178b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: a8e128e0b999efd44b13f5a21fc98c84, type: 3}
-  currentTexture: 
+  faith: 
   centerType: 0
 --- !u!64 &56023817
 MeshCollider:
@@ -1196,8 +1187,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0603e8544fc18334f97c67a0ce178b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: a8e128e0b999efd44b13f5a21fc98c84, type: 3}
-  currentTexture: 
+  faith: 
   centerType: 0
 --- !u!64 &66549246
 MeshCollider:
@@ -1310,8 +1300,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0603e8544fc18334f97c67a0ce178b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: a8e128e0b999efd44b13f5a21fc98c84, type: 3}
-  currentTexture: 
+  faith: 
   centerType: 0
 --- !u!64 &88475039
 MeshCollider:
@@ -1424,8 +1413,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0603e8544fc18334f97c67a0ce178b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: a8e128e0b999efd44b13f5a21fc98c84, type: 3}
-  currentTexture: 
+  faith: 
   centerType: 0
 --- !u!64 &121145597
 MeshCollider:
@@ -1538,8 +1526,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0603e8544fc18334f97c67a0ce178b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: a8e128e0b999efd44b13f5a21fc98c84, type: 3}
-  currentTexture: 
+  faith: 
   centerType: 0
 --- !u!64 &127719933
 MeshCollider:
@@ -1652,8 +1639,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0603e8544fc18334f97c67a0ce178b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: a8e128e0b999efd44b13f5a21fc98c84, type: 3}
-  currentTexture: 
+  faith: 
   centerType: 0
 --- !u!64 &174656776
 MeshCollider:
@@ -1766,8 +1752,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0603e8544fc18334f97c67a0ce178b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: a8e128e0b999efd44b13f5a21fc98c84, type: 3}
-  currentTexture: 
+  faith: 
   centerType: 0
 --- !u!64 &197337349
 MeshCollider:
@@ -1880,8 +1865,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0603e8544fc18334f97c67a0ce178b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: a8e128e0b999efd44b13f5a21fc98c84, type: 3}
-  currentTexture: 
+  faith: 
   centerType: 0
 --- !u!64 &204225840
 MeshCollider:
@@ -1994,8 +1978,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0603e8544fc18334f97c67a0ce178b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: a8e128e0b999efd44b13f5a21fc98c84, type: 3}
-  currentTexture: 
+  faith: 
   centerType: 0
 --- !u!64 &206543702
 MeshCollider:
@@ -2108,8 +2091,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0603e8544fc18334f97c67a0ce178b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: a8e128e0b999efd44b13f5a21fc98c84, type: 3}
-  currentTexture: 
+  faith: 
   centerType: 0
 --- !u!64 &214108140
 MeshCollider:
@@ -2222,8 +2204,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0603e8544fc18334f97c67a0ce178b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: a8e128e0b999efd44b13f5a21fc98c84, type: 3}
-  currentTexture: 
+  faith: 
   centerType: 0
 --- !u!64 &234823056
 MeshCollider:
@@ -2336,8 +2317,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0603e8544fc18334f97c67a0ce178b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: a8e128e0b999efd44b13f5a21fc98c84, type: 3}
-  currentTexture: 
+  faith: 
   centerType: 0
 --- !u!64 &246473050
 MeshCollider:
@@ -2450,8 +2430,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0603e8544fc18334f97c67a0ce178b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: a8e128e0b999efd44b13f5a21fc98c84, type: 3}
-  currentTexture: 
+  faith: 
   centerType: 0
 --- !u!64 &252349475
 MeshCollider:
@@ -2564,8 +2543,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0603e8544fc18334f97c67a0ce178b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: a8e128e0b999efd44b13f5a21fc98c84, type: 3}
-  currentTexture: 
+  faith: "\u5609\u7136"
   centerType: 0
 --- !u!64 &296516966
 MeshCollider:
@@ -2678,8 +2656,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0603e8544fc18334f97c67a0ce178b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: a8e128e0b999efd44b13f5a21fc98c84, type: 3}
-  currentTexture: 
+  faith: 
   centerType: 0
 --- !u!64 &333356578
 MeshCollider:
@@ -3001,8 +2978,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0603e8544fc18334f97c67a0ce178b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: a8e128e0b999efd44b13f5a21fc98c84, type: 3}
-  currentTexture: 
+  faith: "\u5C0F\u5E0C"
   centerType: 0
 --- !u!64 &341318068
 MeshCollider:
@@ -3115,8 +3091,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0603e8544fc18334f97c67a0ce178b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: a8e128e0b999efd44b13f5a21fc98c84, type: 3}
-  currentTexture: 
+  faith: 
   centerType: 0
 --- !u!64 &342032953
 MeshCollider:
@@ -3229,8 +3204,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0603e8544fc18334f97c67a0ce178b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: a8e128e0b999efd44b13f5a21fc98c84, type: 3}
-  currentTexture: 
+  faith: 
   centerType: 0
 --- !u!64 &348403891
 MeshCollider:
@@ -3343,8 +3317,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0603e8544fc18334f97c67a0ce178b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: a8e128e0b999efd44b13f5a21fc98c84, type: 3}
-  currentTexture: 
+  faith: 
   centerType: 0
 --- !u!64 &352281124
 MeshCollider:
@@ -3457,8 +3430,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0603e8544fc18334f97c67a0ce178b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: a8e128e0b999efd44b13f5a21fc98c84, type: 3}
-  currentTexture: 
+  faith: 
   centerType: 0
 --- !u!64 &360041749
 MeshCollider:
@@ -3571,8 +3543,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0603e8544fc18334f97c67a0ce178b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: a8e128e0b999efd44b13f5a21fc98c84, type: 3}
-  currentTexture: 
+  faith: 
   centerType: 0
 --- !u!64 &383103067
 MeshCollider:
@@ -3685,8 +3656,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0603e8544fc18334f97c67a0ce178b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: a8e128e0b999efd44b13f5a21fc98c84, type: 3}
-  currentTexture: 
+  faith: 
   centerType: 0
 --- !u!64 &426006930
 MeshCollider:
@@ -3799,8 +3769,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0603e8544fc18334f97c67a0ce178b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: a8e128e0b999efd44b13f5a21fc98c84, type: 3}
-  currentTexture: 
+  faith: 
   centerType: 0
 --- !u!64 &433320353
 MeshCollider:
@@ -3913,8 +3882,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0603e8544fc18334f97c67a0ce178b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: a8e128e0b999efd44b13f5a21fc98c84, type: 3}
-  currentTexture: 
+  faith: 
   centerType: 0
 --- !u!64 &476562849
 MeshCollider:
@@ -4027,8 +3995,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0603e8544fc18334f97c67a0ce178b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: a8e128e0b999efd44b13f5a21fc98c84, type: 3}
-  currentTexture: 
+  faith: 
   centerType: 0
 --- !u!64 &481244507
 MeshCollider:
@@ -4141,8 +4108,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0603e8544fc18334f97c67a0ce178b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: a8e128e0b999efd44b13f5a21fc98c84, type: 3}
-  currentTexture: 
+  faith: 
   centerType: 0
 --- !u!64 &535371433
 MeshCollider:
@@ -4255,8 +4221,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0603e8544fc18334f97c67a0ce178b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: a8e128e0b999efd44b13f5a21fc98c84, type: 3}
-  currentTexture: 
+  faith: 
   centerType: 0
 --- !u!64 &562369740
 MeshCollider:
@@ -4369,8 +4334,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0603e8544fc18334f97c67a0ce178b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: a8e128e0b999efd44b13f5a21fc98c84, type: 3}
-  currentTexture: 
+  faith: 
   centerType: 0
 --- !u!64 &604959138
 MeshCollider:
@@ -4483,8 +4447,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0603e8544fc18334f97c67a0ce178b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: a8e128e0b999efd44b13f5a21fc98c84, type: 3}
-  currentTexture: 
+  faith: 
   centerType: 0
 --- !u!64 &625400829
 MeshCollider:
@@ -4597,8 +4560,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0603e8544fc18334f97c67a0ce178b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: a8e128e0b999efd44b13f5a21fc98c84, type: 3}
-  currentTexture: 
+  faith: 
   centerType: 0
 --- !u!64 &629577983
 MeshCollider:
@@ -4711,8 +4673,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0603e8544fc18334f97c67a0ce178b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: a8e128e0b999efd44b13f5a21fc98c84, type: 3}
-  currentTexture: 
+  faith: 
   centerType: 0
 --- !u!64 &644784803
 MeshCollider:
@@ -4825,8 +4786,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0603e8544fc18334f97c67a0ce178b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: a8e128e0b999efd44b13f5a21fc98c84, type: 3}
-  currentTexture: 
+  faith: 
   centerType: 0
 --- !u!64 &650474723
 MeshCollider:
@@ -4939,8 +4899,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0603e8544fc18334f97c67a0ce178b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: a8e128e0b999efd44b13f5a21fc98c84, type: 3}
-  currentTexture: 
+  faith: 
   centerType: 0
 --- !u!64 &710548355
 MeshCollider:
@@ -5053,8 +5012,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0603e8544fc18334f97c67a0ce178b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: a8e128e0b999efd44b13f5a21fc98c84, type: 3}
-  currentTexture: 
+  faith: 
   centerType: 0
 --- !u!64 &713400936
 MeshCollider:
@@ -5167,8 +5125,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0603e8544fc18334f97c67a0ce178b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: a8e128e0b999efd44b13f5a21fc98c84, type: 3}
-  currentTexture: 
+  faith: 
   centerType: 0
 --- !u!64 &716266594
 MeshCollider:
@@ -5281,8 +5238,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0603e8544fc18334f97c67a0ce178b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: a8e128e0b999efd44b13f5a21fc98c84, type: 3}
-  currentTexture: 
+  faith: 
   centerType: 0
 --- !u!64 &733004690
 MeshCollider:
@@ -5395,8 +5351,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0603e8544fc18334f97c67a0ce178b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: a8e128e0b999efd44b13f5a21fc98c84, type: 3}
-  currentTexture: 
+  faith: 
   centerType: 0
 --- !u!64 &742024918
 MeshCollider:
@@ -5509,8 +5464,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0603e8544fc18334f97c67a0ce178b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: a8e128e0b999efd44b13f5a21fc98c84, type: 3}
-  currentTexture: 
+  faith: 
   centerType: 0
 --- !u!64 &743275988
 MeshCollider:
@@ -5623,8 +5577,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0603e8544fc18334f97c67a0ce178b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: a8e128e0b999efd44b13f5a21fc98c84, type: 3}
-  currentTexture: 
+  faith: "\u5C0F\u5E0C"
   centerType: 0
 --- !u!64 &745248299
 MeshCollider:
@@ -5737,8 +5690,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0603e8544fc18334f97c67a0ce178b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: a8e128e0b999efd44b13f5a21fc98c84, type: 3}
-  currentTexture: 
+  faith: 
   centerType: 0
 --- !u!64 &750088005
 MeshCollider:
@@ -5851,8 +5803,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0603e8544fc18334f97c67a0ce178b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: a8e128e0b999efd44b13f5a21fc98c84, type: 3}
-  currentTexture: 
+  faith: "\u5C0F\u5E0C"
   centerType: 0
 --- !u!64 &750317167
 MeshCollider:
@@ -5965,8 +5916,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0603e8544fc18334f97c67a0ce178b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: a8e128e0b999efd44b13f5a21fc98c84, type: 3}
-  currentTexture: 
+  faith: 
   centerType: 0
 --- !u!64 &788908858
 MeshCollider:
@@ -6079,8 +6029,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0603e8544fc18334f97c67a0ce178b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: a8e128e0b999efd44b13f5a21fc98c84, type: 3}
-  currentTexture: 
+  faith: 
   centerType: 0
 --- !u!64 &791074791
 MeshCollider:
@@ -6193,8 +6142,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0603e8544fc18334f97c67a0ce178b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: a8e128e0b999efd44b13f5a21fc98c84, type: 3}
-  currentTexture: 
+  faith: 
   centerType: 0
 --- !u!64 &794031517
 MeshCollider:
@@ -6307,8 +6255,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0603e8544fc18334f97c67a0ce178b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: a8e128e0b999efd44b13f5a21fc98c84, type: 3}
-  currentTexture: 
+  faith: 
   centerType: 0
 --- !u!64 &808566233
 MeshCollider:
@@ -6421,8 +6368,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0603e8544fc18334f97c67a0ce178b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: a8e128e0b999efd44b13f5a21fc98c84, type: 3}
-  currentTexture: 
+  faith: 
   centerType: 0
 --- !u!64 &828188391
 MeshCollider:
@@ -6535,8 +6481,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0603e8544fc18334f97c67a0ce178b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: a8e128e0b999efd44b13f5a21fc98c84, type: 3}
-  currentTexture: 
+  faith: 
   centerType: 0
 --- !u!64 &862011510
 MeshCollider:
@@ -6649,8 +6594,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0603e8544fc18334f97c67a0ce178b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: a8e128e0b999efd44b13f5a21fc98c84, type: 3}
-  currentTexture: 
+  faith: 
   centerType: 0
 --- !u!64 &872106744
 MeshCollider:
@@ -6763,8 +6707,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0603e8544fc18334f97c67a0ce178b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: a8e128e0b999efd44b13f5a21fc98c84, type: 3}
-  currentTexture: 
+  faith: 
   centerType: 0
 --- !u!64 &881341875
 MeshCollider:
@@ -6877,8 +6820,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0603e8544fc18334f97c67a0ce178b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: a8e128e0b999efd44b13f5a21fc98c84, type: 3}
-  currentTexture: 
+  faith: 
   centerType: 0
 --- !u!64 &887537047
 MeshCollider:
@@ -6991,8 +6933,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0603e8544fc18334f97c67a0ce178b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: a8e128e0b999efd44b13f5a21fc98c84, type: 3}
-  currentTexture: 
+  faith: 
   centerType: 0
 --- !u!64 &921232791
 MeshCollider:
@@ -7105,8 +7046,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0603e8544fc18334f97c67a0ce178b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: a8e128e0b999efd44b13f5a21fc98c84, type: 3}
-  currentTexture: 
+  faith: 
   centerType: 0
 --- !u!64 &986133845
 MeshCollider:
@@ -7219,8 +7159,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0603e8544fc18334f97c67a0ce178b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: a8e128e0b999efd44b13f5a21fc98c84, type: 3}
-  currentTexture: 
+  faith: 
   centerType: 0
 --- !u!64 &992881457
 MeshCollider:
@@ -7333,8 +7272,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0603e8544fc18334f97c67a0ce178b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: a8e128e0b999efd44b13f5a21fc98c84, type: 3}
-  currentTexture: 
+  faith: 
   centerType: 0
 --- !u!64 &1005202620
 MeshCollider:
@@ -7447,8 +7385,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0603e8544fc18334f97c67a0ce178b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: a8e128e0b999efd44b13f5a21fc98c84, type: 3}
-  currentTexture: 
+  faith: 
   centerType: 0
 --- !u!64 &1007636042
 MeshCollider:
@@ -7561,8 +7498,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0603e8544fc18334f97c67a0ce178b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: a8e128e0b999efd44b13f5a21fc98c84, type: 3}
-  currentTexture: 
+  faith: 
   centerType: 0
 --- !u!64 &1017951363
 MeshCollider:
@@ -7675,8 +7611,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0603e8544fc18334f97c67a0ce178b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: a8e128e0b999efd44b13f5a21fc98c84, type: 3}
-  currentTexture: 
+  faith: 
   centerType: 0
 --- !u!64 &1018308585
 MeshCollider:
@@ -7789,8 +7724,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0603e8544fc18334f97c67a0ce178b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: a8e128e0b999efd44b13f5a21fc98c84, type: 3}
-  currentTexture: 
+  faith: "\u5609\u7136"
   centerType: 0
 --- !u!64 &1063200043
 MeshCollider:
@@ -7903,8 +7837,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0603e8544fc18334f97c67a0ce178b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: a8e128e0b999efd44b13f5a21fc98c84, type: 3}
-  currentTexture: 
+  faith: 
   centerType: 0
 --- !u!64 &1130320187
 MeshCollider:
@@ -8017,8 +7950,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0603e8544fc18334f97c67a0ce178b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: a8e128e0b999efd44b13f5a21fc98c84, type: 3}
-  currentTexture: 
+  faith: 
   centerType: 0
 --- !u!64 &1133016453
 MeshCollider:
@@ -8131,8 +8063,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0603e8544fc18334f97c67a0ce178b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: a8e128e0b999efd44b13f5a21fc98c84, type: 3}
-  currentTexture: 
+  faith: 
   centerType: 0
 --- !u!64 &1137786999
 MeshCollider:
@@ -8245,8 +8176,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0603e8544fc18334f97c67a0ce178b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: a8e128e0b999efd44b13f5a21fc98c84, type: 3}
-  currentTexture: 
+  faith: 
   centerType: 0
 --- !u!64 &1166287745
 MeshCollider:
@@ -8359,8 +8289,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0603e8544fc18334f97c67a0ce178b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: a8e128e0b999efd44b13f5a21fc98c84, type: 3}
-  currentTexture: 
+  faith: 
   centerType: 0
 --- !u!64 &1170307562
 MeshCollider:
@@ -8473,8 +8402,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0603e8544fc18334f97c67a0ce178b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: a8e128e0b999efd44b13f5a21fc98c84, type: 3}
-  currentTexture: 
+  faith: 
   centerType: 0
 --- !u!64 &1204050035
 MeshCollider:
@@ -8587,8 +8515,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0603e8544fc18334f97c67a0ce178b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: a8e128e0b999efd44b13f5a21fc98c84, type: 3}
-  currentTexture: 
+  faith: 
   centerType: 0
 --- !u!64 &1205178917
 MeshCollider:
@@ -8701,8 +8628,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0603e8544fc18334f97c67a0ce178b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: a8e128e0b999efd44b13f5a21fc98c84, type: 3}
-  currentTexture: 
+  faith: 
   centerType: 0
 --- !u!64 &1224490998
 MeshCollider:
@@ -9115,8 +9041,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0603e8544fc18334f97c67a0ce178b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: a8e128e0b999efd44b13f5a21fc98c84, type: 3}
-  currentTexture: 
+  faith: 
   centerType: 0
 --- !u!64 &1260869804
 MeshCollider:
@@ -9229,8 +9154,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0603e8544fc18334f97c67a0ce178b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: a8e128e0b999efd44b13f5a21fc98c84, type: 3}
-  currentTexture: 
+  faith: 
   centerType: 0
 --- !u!64 &1274230743
 MeshCollider:
@@ -9441,8 +9365,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0603e8544fc18334f97c67a0ce178b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: a8e128e0b999efd44b13f5a21fc98c84, type: 3}
-  currentTexture: 
+  faith: 
   centerType: 0
 --- !u!64 &1300114592
 MeshCollider:
@@ -9555,8 +9478,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0603e8544fc18334f97c67a0ce178b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: a8e128e0b999efd44b13f5a21fc98c84, type: 3}
-  currentTexture: 
+  faith: 
   centerType: 0
 --- !u!64 &1322906314
 MeshCollider:
@@ -9669,8 +9591,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0603e8544fc18334f97c67a0ce178b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: a8e128e0b999efd44b13f5a21fc98c84, type: 3}
-  currentTexture: 
+  faith: 
   centerType: 0
 --- !u!64 &1346945075
 MeshCollider:
@@ -9783,8 +9704,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0603e8544fc18334f97c67a0ce178b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: a8e128e0b999efd44b13f5a21fc98c84, type: 3}
-  currentTexture: 
+  faith: 
   centerType: 0
 --- !u!64 &1352530733
 MeshCollider:
@@ -9897,8 +9817,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0603e8544fc18334f97c67a0ce178b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: a8e128e0b999efd44b13f5a21fc98c84, type: 3}
-  currentTexture: 
+  faith: 
   centerType: 0
 --- !u!64 &1404608639
 MeshCollider:
@@ -10011,8 +9930,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0603e8544fc18334f97c67a0ce178b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: a8e128e0b999efd44b13f5a21fc98c84, type: 3}
-  currentTexture: 
+  faith: "\u5609\u7136"
   centerType: 0
 --- !u!64 &1442271270
 MeshCollider:
@@ -10125,8 +10043,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0603e8544fc18334f97c67a0ce178b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: a8e128e0b999efd44b13f5a21fc98c84, type: 3}
-  currentTexture: 
+  faith: 
   centerType: 0
 --- !u!64 &1452908433
 MeshCollider:
@@ -10239,8 +10156,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0603e8544fc18334f97c67a0ce178b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: a8e128e0b999efd44b13f5a21fc98c84, type: 3}
-  currentTexture: 
+  faith: 
   centerType: 0
 --- !u!64 &1460464935
 MeshCollider:
@@ -10353,8 +10269,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0603e8544fc18334f97c67a0ce178b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: a8e128e0b999efd44b13f5a21fc98c84, type: 3}
-  currentTexture: 
+  faith: "\u5C0F\u5E0C"
   centerType: 0
 --- !u!64 &1475338201
 MeshCollider:
@@ -10467,8 +10382,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0603e8544fc18334f97c67a0ce178b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: a8e128e0b999efd44b13f5a21fc98c84, type: 3}
-  currentTexture: 
+  faith: 
   centerType: 0
 --- !u!64 &1511992665
 MeshCollider:
@@ -10581,8 +10495,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0603e8544fc18334f97c67a0ce178b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: a8e128e0b999efd44b13f5a21fc98c84, type: 3}
-  currentTexture: 
+  faith: 
   centerType: 0
 --- !u!64 &1513366598
 MeshCollider:
@@ -10695,8 +10608,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0603e8544fc18334f97c67a0ce178b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: a8e128e0b999efd44b13f5a21fc98c84, type: 3}
-  currentTexture: 
+  faith: 
   centerType: 0
 --- !u!64 &1515744516
 MeshCollider:
@@ -10809,8 +10721,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0603e8544fc18334f97c67a0ce178b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: a8e128e0b999efd44b13f5a21fc98c84, type: 3}
-  currentTexture: 
+  faith: "\u5609\u7136"
   centerType: 0
 --- !u!64 &1542252308
 MeshCollider:
@@ -10923,8 +10834,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0603e8544fc18334f97c67a0ce178b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: a8e128e0b999efd44b13f5a21fc98c84, type: 3}
-  currentTexture: 
+  faith: 
   centerType: 0
 --- !u!64 &1545312132
 MeshCollider:
@@ -11037,8 +10947,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0603e8544fc18334f97c67a0ce178b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: a8e128e0b999efd44b13f5a21fc98c84, type: 3}
-  currentTexture: 
+  faith: 
   centerType: 0
 --- !u!64 &1594531537
 MeshCollider:
@@ -11151,8 +11060,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0603e8544fc18334f97c67a0ce178b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: a8e128e0b999efd44b13f5a21fc98c84, type: 3}
-  currentTexture: 
+  faith: 
   centerType: 0
 --- !u!64 &1596448077
 MeshCollider:
@@ -11265,8 +11173,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0603e8544fc18334f97c67a0ce178b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: a8e128e0b999efd44b13f5a21fc98c84, type: 3}
-  currentTexture: 
+  faith: 
   centerType: 0
 --- !u!64 &1596487366
 MeshCollider:
@@ -11379,8 +11286,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0603e8544fc18334f97c67a0ce178b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: a8e128e0b999efd44b13f5a21fc98c84, type: 3}
-  currentTexture: 
+  faith: 
   centerType: 0
 --- !u!64 &1608765284
 MeshCollider:
@@ -11493,8 +11399,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0603e8544fc18334f97c67a0ce178b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: a8e128e0b999efd44b13f5a21fc98c84, type: 3}
-  currentTexture: 
+  faith: 
   centerType: 0
 --- !u!64 &1621627018
 MeshCollider:
@@ -11607,8 +11512,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0603e8544fc18334f97c67a0ce178b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: a8e128e0b999efd44b13f5a21fc98c84, type: 3}
-  currentTexture: 
+  faith: 
   centerType: 0
 --- !u!64 &1623797132
 MeshCollider:
@@ -11721,8 +11625,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0603e8544fc18334f97c67a0ce178b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: a8e128e0b999efd44b13f5a21fc98c84, type: 3}
-  currentTexture: 
+  faith: 
   centerType: 0
 --- !u!64 &1627890855
 MeshCollider:
@@ -11835,8 +11738,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0603e8544fc18334f97c67a0ce178b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: a8e128e0b999efd44b13f5a21fc98c84, type: 3}
-  currentTexture: 
+  faith: 
   centerType: 0
 --- !u!64 &1636162799
 MeshCollider:
@@ -11949,8 +11851,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0603e8544fc18334f97c67a0ce178b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: a8e128e0b999efd44b13f5a21fc98c84, type: 3}
-  currentTexture: 
+  faith: "\u5609\u7136"
   centerType: 0
 --- !u!64 &1692803898
 MeshCollider:
@@ -12063,8 +11964,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0603e8544fc18334f97c67a0ce178b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: a8e128e0b999efd44b13f5a21fc98c84, type: 3}
-  currentTexture: 
+  faith: 
   centerType: 0
 --- !u!64 &1712822679
 MeshCollider:
@@ -12177,8 +12077,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0603e8544fc18334f97c67a0ce178b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: a8e128e0b999efd44b13f5a21fc98c84, type: 3}
-  currentTexture: 
+  faith: 
   centerType: 0
 --- !u!64 &1728578991
 MeshCollider:
@@ -12291,8 +12190,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0603e8544fc18334f97c67a0ce178b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: a8e128e0b999efd44b13f5a21fc98c84, type: 3}
-  currentTexture: 
+  faith: 
   centerType: 0
 --- !u!64 &1752329516
 MeshCollider:
@@ -12405,8 +12303,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0603e8544fc18334f97c67a0ce178b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: a8e128e0b999efd44b13f5a21fc98c84, type: 3}
-  currentTexture: 
+  faith: 
   centerType: 0
 --- !u!64 &1770115826
 MeshCollider:
@@ -12519,8 +12416,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0603e8544fc18334f97c67a0ce178b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: a8e128e0b999efd44b13f5a21fc98c84, type: 3}
-  currentTexture: 
+  faith: 
   centerType: 0
 --- !u!64 &1785276090
 MeshCollider:
@@ -12633,8 +12529,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0603e8544fc18334f97c67a0ce178b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: a8e128e0b999efd44b13f5a21fc98c84, type: 3}
-  currentTexture: 
+  faith: 
   centerType: 0
 --- !u!64 &1788816806
 MeshCollider:
@@ -12747,8 +12642,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0603e8544fc18334f97c67a0ce178b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: a8e128e0b999efd44b13f5a21fc98c84, type: 3}
-  currentTexture: 
+  faith: 
   centerType: 0
 --- !u!64 &1792535973
 MeshCollider:
@@ -12861,8 +12755,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0603e8544fc18334f97c67a0ce178b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: a8e128e0b999efd44b13f5a21fc98c84, type: 3}
-  currentTexture: 
+  faith: 
   centerType: 0
 --- !u!64 &1794536300
 MeshCollider:
@@ -12975,8 +12868,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0603e8544fc18334f97c67a0ce178b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: a8e128e0b999efd44b13f5a21fc98c84, type: 3}
-  currentTexture: 
+  faith: 
   centerType: 0
 --- !u!64 &1806385526
 MeshCollider:
@@ -13089,8 +12981,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0603e8544fc18334f97c67a0ce178b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: a8e128e0b999efd44b13f5a21fc98c84, type: 3}
-  currentTexture: 
+  faith: 
   centerType: 0
 --- !u!64 &1819823184
 MeshCollider:
@@ -13203,8 +13094,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0603e8544fc18334f97c67a0ce178b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: a8e128e0b999efd44b13f5a21fc98c84, type: 3}
-  currentTexture: 
+  faith: 
   centerType: 0
 --- !u!64 &1842498040
 MeshCollider:
@@ -13534,8 +13424,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0603e8544fc18334f97c67a0ce178b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: a8e128e0b999efd44b13f5a21fc98c84, type: 3}
-  currentTexture: 
+  faith: 
   centerType: 0
 --- !u!64 &1845772869
 MeshCollider:
@@ -13648,8 +13537,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0603e8544fc18334f97c67a0ce178b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: a8e128e0b999efd44b13f5a21fc98c84, type: 3}
-  currentTexture: 
+  faith: "\u5609\u7136"
   centerType: 0
 --- !u!64 &1857254168
 MeshCollider:
@@ -13762,8 +13650,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0603e8544fc18334f97c67a0ce178b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: a8e128e0b999efd44b13f5a21fc98c84, type: 3}
-  currentTexture: 
+  faith: 
   centerType: 0
 --- !u!64 &1881345657
 MeshCollider:
@@ -13876,8 +13763,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0603e8544fc18334f97c67a0ce178b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: a8e128e0b999efd44b13f5a21fc98c84, type: 3}
-  currentTexture: 
+  faith: 
   centerType: 0
 --- !u!64 &1888919966
 MeshCollider:
@@ -13990,8 +13876,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0603e8544fc18334f97c67a0ce178b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: a8e128e0b999efd44b13f5a21fc98c84, type: 3}
-  currentTexture: 
+  faith: 
   centerType: 0
 --- !u!64 &1915603454
 MeshCollider:
@@ -14104,8 +13989,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0603e8544fc18334f97c67a0ce178b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: a8e128e0b999efd44b13f5a21fc98c84, type: 3}
-  currentTexture: 
+  faith: 
   centerType: 0
 --- !u!64 &1923531821
 MeshCollider:
@@ -14218,8 +14102,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0603e8544fc18334f97c67a0ce178b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: a8e128e0b999efd44b13f5a21fc98c84, type: 3}
-  currentTexture: 
+  faith: 
   centerType: 0
 --- !u!64 &1927357395
 MeshCollider:
@@ -14332,8 +14215,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0603e8544fc18334f97c67a0ce178b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: a8e128e0b999efd44b13f5a21fc98c84, type: 3}
-  currentTexture: 
+  faith: 
   centerType: 0
 --- !u!64 &1932986387
 MeshCollider:
@@ -14446,8 +14328,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0603e8544fc18334f97c67a0ce178b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: a8e128e0b999efd44b13f5a21fc98c84, type: 3}
-  currentTexture: 
+  faith: 
   centerType: 0
 --- !u!64 &1991444513
 MeshCollider:
@@ -14560,8 +14441,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0603e8544fc18334f97c67a0ce178b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: a8e128e0b999efd44b13f5a21fc98c84, type: 3}
-  currentTexture: 
+  faith: 
   centerType: 0
 --- !u!64 &2089140874
 MeshCollider:
@@ -14674,8 +14554,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0603e8544fc18334f97c67a0ce178b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: a8e128e0b999efd44b13f5a21fc98c84, type: 3}
-  currentTexture: 
+  faith: "\u5609\u7136"
   centerType: 0
 --- !u!64 &2102505750
 MeshCollider:
@@ -14788,8 +14667,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0603e8544fc18334f97c67a0ce178b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: a8e128e0b999efd44b13f5a21fc98c84, type: 3}
-  currentTexture: 
+  faith: 
   centerType: 0
 --- !u!64 &2116115500
 MeshCollider:
@@ -14902,8 +14780,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0603e8544fc18334f97c67a0ce178b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: a8e128e0b999efd44b13f5a21fc98c84, type: 3}
-  currentTexture: 
+  faith: 
   centerType: 0
 --- !u!64 &2120194846
 MeshCollider:
@@ -15016,8 +14893,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0603e8544fc18334f97c67a0ce178b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: a8e128e0b999efd44b13f5a21fc98c84, type: 3}
-  currentTexture: 
+  faith: 
   centerType: 0
 --- !u!64 &2121662892
 MeshCollider:
@@ -15130,8 +15006,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0603e8544fc18334f97c67a0ce178b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: a8e128e0b999efd44b13f5a21fc98c84, type: 3}
-  currentTexture: 
+  faith: 
   centerType: 0
 --- !u!64 &2124410123
 MeshCollider:
@@ -15244,8 +15119,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0603e8544fc18334f97c67a0ce178b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: a8e128e0b999efd44b13f5a21fc98c84, type: 3}
-  currentTexture: 
+  faith: 
   centerType: 0
 --- !u!64 &2134368816
 MeshCollider:
@@ -15717,8 +15591,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0603e8544fc18334f97c67a0ce178b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: a8e128e0b999efd44b13f5a21fc98c84, type: 3}
-  currentTexture: 
+  faith: 
   centerType: 0
 --- !u!64 &7629903812324802421
 MeshCollider:
@@ -15769,8 +15642,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0603e8544fc18334f97c67a0ce178b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: a8e128e0b999efd44b13f5a21fc98c84, type: 3}
-  currentTexture: 
+  faith: 
   centerType: 0
 --- !u!64 &7700488405797610057
 MeshCollider:
@@ -15806,8 +15678,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0603e8544fc18334f97c67a0ce178b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: a8e128e0b999efd44b13f5a21fc98c84, type: 3}
-  currentTexture: 
+  faith: 
   centerType: 0
 --- !u!64 &8066753953791547866
 MeshCollider:
@@ -15877,8 +15748,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0603e8544fc18334f97c67a0ce178b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: a8e128e0b999efd44b13f5a21fc98c84, type: 3}
-  currentTexture: 
+  faith: 
   centerType: 0
 --- !u!64 &8492641176609218269
 MeshCollider:
@@ -15921,8 +15791,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0603e8544fc18334f97c67a0ce178b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: a8e128e0b999efd44b13f5a21fc98c84, type: 3}
-  currentTexture: 
+  faith: 
   centerType: 0
 --- !u!64 &8923197143352228243
 MeshCollider:
