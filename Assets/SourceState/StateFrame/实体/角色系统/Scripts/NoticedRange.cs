@@ -8,6 +8,12 @@ public class NoticedRange : MonoBehaviour
 
     private string target_tag = "";
 
+    private GameObject currentTarget;
+
+    private float timer = 0;
+    public float calculateInterval=5;
+
+
     private void Start()
     {
         if(character != null)
@@ -25,6 +31,15 @@ public class NoticedRange : MonoBehaviour
         {
             character.noticed = other.gameObject;
             //character.agent.isStopped = false;
+        }
+    }
+
+    private void Update()
+    {
+        timer += Time.deltaTime;
+        if(timer > calculateInterval)
+        {
+            
         }
     }
 }

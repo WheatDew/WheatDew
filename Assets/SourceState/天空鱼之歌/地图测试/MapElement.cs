@@ -85,13 +85,14 @@ public class MapElement : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            NewMapSystem.instance.Flash(material);
+            NewMapSystem.instance.Attack(this,"小希");
         }
         
 
         if (Input.GetMouseButtonDown(1))
         {
-            SetMapElement("小希");
+            faith = "小希";
+            NewMapSystem.instance.UpdateFaithTexture();
 
         }
     }
