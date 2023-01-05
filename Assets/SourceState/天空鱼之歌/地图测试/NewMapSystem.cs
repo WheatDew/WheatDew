@@ -167,14 +167,14 @@ public class NewMapSystem : MonoBehaviour
                 
             }
 
-            Debug.DrawLine(new Vector3(min_x,0.01f , min_z), new Vector3(max_x,0.01f, min_z), Color.red, 10);
-            Debug.DrawLine(new Vector3(max_x,0.01f, min_z), new Vector3(max_x,0.01f, max_z), Color.red, 10);
-            Debug.DrawLine(new Vector3(max_x,0.01f, max_z), new Vector3(min_x,0.01f ,max_z), Color.red, 10);
-            Debug.DrawLine(new Vector3(min_x,0.01f, max_z), new Vector3(min_x,0.01f ,min_z), Color.red, 10);
+            //Debug.DrawLine(new Vector3(min_x,0.01f , min_z), new Vector3(max_x,0.01f, min_z), Color.red, 1000);
+            //Debug.DrawLine(new Vector3(max_x,0.01f, min_z), new Vector3(max_x,0.01f, max_z), Color.red, 1000);
+            //Debug.DrawLine(new Vector3(max_x,0.01f, max_z), new Vector3(min_x,0.01f ,max_z), Color.red, 1000);
+            //Debug.DrawLine(new Vector3(min_x,0.01f, max_z), new Vector3(min_x,0.01f ,min_z), Color.red, 1000);
 
             Vector3 center = new Vector3((max_x + min_x) / 2f,0 , (min_z + max_z) / 2f);
             Vector2 length = new Vector2(max_x - min_x, max_z - min_z);
-            //center = new Vector3(center.x - length.x / 2f,0 , center.z - length.y / 2f);
+            //center = new Vector3(center.x - length.x / 2f, 0 , center.z - length.y / 2f);
 
             for (int i = 0; i < memeber.Length; i++)
             {
@@ -182,8 +182,9 @@ public class NewMapSystem : MonoBehaviour
                 {
                     var item = memeber[i];
 
-                    item.material.SetTextureOffset("_BaseColorMap0", new Vector2(center.x / length.x, center.z / length.y));
-                    item.material.SetTextureScale("_BaseColorMap0", new Vector2(1f / length.x, 1f / length.y));
+                    item.material.SetTextureOffset("_BaseColorMap0", new Vector2((2*center.x +  length.x-2)/(2*length.x), (2 * center.z + length.y - 2) /(2 * length.y)));
+                    item.material.SetTextureScale("_BaseColorMap0", new Vector2(2f / length.x, 2f / length.y));
+                    //item.material.SetTextureScale("_BaseColorMap0", new Vector2(1, 1));
                 }
 
             }
@@ -247,9 +248,9 @@ public class NewMapSystem : MonoBehaviour
             Vector2 length = new Vector2(max_x - min_x, max_y - min_y);
             center = new Vector3(center.x - length.x / 2f, center.y - length.y / 2f, 0);
 
-            for (int i = 0; i < NewMapSystem.instance.memeber.Length; i++)
+            for (int i = 0; i < memeber.Length; i++)
             {
-                var item = NewMapSystem.instance.memeber[i];
+                var item = memeber[i];
                 if (item.faith != faith)
                     continue;
 
