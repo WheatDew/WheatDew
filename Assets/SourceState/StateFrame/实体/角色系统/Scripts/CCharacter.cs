@@ -293,7 +293,13 @@ public class CCharacter : MonoBehaviour
                 if (last[i] != Vector3.zero && Physics.Raycast(last[i], current[i] - last[i], out result, Vector3.Distance(current[i], last[i]), lmask))
                 {
                     Debug.DrawLine(last[i], current[i], Color.red, 4);
-                    if (result.collider.tag == "Player" && !hitObjects.Contains(result.collider.gameObject) && result.collider.gameObject != gameObject)
+                    string targetTag="";
+                    if (group == Group.Enemy)
+                        targetTag = "Player";
+                    else if(group==Group.Player)
+                        targetTag = "Enemy";
+
+                    if (result.collider.tag == targetTag && !hitObjects.Contains(result.collider.gameObject) && result.collider.gameObject != gameObject)
                     {
                         result.collider.GetComponent<CCharacter>().HitDetection(damage, this);
                         hitObjects.Add(result.collider.gameObject);
@@ -348,6 +354,7 @@ public class CCharacter : MonoBehaviour
 
     public void WeaponBoxActive()
     {
+        Debug.Log("´¥·¢ÎäÆ÷");
         //weapon.tag = "Weapon";
         //weapon.box.enabled = true;
         energy -= 0.1f;
