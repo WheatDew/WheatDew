@@ -53,7 +53,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseColorMap3:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: f341b25f90118aa4281001d4bf60292f, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BentNormalMap:
@@ -295,13 +295,13 @@ Material:
     m_Ints: []
     m_Floats:
     - _AORemapMax: 1
-    - _AORemapMax0: 1
+    - _AORemapMax0: 0.2820292
     - _AORemapMax1: 1
     - _AORemapMax2: 1
     - _AORemapMax3: 1
     - _AORemapMin: 0
-    - _AORemapMin0: 0
-    - _AORemapMin1: 0
+    - _AORemapMin0: 0.12897676
+    - _AORemapMin1: 0.7738607
     - _AORemapMin2: 0
     - _AORemapMin3: 0
     - _ATDistance: 1
@@ -444,13 +444,13 @@ Material:
     - _Metallic2: 0
     - _Metallic3: 0
     - _MetallicRemapMax: 1
-    - _MetallicRemapMax0: 1
+    - _MetallicRemapMax0: 0.68615645
     - _MetallicRemapMax1: 1
     - _MetallicRemapMax2: 1
     - _MetallicRemapMax3: 1
     - _MetallicRemapMin: 0
-    - _MetallicRemapMin0: 0
-    - _MetallicRemapMin1: 0
+    - _MetallicRemapMin0: 0.4342217
+    - _MetallicRemapMin1: 0.53310394
     - _MetallicRemapMin2: 0
     - _MetallicRemapMin3: 0
     - _Mode: 0
@@ -461,7 +461,7 @@ Material:
     - _NormalMapSpace3: 0
     - _NormalScale: 1
     - _NormalScale0: 1
-    - _NormalScale1: 1
+    - _NormalScale1: 1.06
     - _NormalScale2: 1
     - _NormalScale3: 1
     - _ObjectScaleAffectTile: 0
@@ -469,7 +469,7 @@ Material:
     - _OpacityAsDensity0: 0
     - _OpacityAsDensity1: 1
     - _OpacityAsDensity2: 1
-    - _OpacityAsDensity3: 0
+    - _OpacityAsDensity3: 1
     - _OpaqueCullMode: 2
     - _PPDLodThreshold: 5
     - _PPDMaxSamples: 15
@@ -482,18 +482,18 @@ Material:
     - _ReceivesSSRTransparent: 0
     - _RefractionModel: 0
     - _Smoothness: 0.5
-    - _Smoothness0: 0.5
-    - _Smoothness1: 0.5
-    - _Smoothness2: 0.5
-    - _Smoothness3: 0.5
+    - _Smoothness0: 0
+    - _Smoothness1: 0
+    - _Smoothness2: 0
+    - _Smoothness3: 0
     - _SmoothnessRemapMax: 1
-    - _SmoothnessRemapMax0: 1
+    - _SmoothnessRemapMax0: 0.7592433
     - _SmoothnessRemapMax1: 1
     - _SmoothnessRemapMax2: 1
     - _SmoothnessRemapMax3: 1
     - _SmoothnessRemapMin: 0
-    - _SmoothnessRemapMin0: 0
-    - _SmoothnessRemapMin1: 0
+    - _SmoothnessRemapMin0: 0.5546001
+    - _SmoothnessRemapMin1: 0.7738607
     - _SmoothnessRemapMin2: 0
     - _SmoothnessRemapMin3: 0
     - _SmoothnessTextureChannel: 0
@@ -565,7 +565,7 @@ Material:
     - _BaseColor0: {r: 1, g: 1, b: 1, a: 1}
     - _BaseColor1: {r: 1, g: 0, b: 0, a: 0}
     - _BaseColor2: {r: 0.6132076, g: 0.6132076, b: 0.6132076, a: 1}
-    - _BaseColor3: {r: 1, g: 1, b: 1, a: 1}
+    - _BaseColor3: {r: 1, g: 1, b: 1, a: 0.019607844}
     - _BaseColorMap0_MipInfo: {r: 0, g: 0, b: 0, a: 0}
     - _BaseColorMap_MipInfo: {r: 0, g: 0, b: 0, a: 0}
     - _Color: {r: 0.9063317, g: 0.9063317, b: 0.9063317, a: 1}
