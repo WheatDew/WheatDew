@@ -83,8 +83,8 @@ public class CCharacter : MonoBehaviour
         body = GetComponent<Rigidbody>();
 
         //初始化数据
-        DBuilding.s.AddCharacterData(this);
-        DBuilding.s.GetCharacterData(gameObject.GetInstanceID()).buildingPrepare = true;
+        //DBuilding.s.AddCharacterData(this);
+        //DBuilding.s.GetCharacterData(gameObject.GetInstanceID()).buildingPrepare = true;
 
         Init();
 
