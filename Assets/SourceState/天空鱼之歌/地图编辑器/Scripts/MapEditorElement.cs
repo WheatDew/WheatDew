@@ -6,9 +6,11 @@ using UnityEngine.EventSystems;
 
 public class MapEditorElement : MonoBehaviour,IPointerDownHandler
 {
+
     public void OnPointerDown(PointerEventData eventData)
     {
-        
+        MapEditor.instance.CreateMapEditorFloatElement();
+
     }
 
 }
