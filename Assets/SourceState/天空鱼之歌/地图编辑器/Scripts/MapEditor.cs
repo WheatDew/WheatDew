@@ -35,6 +35,7 @@ public class MapEditor : MonoBehaviour
 
     private void Start()
     {
+        InitElementList();
         DisplayMapEditorPage();
 
     }
@@ -60,7 +61,8 @@ public class MapEditor : MonoBehaviour
 
     public void CreateMapEditorElementGameObject(string elementName,Vector3 position)
     {
-        GameObject obj = Instantiate(elementDict[elementName]);
-        obj.transform.position = position;
+        currentElementGameObject = Instantiate(elementDict[elementName]);
+        currentElementGameObject.transform.position = position;
+        currentElementGameObject.layer = 13;
     }
 }
