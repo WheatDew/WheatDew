@@ -7,19 +7,19 @@ using UnityEngine.Events;
 public class DragStorePageElement : MonoBehaviour, IPointerDownHandler,IPointerExitHandler
 {
     [HideInInspector] public DragStorePage dragStorePage;
+    public Dictionary<string, string> stringData = new Dictionary<string, string>();
 
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        if(eventData.pointerId == -1)
+        if(Input.GetMouseButton(0))
         {
             dragStorePage.scrollRect.movementType = UnityEngine.UI.ScrollRect.MovementType.Clamped;
-            var obj = Instantiate(dragStorePage.floatElementPrefab,FindObjectOfType<Canvas>().transform);
+            var obj = Instantiate(dragStorePage.floatElementPrefab,dragStorePage.elementParent);
             obj.dragStorePage = dragStorePage;
 
             Debug.Log("×ó¼ü´¥·¢");
         }
-        Debug.Log("µã»÷´¥·¢");
     }
 
     public void OnPointerExit(PointerEventData eventData)

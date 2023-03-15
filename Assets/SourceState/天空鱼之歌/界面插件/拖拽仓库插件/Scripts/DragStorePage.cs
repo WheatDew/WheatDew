@@ -11,14 +11,19 @@ public class DragStorePage : MonoBehaviour
     public DragStorePageElement elementPrefab;
     public DragStorePageFloatElement floatElementPrefab;
     public Transform elementParent;
+    public Transform floatElementParent;
     public ScrollRect scrollRect;
-    public FloatElementType floatElementType;
+    [HideInInspector] public FloatElementType floatElementType;
 
     public bool inBorder=false;
 
     public UnityEvent DragEndEvent;
     public UnityEvent InitEvent;
 
+    private void Start()
+    {
+        InitEvent.Invoke();
+    }
 
     private void Update()
     {
