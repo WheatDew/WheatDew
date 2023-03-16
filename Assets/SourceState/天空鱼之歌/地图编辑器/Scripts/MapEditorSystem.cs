@@ -21,6 +21,8 @@ namespace SkyWhale
         [SerializeField] private DragStorePage dragStorePagePrefab;
         [HideInInspector] public DragStorePage dragStorePage;
 
+        public List<MapEditorDragComponent> models=new List<MapEditorDragComponent>();
+
         private void Start()
         {
             DisplayMapEditorPage();
@@ -38,11 +40,11 @@ namespace SkyWhale
             dragStorePage.gameObject.SetActive(true);
             dragStorePage.InitEvent.AddListener(delegate
             {
-                MapEditorPageInit(dragStorePage);
+                MapEditorPageInit();
             });
             dragStorePage.DragEndEvent.AddListener(delegate
             {
-
+                
             });
         }
 
@@ -56,11 +58,16 @@ namespace SkyWhale
             Destroy(dragStorePage);
         }
 
-        public void MapEditorPageInit(DragStorePage dragStorePage)
+        public void MapEditorPageInit()
         {
             dragStorePage.CreateElement();
             dragStorePage.elementParent = elementParent;
         }
+
+        //public void MapEditorPageEndDrag(string )
+        //{
+            
+        //}
     }
 }
 
